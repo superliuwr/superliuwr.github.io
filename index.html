@@ -69,7 +69,7 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Token-based-authentication-system"><a href="#Token-based-authentication-system" class="headerlink" title="Token-based authentication system"></a>Token-based authentication system</h1><h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><ol>
+			<h1 id="Token-based-authentication-system"><a href="#Token-based-authentication-system" class="headerlink" title="Token-based authentication system"></a>Token-based authentication system</h1><h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><ol>
 <li>Login with username and password</li>
 <li>Obtain a token</li>
 <li>Use the token to access restricted resources for a set time period. Usually put in headers: <code>Authorization: Bearer &lt;token&gt;</code></li>
@@ -77,53 +77,11 @@
 <h1 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h1><h2 id="What-is-JWT"><a href="#What-is-JWT" class="headerlink" title="What is JWT"></a>What is JWT</h2><p>JWT (pronounced ‘jot’) is a token based authentication system.</p>
 <p>The <strong>claims</strong> in a JWT are encoded as a JSON object that is digitally signed using JSON Web Signature.</p>
 <p>The JWT is a self-contained token which has authentication information, expire time information, and other user defined claims digitally signed.</p>
-<h2 id="Old-school-way-authentication-with-sessions"><a href="#Old-school-way-authentication-with-sessions" class="headerlink" title="Old school way authentication with sessions"></a>Old school way authentication with <strong>sessions</strong></h2><ol>
-<li>An object stored on the server that remembers if a user is still logged in, a reference to their profile, etc.</li>
-<li>A cookie on the client-side that stores some kind of ID that can be referenced on the server against the session object’s ID.</li>
-</ol>
-<p>It doesn’t work well with microservices when there are multiple backends and the session cookie we get from one backend won’t correspond to another server.</p>
-<h2 id="Advantages-of-JWTs"><a href="#Advantages-of-JWTs" class="headerlink" title="Advantages of JWTs"></a>Advantages of JWTs</h2><ol>
-<li>No Session to Manage (<strong>stateless</strong>): The JWT is a self contained token which has authetication  information, expire time information, and other user defined claims digitally signed.</li>
-<li><strong>Portable</strong>: A single token can be used with multiple backends.</li>
-<li>No Cookies Required, So It’s Very <strong>Mobile Friendly</strong></li>
-<li>Good <strong>Performance</strong>: It reduces the network round trip time.</li>
-<li>Decoupled/Decentralized: The token can be generated anywhere. <strong>Authentication can happen on the resource server, or easily separated into its own server.</strong></li>
-<li>Fine-grained access control. Within the token payload you can easily specify user roles and permissions as well as resources that the user can access.</li>
-</ol>
-<h2 id="ANATOMY-OF-A-JSON-WEB-TOKEN"><a href="#ANATOMY-OF-A-JSON-WEB-TOKEN" class="headerlink" title="ANATOMY OF A JSON WEB TOKEN"></a>ANATOMY OF A JSON WEB TOKEN</h2><p>A JSON Web Token consists of three parts: <strong>Header</strong>, <strong>Payload</strong> and <strong>Signature</strong>. The header and payload are <strong>Base64 encoded</strong>, then concatenated by a period, finally the result is algorithmically signed producing a token in the form of <strong>header.payload.signature</strong>. The header consists of metadata including the type of token and the hashing algorithm used to sign the token. The payload contains the claims data that the token is encoding.</p>
-<h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><p>The header typically consists of two parts: the type of the token, which is JWT, and the hashing algorithm such as HMAC SHA256 or RSA.<br>For example:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"alg"</span>: <span class="string">"HS256"</span>,</span><br><span class="line">  <span class="string">"typ"</span>: <span class="string">"JWT"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Then, this JSON is Base64Url encoded to form the first part of the JWT.</p>
-<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h3><p>The second part of the token is the payload, which contains the claims. </p>
-<p>Claims are statements about an entity (typically, the user) and additional metadata. </p>
-<p>There are three types of claims: reserved, public, and private claims.</p>
-<ul>
-<li><strong>Reserved claims</strong>: These are a set of predefined claims, which are not mandatory but recommended, thought to provide a set of useful, interoperable claims. Some of them are: <strong>iss</strong> (issuer: Identifies principal that issued the JWT.), <strong>exp</strong> (expiration time), <strong>sub</strong> (subject: Identifies the subject of the JWT.), <strong>aud</strong> (audience: Identifies the recipients that the JWT is intended for. Each principal intended to process the JWT must identify itself with a value in the audience claim. If the principal processing the claim does not identify itself with a value in the aud claim when this claim is present, then the JWT must be rejected), among others.<br>Notice that the claim names are only three characters long as JWT is meant to be compact.</li>
-<li><strong>Public claims</strong>: These can be defined at will by those using JWTs. But to avoid collisions they should be defined in the IANA JSON Web Token Registry or be defined as a URI that contains a collision resistant namespace.</li>
-<li><strong>Private claims</strong>: These are the custom claims created to share information between parties that agree on using them.</li>
-</ul>
-<p>An example of payload could be:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"sub"</span>: <span class="string">"1234567890"</span>,</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"John Doe"</span>,</span><br><span class="line">  <span class="string">"admin"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>The payload is then Base64Url encoded to form the second part of the JWT.</p>
-<h3 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h3><p>To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that.</p>
-<p>For example if you want to use the HMAC SHA256 algorithm, the signature will be created in the following way.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64UrlEncode(header) + <span class="string">"."</span> +</span><br><span class="line">  base64UrlEncode(payload),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure></p>
-<p>The signature is used to verify that the sender of the JWT is who it says it is and to ensure that the message was’t changed in the way.</p>
-<h2 id="Best-Practices-amp-Caveats"><a href="#Best-Practices-amp-Caveats" class="headerlink" title="Best Practices &amp; Caveats"></a>Best Practices &amp; Caveats</h2><ol>
-<li>DO NOT store sensitive data like pasword anywhere in the token!</li>
-<li>Give tokens an expiration</li>
-<li>Embrace HTTPS. Do not send tokens over non-HTTPS connections as those requests can be intercepted and tokens compromised.  </li>
-<li>httpOnly=true</li>
-<li>Tokens stored in local/session storage can’t be accessed from different domains (even if these are subdomains).</li>
-<li>Tokens need to be stored somewhere (local/session storage or cookies).</li>
-<li>Read <a href="https://auth0.com/blog/ten-things-you-should-know-about-tokens-and-cookies/" target="_blank" rel="noopener">this article</a></li>
-</ol>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li><a href="https://auth0.com/learn/json-web-tokens/" target="_blank" rel="noopener">https://auth0.com/learn/json-web-tokens/</a></li>
-<li><a href="https://auth0.com/blog/ten-things-you-should-know-about-tokens-and-cookies/" target="_blank" rel="noopener">https://auth0.com/blog/ten-things-you-should-know-about-tokens-and-cookies/</a></li>
-<li><a href="https://scotch.io/tutorials/the-anatomy-of-a-json-web-token" target="_blank" rel="noopener">https://scotch.io/tutorials/the-anatomy-of-a-json-web-token</a></li>
-<li><a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields</a></li>
-<li><a href="https://auth0.com/blog/authentication-in-golang/" target="_blank" rel="noopener">https://auth0.com/blog/authentication-in-golang/</a></li>
-</ol>
-
+			
+				<p class="article-more-link">
+					<a href="/2018/06/09/jwt/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
