@@ -3,15 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>SUPERBLOG</title>
+  <title>Helm | SUPERBLOG</title>
   <meta name="viewport" content="width=device-width">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="SUPERBLOG">
-<meta property="og:url" content="http://superliuwr.github.io/index.html">
+  <meta name="description" content="IntroductionHelm is a package manager for Kubernetes applications. Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hoste">
+<meta name="keywords" content="helm, devops, kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Helm">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/11/helm/index.html">
 <meta property="og:site_name" content="SUPERBLOG">
+<meta property="og:description" content="IntroductionHelm is a package manager for Kubernetes applications. Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hoste">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-11T13:15:15.923Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SUPERBLOG">
+<meta name="twitter:title" content="Helm">
+<meta name="twitter:description" content="IntroductionHelm is a package manager for Kubernetes applications. Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hoste">
   
     <link rel="alternative" href="/atom.xml" title="SUPERBLOG" type="application/atom+xml">
   
@@ -43,9 +48,7 @@
 	</div>
 </header>
     <div id="main">
-      
-  
-    <article id="post-helm" class="post">
+      <article id="post-helm" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
 			<a href="/2018/06/11/helm/" class="article-date">
@@ -61,8 +64,8 @@
 	<header class="entry-header">
 		
   
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/11/helm/">Helm</a>
+    <h1 class="article-title entry-title" itemprop="name">
+      Helm
     </h1>
   
 
@@ -191,379 +194,26 @@
 		</div>
 	</footer>
 	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-code-review-checklist" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/10/code-review-checklist/" class="article-date">
-  <time datetime="2018-06-10T12:18:40.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/10/code-review-checklist/">Code Review Checklist</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="Checklist"><a href="#Checklist" class="headerlink" title="Checklist"></a>Checklist</h1><ol>
-<li>Are all requirements implemented?</li>
-<li>Single responsibility of a single PR. No mixed changes.</li>
-<li>Is the code change the best way to implement the feature?</li>
-<li>Are there any regression issues introduced in the existing features?</li>
-<li>If it’s a breaking change, is it well communicated?</li>
-<li>Is the code change complete?<ol>
-<li>Documents updated</li>
-<li>Migration included</li>
-<li>Configurations updated</li>
-<li>Other systems updated/notified</li>
-<li>Infrastructure(Database, etc.)</li>
-<li>Non-functional requirements<ol>
-<li>Metrics</li>
-<li>Tracing</li>
-<li>Logging</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>Are there any major issues found?<ol>
-<li>Performance</li>
-<li>Security</li>
-<li>Thread safe</li>
-<li>Edge cases</li>
-</ol>
-</li>
-<li>Are errors are gracefully handled?</li>
-<li>Are there sufficient level of unit tests/e2e tests?</li>
-<li>Is the code change generally readable?<ol>
-<li>Can I get an understanding of the desired behavior just by doing quick scans through unit and acceptance tests?</li>
-<li>Do the methods do what the name of the method claims that they’ll do? Same for classes?</li>
-<li>Method is too long</li>
-<li>Method has too many parameters</li>
-<li>Deeply nested if/else controls</li>
-</ol>
-</li>
-<li>Are general coding best practices followed?<ol>
-<li>No hard coded stuff</li>
-<li>No duplications</li>
-<li>Separate of concerns</li>
-<li>Easy to extend</li>
-<li>Comments</li>
-<li>Naming convention followed</li>
-</ol>
-</li>
-</ol>
-<h1 id="General-Rules"><a href="#General-Rules" class="headerlink" title="General Rules"></a>General Rules</h1><ol>
-<li>Automating the Easy Stuff<ol>
-<li>Lint</li>
-<li>Test coverage</li>
-<li>Git hooks</li>
-</ol>
-</li>
-</ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ol>
-<li><a href="https://medium.com/@mrjoelkemp/giving-better-code-reviews-16109e0fdd36" target="_blank" rel="noopener">https://medium.com/@mrjoelkemp/giving-better-code-reviews-16109e0fdd36</a></li>
-<li><a href="https://github.com/thoughtbot/guides/tree/master/code-review#code-review" target="_blank" rel="noopener">https://github.com/thoughtbot/guides/tree/master/code-review#code-review</a></li>
-<li><a href="https://github.com/joho/awesome-code-review" target="_blank" rel="noopener">https://github.com/joho/awesome-code-review</a></li>
-</ol>
-
     
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-			</span>
-		</div>
-	</footer>
-	
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/10/code-review-checklist/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Code Review Checklist
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
 
-	<hr class="article-devider">
 
-
-
-  
-    <article id="post-highly-effective-workspace" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/10/highly-effective-workspace/" class="article-date">
-  <time datetime="2018-06-10T10:09:59.000Z" itemprop="datePublished">2018-06-10</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/10/highly-effective-workspace/">Highly Effective Workspace with Macbook</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h1><ul>
-<li>将功能键(F1-F12)设置为标准的功能键</li>
-<li>设置Trackpad（触摸板）轻触为单击</li>
-<li>将Dock停靠在屏幕左边</li>
-<li>全键盘控制模式</li>
-<li>快速锁定屏幕</li>
-</ul>
-<h1 id="VSC"><a href="#VSC" class="headerlink" title="VSC"></a>VSC</h1><ul>
-<li>sync settings to Github gist</li>
-<li>code snippets</li>
-<li>shortcuts</li>
-<li>vim mode</li>
-<li>create case-sensitive workspace<ul>
-<li>hdiutil create -type SPARSE -fs ‘Case-sensitive Journaled HFS+’ -size 100g -volname workspace ~/Documents/workspace.dmg.sparseimage</li>
-</ul>
-</li>
-<li>code snippets<ul>
-<li>ctrl + space</li>
-<li>User Snippets by language filter</li>
-</ul>
-</li>
-</ul>
-<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><h2 id="iTerm2"><a href="#iTerm2" class="headerlink" title="iTerm2"></a>iTerm2</h2><ul>
-<li><a href="https://www.iterm2.com/" target="_blank" rel="noopener">https://www.iterm2.com/</a></li>
-<li>brew cask install iterm2</li>
-<li><a href="https://hiltmon.com/blog/2013/02/13/make-iterm-2-more-mac-like/" target="_blank" rel="noopener">https://hiltmon.com/blog/2013/02/13/make-iterm-2-more-mac-like/</a></li>
-<li>Reuse previous sessions window</li>
-</ul>
-<h2 id="ZSH"><a href="#ZSH" class="headerlink" title="ZSH"></a>ZSH</h2><ul>
-<li>切换默认Shell为Zsh<ul>
-<li>chsh -s /bin/zsh</li>
-</ul>
-</li>
-<li>tips and tricks<ul>
-<li>no needs of ‘cd’</li>
-<li>d</li>
-</ul>
-</li>
-</ul>
-<h2 id="OH-MY-ZSH"><a href="#OH-MY-ZSH" class="headerlink" title="OH MY ZSH"></a>OH MY ZSH</h2><ul>
-<li>Install<ul>
-<li>sh -c “$(curl -fsSL <a href="https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;" target="_blank" rel="noopener">https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</a></li>
-</ul>
-</li>
-<li>.zshrc<ul>
-<li>ZSH_THEME</li>
-<li>Prompt<ul>
-<li>PROMPT=’%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}&gt;’#PROMPT=’%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}’</li>
-</ul>
-</li>
-<li>.zshrc<ul>
-<li></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h2><ul>
-<li>Install<ul>
-<li>ruby -e “$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</a></li>
-</ul>
-</li>
-<li>brew install caskroom/cask/brew-cask</li>
-<li>brew cask search chrome</li>
-<li>brew cask install google-chrome</li>
-<li>brew install autojump</li>
-<li>fonts<ul>
-<li>brew tap caskroom/fonts</li>
-<li>brew cask install font-fira-code</li>
-</ul>
-</li>
-</ul>
-<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
-<li>open</li>
-<li>pbcopy</li>
-<li>pbpaste</li>
-<li>mdfind<ul>
-<li>mdfind -onlyin ~/Documents essay</li>
-</ul>
-</li>
-<li>screencapture<ul>
-<li>screencapture -c -W</li>
-<li>screencapture -T 10 -P image.png</li>
-<li>screencapture -s -t pdf image.pdf</li>
-</ul>
-</li>
-<li>say<ul>
-<li>say “Time for bed, Felix”</li>
-<li>ls | say</li>
-</ul>
-</li>
-<li>diskutil list</li>
-</ul>
-<h1 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h1><h2 id="cURL"><a href="#cURL" class="headerlink" title="cURL"></a>cURL</h2><h2 id="jq"><a href="#jq" class="headerlink" title="jq"></a>jq</h2><h2 id="XCode"><a href="#XCode" class="headerlink" title="XCode"></a>XCode</h2><ul>
-<li>xcode-select –install</li>
-</ul>
-<h2 id="Others-1"><a href="#Others-1" class="headerlink" title="Others"></a>Others</h2><ul>
-<li>Flycut</li>
-<li>Spectacle</li>
-<li>Paragon NTFS</li>
-<li>Fantastical 2</li>
-<li>Be Focused</li>
-</ul>
-<h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><h1 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h1>
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-jwt" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/09/jwt/" class="article-date">
-  <time datetime="2018-06-09T06:50:13.000Z" itemprop="datePublished">2018-06-09</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/09/jwt/">Token-Based Authentication System and JWT</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="Token-based-authentication-system"><a href="#Token-based-authentication-system" class="headerlink" title="Token-based authentication system"></a>Token-based authentication system</h1><h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><ol>
-<li>Login with username and password</li>
-<li>Obtain a token</li>
-<li>Use the token to access restricted resources for a set time period. Usually put in headers: <code>Authorization: Bearer &lt;token&gt;</code></li>
-</ol>
-<h1 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h1><h2 id="What-is-JWT"><a href="#What-is-JWT" class="headerlink" title="What is JWT"></a>What is JWT</h2><p>JWT (pronounced ‘jot’) is a token based authentication system.</p>
-<p>The <strong>claims</strong> in a JWT are encoded as a JSON object that is digitally signed using JSON Web Signature.</p>
-<p>The JWT is a self-contained token which has authentication information, expire time information, and other user defined claims digitally signed.</p>
-			
-				<p class="article-more-link">
-					<a href="/2018/06/09/jwt/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jwt/">jwt</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-serverless-stack" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/08/serverless-stack/" class="article-date">
-  <time datetime="2018-06-07T14:31:37.000Z" itemprop="datePublished">2018-06-08</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/08/serverless-stack/">Serverless Stack</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<p><em>Serverless</em></p>
-
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/serverless/">serverless</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-  
 
     </div>
     <div class="mb-search">
