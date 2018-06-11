@@ -1,7 +1,7 @@
 ---
 title: Helm
 date: 2018-06-11 23:04:25
-tags: helm, devops, kubernetes
+tags: helm devops kubernetes
 ---
 # Introduction
 
