@@ -1,7 +1,10 @@
 ---
 title: Code Review Checklist
 date: 2018-06-10 22:18:40
+categories:
+- tech leadership
 tags:
+- code review
 ---
 # Checklist
 

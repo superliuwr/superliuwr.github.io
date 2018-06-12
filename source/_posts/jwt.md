@@ -1,7 +1,10 @@
 ---
 title: Token-Based Authentication System and JWT
 date: 2018-06-09 16:50:13
-tags: jwt
+categories:
+- other
+tags:
+- jwt
 ---
 
 # Token-based authentication system

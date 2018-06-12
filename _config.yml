@@ -86,6 +86,8 @@ theme_config:
   # Header
   menu:
     Home: /
+    Categories: /categories/
+    Tags: /tags/
     Archives: /archives
     About: /about
   rss: /atom.xml
