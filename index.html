@@ -69,58 +69,14 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h1><p>Docker -&gt; Docker Compose -&gt; Kubernetes</p>
+			<h1 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h1><p>Docker -&gt; Docker Compose -&gt; Kubernetes</p>
 <p>光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？ </p>
 <p>Docker 的作用是计算资源和环境的描述和调度，Kubernetes 的作用是以应用为中心的生命周期的管理。</p>
-<h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p>Pods 的定义：Pods 包含一组容器，容器之间共享 namespace，共享存储，共享 IP 地址。</p>
-<h2 id="Replication-Controller"><a href="#Replication-Controller" class="headerlink" title="Replication Controller"></a>Replication Controller</h2><p>Replication Controller 会将集群保持在一个期望的状态。</p>
-<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p>Service 是一组 Pods 的逻辑集合。在 Service 内部，Kubernetes 会创建负载均衡来将流量代理到可用的 Pods 上。Service 有一个固定的虚拟 IP（ VIP）对外提供服务。<br>Service 的应用场景在于：假设后端有3个容器实例在运行，并且这3个实例是随时有可能坏掉的（Design for failure），前端的实例无需关注这三个实例各自的状态，而只需要声明它依赖的是后端某一个 Service 即可，让 Replication Controller 自动保证这个后端 Service 的可用性。</p>
-<h2 id="Labels"><a href="#Labels" class="headerlink" title="Labels"></a>Labels</h2><p>和名字和 UID 不同，Labels 不提供唯一性，通常，我们期望多个对象使用相同的 Label(s)。通过 Label 的设置和消费，可以轻松的过滤出需要找到的对象</p>
-<h2 id="Job"><a href="#Job" class="headerlink" title="Job"></a>Job</h2><p>Job负责处理任务，即仅执行一次的任务，它保证批处理任务的一个或多个Pod成功结束</p>
-<p>注意Job的RestartPolicy仅支持Never和OnFailure两种，不支持Always</p>
-<p>A Job will create a Pod and run the command on it.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Job</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">job-demo</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">job-demo</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      restartPolicy:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">counter</span></span><br><span class="line"><span class="attr">        image:</span> <span class="string">busybox</span></span><br><span class="line"><span class="attr">        command:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"bin/sh"</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"-c"</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">"for i in 9 8 7 6 5 4 3 2 1; do echo $i; done"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>kubectl create -f job.yaml</li>
-<li>kubectl get jobs</li>
-<li>kubectl get pods</li>
-</ul>
-<h2 id="CronJob"><a href="#CronJob" class="headerlink" title="CronJob"></a>CronJob</h2><p>CronJob则就是在Job上加上了时间调度</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v2alpha1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">CronJob</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">cronjob-demo</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  successfulJobsHistoryLimit:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">  failedJobsHistoryLimit:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">  schedule:</span> <span class="string">"*/1 * * * *"</span></span><br><span class="line"><span class="attr">  jobTemplate:</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      template:</span></span><br><span class="line"><span class="attr">        spec:</span></span><br><span class="line"><span class="attr">          restartPolicy:</span> <span class="string">OnFailure</span></span><br><span class="line"><span class="attr">          containers:</span></span><br><span class="line"><span class="attr">          - name:</span> <span class="string">hello</span></span><br><span class="line"><span class="attr">            image:</span> <span class="string">busybox</span></span><br><span class="line"><span class="attr">            args:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">"bin/sh"</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">"-c"</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">"for i in 9 8 7 6 5 4 3 2 1; do echo $i; done"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>kubectl create -f cronjob-demo.yaml</li>
-<li>kubectl run hello –schedule=”<em>/1 </em> <em> </em> *” –restart=OnFailure –image=busybox – /bin/sh -c “date; echo Hello from the Kubernetes cluster”</li>
-<li>kubectl get cronjob</li>
-<li>kubectl get jobs</li>
-<li>kubectl delete cronjob hello</li>
-<li>Update configmap or secret, need to restart pod<ul>
-<li>kubectl create configmap language –from-literal=LANGUAGE=Chinese -o yaml –dry-run | kubectl replace -f -</li>
-<li>kubectl create secret generic token –from-literal=TOKEN=bbbbb123456 -o yaml –dry-run | kubectl replace -f -</li>
-<li>kubectl delete pod -l name=envtest</li>
-<li>kubectl exec envtest-55d6ff7675-pkwpj -it – /bin/bash<ul>
-<li>echo $TOKEN</li>
-<li>echo $LANGUAGE</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="ConfigMap-amp-Secrets"><a href="#ConfigMap-amp-Secrets" class="headerlink" title="ConfigMap &amp; Secrets"></a>ConfigMap &amp; Secrets</h2><p>Secret 和 ConfigMap 之间最大的区别就是 Secret 的数据是用Base64编码混淆过的，不过以后可能还会有其他的差异，对于比较机密的数据（如API密钥）使用 Secret 是一个很好的做法，但是对于一些非私密的数据（比如数据目录）用 ConfigMap 来保存就很好。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">envtest</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">envtest</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        name:</span> <span class="string">envtest</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">envtest</span></span><br><span class="line"><span class="attr">        image:</span> <span class="string">cnych/envtest</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">5000</span></span><br><span class="line"><span class="attr">        env:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">TOKEN</span></span><br><span class="line"><span class="attr">          valueFrom:</span></span><br><span class="line"><span class="attr">            secretKeyRef:</span></span><br><span class="line"><span class="attr">              name:</span> <span class="string">token</span></span><br><span class="line"><span class="attr">              key:</span> <span class="string">TOKEN</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">LANGUAGE</span></span><br><span class="line"><span class="attr">          valueFrom:</span></span><br><span class="line"><span class="attr">            configMapKeyRef:</span></span><br><span class="line"><span class="attr">              name:</span> <span class="string">language</span></span><br><span class="line"><span class="attr">              key:</span> <span class="string">LANGUAGE</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>kubectl create secret generic token –from-literal=TOKEN=abcd123456000</li>
-<li>kubectl create configmap language –from-literal=LANGUAGE=English</li>
-<li>kubectl get secret</li>
-<li>kubectl get configmap</li>
-</ul>
-<h2 id="NodePort-amp-LoadBalancer-amp-Ingress"><a href="#NodePort-amp-LoadBalancer-amp-Ingress" class="headerlink" title="NodePort &amp; LoadBalancer &amp; Ingress"></a>NodePort &amp; LoadBalancer &amp; Ingress</h2><h1 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h1><h2 id="Service-Discovery"><a href="#Service-Discovery" class="headerlink" title="Service Discovery"></a>Service Discovery</h2><p>Kubernetes 里服务发现有多种方式：</p>
-<ol>
-<li><p>通过环境变量注入发现服务。<br>当 Pods 在集群的 Node 中运行时，Kubernetes 会为它增加一些列的环境变量。</p>
-</li>
-<li><p>通过 Kubernetes DNS 服务器。<br>Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并且为每个 Service 记录一个 DNS 的记录。这样做的好处是：只要 DNS 服务在集群里有访问权限，那么所有的 Pods 都能访问新注册的 Service。举例：如果你有一个 Service 在 Kubernetes Namespace “my-ns”下 ，名字叫做叫 “my-service”，那么一条叫做”my-service.my-ns”的记录就会被创建。所有在”my-ns” Namespace 里的 Pods 都能通过 DNS 查找到”my-service”。</p>
-</li>
-</ol>
-<h1 id="Frequently-Used-Commands"><a href="#Frequently-Used-Commands" class="headerlink" title="Frequently Used Commands"></a>Frequently Used Commands</h1>
+			
+				<p class="article-more-link">
+					<a href="/2018/06/12/kubernetes/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -172,117 +128,16 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Helm is a package manager for Kubernetes applications.</p>
+			<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Helm is a package manager for Kubernetes applications.</p>
 <p>Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hosted in a repository.</p>
 <p>Users can pull down charts and install them on any number of Kubernetes clusters.</p>
 <p>Helm’s approach scales from monoliths to complex micro service applications. </p>
 <p>Helm itself uses a client-server model. The helm command (the client) talks to the tiller  (the server). The Helm client may interact with any number of different tiller services. In practice, there is a single tiller service running one Kubernetes cluster. This helps teams collaborate. It also means that Helm may run anywhere, such as on your CI servers or on your own computer. Tiller does the work to coordinate with Kubernetes and get the chart installed.</p>
-<h1 id="Install-Helm"><a href="#Install-Helm" class="headerlink" title="Install Helm"></a>Install Helm</h1><p>Run following to create a service account for Tiller in GCE as Kubernetes enables RBAC since version 1.8:</p>
-<ul>
-<li>kubectl create serviceaccount –namespace kube-system tiller</li>
-<li>kubectl create clusterrolebinding tiller-cluster-rule –clusterrole=cluster-admin –serviceaccount=kube-system:tiller</li>
-<li>kubectl patch deploy –namespace kube-system tiller-deploy -p ‘{“spec”:{“template”:{“spec”:{“serviceAccount”:”tiller”}}}}’      </li>
-<li>helm init –service-account tiller –upgrade</li>
-</ul>
-<p><code>brew install kubernetes-helm</code></p>
-<p><code>helm init</code>:<br>This will install Tiller in the cluster defined by your context according to your Kubectl configuration.</p>
-<p>To check if Tiller is running:<br><code>kubectl -n kube-system get pods|grep tiller</code></p>
-<h1 id="Frequently-Used-Commands"><a href="#Frequently-Used-Commands" class="headerlink" title="Frequently Used Commands"></a>Frequently Used Commands</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">helm repo update</span><br><span class="line"></span><br><span class="line">helm install stable/mysql</span><br><span class="line"></span><br><span class="line">helm ls</span><br><span class="line"></span><br><span class="line">helm delete smiling-penguin</span><br><span class="line"></span><br><span class="line">helm status smiling-penguin</span><br><span class="line"></span><br><span class="line">helm get -h</span><br></pre></td></tr></table></figure>
-<h1 id="Using-Helm"><a href="#Using-Helm" class="headerlink" title="Using Helm"></a>Using Helm</h1><h2 id="Three-big-concepts"><a href="#Three-big-concepts" class="headerlink" title="Three big concepts"></a>Three big concepts</h2><ul>
-<li>A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster. Think of it like the Kubernetes equivalent of a Homebrew formula, an Apt dpkg, or a Yum RPM file.</li>
-<li>A Repository is the place where charts can be collected and shared. It is like Perl’s CPAN archive or the Fedora Package Database, but for Kubernetes packages.</li>
-<li>A Release is an instance of a chart running in a Kubernetes cluster. One chart can often be installed many times into the same cluster. And each time it is installed, a new release is created. Consider a MySQL chart. If you want two databases running in your cluster, you can install that chart twice. Each one will have its own release, which will in turn have its own release name.</li>
-</ul>
-<p>With these concepts in mind, we can now explain Helm like this:</p>
-<ul>
-<li>Helm installs charts into Kubernetes, creating a new release for each installation. And to find new charts, you can search Helm chart repositories.</li>
-</ul>
-<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><p>To find predefined charts:</p>
-<ul>
-<li>helm search</li>
-<li>helm search mysql</li>
-</ul>
-<p>To check a chart:</p>
-<ul>
-<li>helm inspect stable/mariadb</li>
-</ul>
-<p>To install dependencies of a chart:</p>
-<ul>
-<li>helm dep up foochart</li>
-</ul>
-<p>To install a chart with default config:</p>
-<ul>
-<li>helm install stable/mariadb</li>
-</ul>
-<p>To check status of a release:</p>
-<ul>
-<li>helm status happy-panda</li>
-</ul>
-<p>To see what options are configurable in a chart:</p>
-<ul>
-<li>helm inspect values stable/mariadb</li>
-</ul>
-<p>Then override some config then install:</p>
-<ul>
-<li>helm install -f config.yaml stable/mariadb</li>
-</ul>
-<p>Update a release:</p>
-<ul>
-<li>helm upgrade -f panda.yaml happy-panda stable/mariadb</li>
-</ul>
-<p>Check custom config:</p>
-<ul>
-<li>helm get values happy-panda</li>
-</ul>
-<p>Roll back a release to given revision:</p>
-<ul>
-<li>helm rollback happy-panda 1</li>
-</ul>
-<p>Uninstall a release:</p>
-<ul>
-<li>helm delete happy-panda</li>
-</ul>
-<p>Show releases:</p>
-<ul>
-<li>helm list —all</li>
-<li>helm list —deleted</li>
-</ul>
-<p>Working with Repos:</p>
-<ul>
-<li>helm repo list</li>
-<li>helm repo add dev <a href="https://example.com/dev-charts" target="_blank" rel="noopener">https://example.com/dev-charts</a></li>
-</ul>
-<p>Creating and installing charts:</p>
-<ul>
-<li>helm create deis-workflow</li>
-<li>helm lint</li>
-<li>helm package deis-workflow</li>
-<li>helm install –dry-run –debug &lt;chart_dir&gt;</li>
-<li>helm install ./deis-workflow-0.1.0.tgz</li>
-</ul>
-<p>After installation:</p>
-<ul>
-<li>export POD_NAME=$(kubectl get pods —namespace default -l “app=hello-helm,release=kilted-bobcat” -o jsonpath=”{.items[0].metadata.name}”)</li>
-<li>kubectl port-forward $POD_NAME 8080:80</li>
-</ul>
-<p>Then you can now access the service you just installed by visiting <a href="http://127.0.0.1:8080" target="_blank" rel="noopener">http://127.0.0.1:8080</a></p>
-<h1 id="Charts"><a href="#Charts" class="headerlink" title="Charts"></a>Charts</h1><p>A chart contains:</p>
-<ul>
-<li>Chart.yml that describes the chart (this includes the name, description, and version information that we saw in helm search)</li>
-<li>One or more Kubernetes manifest templates (deployment, pod, service, etc.)</li>
-<li>An optional third item: values.yml. This file declares the default values used at the time of installation. These may be overridden at installation via the —set or -f flags</li>
-</ul>
-<p>Inside of this directory, Helm will expect a structure that matches this:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wordpress/</span><br><span class="line">  Chart.yaml          # A YAML file containing information about the chart</span><br><span class="line">  LICENSE             # OPTIONAL: A plain text file containing the license for the chart</span><br><span class="line">  README.md           # OPTIONAL: A human-readable README file</span><br><span class="line">  requirements.yaml   # OPTIONAL: A YAML file listing dependencies for the chart</span><br><span class="line">  values.yaml         # The default configuration values for this chart</span><br><span class="line">  charts/             # A directory containing any charts upon which this chart depends.</span><br><span class="line">  templates/          # A directory of templates that, when combined with values,</span><br><span class="line">                      # will generate valid Kubernetes manifest files.</span><br><span class="line">  templates/NOTES.txt # OPTIONAL: A plain text file containing short usage notes</span><br></pre></td></tr></table></figure>
-<p>Helm Chart templates are written in the Go template language, with the addition of 50 or so add-on template functions from the Sprig library and a few other specialized functions.</p>
-<p>All template files are stored in a chart’s templates/ folder. When Helm renders the charts, it will pass every file in that directory through the template engine.</p>
-<p>Values that are supplied via a values.yaml file (or via the –set flag) are accessible from the .Values object in a template.</p>
-<p>Pre-defined values: .Values, Chart, Release, etc.</p>
-<h1 id="CI-CD"><a href="#CI-CD" class="headerlink" title="CI/CD"></a>CI/CD</h1><p>To be added</p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
-<li><a href="https://www.influxdata.com/blog/packaged-kubernetes-deployments-writing-helm-chart/" target="_blank" rel="noopener">https://www.influxdata.com/blog/packaged-kubernetes-deployments-writing-helm-chart/</a></li>
-</ol>
-
+			
+				<p class="article-more-link">
+					<a href="/2018/06/11/helm/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -446,7 +301,7 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h1><ul>
+			<h1 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h1><ul>
 <li>将功能键(F1-F12)设置为标准的功能键</li>
 <li>设置Trackpad（触摸板）轻触为单击</li>
 <li>将Dock停靠在屏幕左边</li>
@@ -468,88 +323,11 @@
 </ul>
 </li>
 </ul>
-<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><h2 id="iTerm2"><a href="#iTerm2" class="headerlink" title="iTerm2"></a>iTerm2</h2><ul>
-<li><a href="https://www.iterm2.com/" target="_blank" rel="noopener">https://www.iterm2.com/</a></li>
-<li>brew cask install iterm2</li>
-<li><a href="https://hiltmon.com/blog/2013/02/13/make-iterm-2-more-mac-like/" target="_blank" rel="noopener">https://hiltmon.com/blog/2013/02/13/make-iterm-2-more-mac-like/</a></li>
-<li>Reuse previous sessions window</li>
-</ul>
-<h2 id="ZSH"><a href="#ZSH" class="headerlink" title="ZSH"></a>ZSH</h2><ul>
-<li>切换默认Shell为Zsh<ul>
-<li>chsh -s /bin/zsh</li>
-</ul>
-</li>
-<li>tips and tricks<ul>
-<li>no needs of ‘cd’</li>
-<li>d</li>
-</ul>
-</li>
-</ul>
-<h2 id="OH-MY-ZSH"><a href="#OH-MY-ZSH" class="headerlink" title="OH MY ZSH"></a>OH MY ZSH</h2><ul>
-<li>Install<ul>
-<li>sh -c “$(curl -fsSL <a href="https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;" target="_blank" rel="noopener">https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</a></li>
-</ul>
-</li>
-<li>.zshrc<ul>
-<li>ZSH_THEME</li>
-<li>Prompt<ul>
-<li>PROMPT=’%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}&gt;’#PROMPT=’%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}’</li>
-</ul>
-</li>
-<li>.zshrc<ul>
-<li></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h2><ul>
-<li>Install<ul>
-<li>ruby -e “$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</a></li>
-</ul>
-</li>
-<li>brew install caskroom/cask/brew-cask</li>
-<li>brew cask search chrome</li>
-<li>brew cask install google-chrome</li>
-<li>brew install autojump</li>
-<li>fonts<ul>
-<li>brew tap caskroom/fonts</li>
-<li>brew cask install font-fira-code</li>
-</ul>
-</li>
-</ul>
-<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
-<li>open</li>
-<li>pbcopy</li>
-<li>pbpaste</li>
-<li>mdfind<ul>
-<li>mdfind -onlyin ~/Documents essay</li>
-</ul>
-</li>
-<li>screencapture<ul>
-<li>screencapture -c -W</li>
-<li>screencapture -T 10 -P image.png</li>
-<li>screencapture -s -t pdf image.pdf</li>
-</ul>
-</li>
-<li>say<ul>
-<li>say “Time for bed, Felix”</li>
-<li>ls | say</li>
-</ul>
-</li>
-<li>diskutil list</li>
-</ul>
-<h1 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h1><h2 id="cURL"><a href="#cURL" class="headerlink" title="cURL"></a>cURL</h2><h2 id="jq"><a href="#jq" class="headerlink" title="jq"></a>jq</h2><h2 id="XCode"><a href="#XCode" class="headerlink" title="XCode"></a>XCode</h2><ul>
-<li>xcode-select –install</li>
-</ul>
-<h2 id="Others-1"><a href="#Others-1" class="headerlink" title="Others"></a>Others</h2><ul>
-<li>Flycut</li>
-<li>Spectacle</li>
-<li>Paragon NTFS</li>
-<li>Fantastical 2</li>
-<li>Be Focused</li>
-</ul>
-<h1 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h1><h1 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h1>
+			
+				<p class="article-more-link">
+					<a href="/2018/06/10/highly-effective-workspace/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">

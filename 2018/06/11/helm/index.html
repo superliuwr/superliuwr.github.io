@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="SUPERLOG">
 <meta property="og:description" content="IntroductionHelm is a package manager for Kubernetes applications. Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hoste">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-12T13:39:02.866Z">
+<meta property="og:updated_time" content="2018-06-12T13:42:38.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Helm">
 <meta name="twitter:description" content="IntroductionHelm is a package manager for Kubernetes applications. Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hoste">
@@ -77,6 +77,7 @@
 <p>Users can pull down charts and install them on any number of Kubernetes clusters.</p>
 <p>Helm’s approach scales from monoliths to complex micro service applications. </p>
 <p>Helm itself uses a client-server model. The helm command (the client) talks to the tiller  (the server). The Helm client may interact with any number of different tiller services. In practice, there is a single tiller service running one Kubernetes cluster. This helps teams collaborate. It also means that Helm may run anywhere, such as on your CI servers or on your own computer. Tiller does the work to coordinate with Kubernetes and get the chart installed.</p>
+<a id="more"></a>
 <h1 id="Install-Helm"><a href="#Install-Helm" class="headerlink" title="Install Helm"></a>Install Helm</h1><p>Run following to create a service account for Tiller in GCE as Kubernetes enables RBAC since version 1.8:</p>
 <ul>
 <li>kubectl create serviceaccount –namespace kube-system tiller</li>
