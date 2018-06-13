@@ -1,5 +1,5 @@
 ---
-title: Kubernetes
+title: Kubernetes Overview
 date: 2018-06-12 22:38:21
 categories:
 - devops
@@ -14,24 +14,137 @@ Docker -> Docker Compose -> Kubernetes
 
 Docker 的作用是计算资源和环境的描述和调度，Kubernetes 的作用是以应用为中心的生命周期的管理。
 
+Kubernetes provides mechanisms for application deployment, scheduling, updating, maintenance, and scaling. A key feature of Kubernetes is that it actively manages the containers to ensure the state of the cluster continually matches the user's intentions.
+
+To provide reliable and scalable distributed system.
+
+Benefits
+* immutability
+* declarative configuration
+* self-healing
+* easy scaling
+* decoupling applications
+* health-checking
+* rollouts
+
+Managed KaaS services
+
 <!-- more -->
+
+# Configuration files
+
+Kubernetes defines its constructs through configuration files (called manifests) which can be either YAML or JSON.
 
 # Concepts
 
+## Namespace
+
+A namespace is like a prefix to the name of a resource.
+
+``` yaml
+kind: "Namespace"
+apiVersion: "v1"
+metadata:
+  name: "development"
+  labels:
+    name: "development"
+```
+
+* kubectl get namespaces
+
 ## Pod
+
 Pods 的定义：Pods 包含一组容器，容器之间共享 namespace，共享存储，共享 IP 地址。
 
+Pods are a collocated group of application containers with shared volumes.
+
+Pods are the smallest deployable units that can be created, scheduled, and managed with Kubernetes.
+
+* kubectl get pods
+* kubectl describe pod nginx
+* kubectl delete pod nginx
+
 ## Replication Controller
+
 Replication Controller 会将集群保持在一个期望的状态。
 
+Replication controllers manage the lifecycle of pods. They insure a specified number of specific pods are running at any given time. They do this by creating or deleting pods as required.
+
+``` yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: my-nginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+```
+
+* kubectl get rc
+* kubectl scale --replicas=3 rc my-nginx
+
 ## Service
+
 Service 是一组 Pods 的逻辑集合。在 Service 内部，Kubernetes 会创建负载均衡来将流量代理到可用的 Pods 上。Service 有一个固定的虚拟 IP（ VIP）对外提供服务。
 Service 的应用场景在于：假设后端有3个容器实例在运行，并且这3个实例是随时有可能坏掉的（Design for failure），前端的实例无需关注这三个实例各自的状态，而只需要声明它依赖的是后端某一个 Service 即可，让 Replication Controller 自动保证这个后端 Service 的可用性。
 
-## Labels
+Services provide a single stable name and address for a set of pods. They act as basic load balancers.
+
+A service is attached to a replication controller. Each service gets assigned a virtual IP address, which remains constant. As long as we know the service IP address, the service itself will keep track of the pods created by the replication controller, and will distribute requests to them.
+
+``` yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxsvc
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: nginx
+```
+
+* kubectl get svc nginxsvc
+
+## Label
+
 和名字和 UID 不同，Labels 不提供唯一性，通常，我们期望多个对象使用相同的 Label(s)。通过 Label 的设置和消费，可以轻松的过滤出需要找到的对象
 
+Labels are used to organize and select groups of objects based on key-value pairs.
+
+They are used by every Kubernetes component. For example: the replication controller uses them for service discovery.
+
+## Volumes
+
+A volume is a directory, possibly with some data in it, accessible to a container as part of its filesystem. Volumes are used used, for example, to store stateful app data.
+
+Kubernetes supports several types of volumes:
+* emptyDir
+* hostPath
+* gcePersistentDisk
+* awsElasticBlockStore
+* nfs
+* iscsi
+* glusterfs
+* rbd
+* gitRepo
+* secret
+* persistentVolumeClaim
+
 ## Job
+
 Job负责处理任务，即仅执行一次的任务，它保证批处理任务的一个或多个Pod成功结束
 
 注意Job的RestartPolicy仅支持Never和OnFailure两种，不支持Always
@@ -63,6 +176,7 @@ spec:
 * kubectl get pods
 
 ## CronJob
+
 CronJob则就是在Job上加上了时间调度
 
 ``` yaml
@@ -101,7 +215,8 @@ spec:
     * echo $TOKEN
     * echo $LANGUAGE
 
-## ConfigMap & Secrets
+## ConfigMap & Secret
+
 Secret 和 ConfigMap 之间最大的区别就是 Secret 的数据是用Base64编码混淆过的，不过以后可能还会有其他的差异，对于比较机密的数据（如API密钥）使用 Secret 是一个很好的做法，但是对于一些非私密的数据（比如数据目录）用 ConfigMap 来保存就很好。
 
 ``` yaml
@@ -141,18 +256,18 @@ spec:
 * kubectl get secret
 * kubectl get configmap
 
-## NodePort & LoadBalancer & Ingress
+## ClusterIP & Ingress
 
-# Solutions
+### ClusterIP
 
-## Service Discovery
+ClusterIP服务是Kuberntets的默认服务。它在集群内部生成一个服务，供集群内的其他应用访问。外部无法访问。
 
-Kubernetes 里服务发现有多种方式：
+Use **Kubernetes Proxy** to access cluster internal:
 
-1. 通过环境变量注入发现服务。
-当 Pods 在集群的 Node 中运行时，Kubernetes 会为它增加一些列的环境变量。
+`kubectl proxy --port=8080`
 
-2. 通过 Kubernetes DNS 服务器。
-Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并且为每个 Service 记录一个 DNS 的记录。这样做的好处是：只要 DNS 服务在集群里有访问权限，那么所有的 Pods 都能访问新注册的 Service。举例：如果你有一个 Service 在 Kubernetes Namespace "my-ns"下 ，名字叫做叫 "my-service"，那么一条叫做"my-service.my-ns"的记录就会被创建。所有在"my-ns" Namespace 里的 Pods 都能通过 DNS 查找到"my-service"。
+`http://localhost:8080/api/v1/proxy/namespaces/<NAMESPACE>/services/<SERVICE-NAME>:<PORT-NAME>/`
 
-# Frequently Used Commands
+### Ingress
+
+Ingress实际上不是一种服务。相反，它在多个服务前面充当“智能路由”的角色，或者是集群的入口。
