@@ -13,10 +13,13 @@
 <meta property="og:site_name" content="SUPERLOG">
 <meta property="og:description" content="ClusterA cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications. kubectl cluster-info">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-13T10:58:35.065Z">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/13/kubernetes-system/kubernetes%20architectural%20overview.png">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/13/kubernetes-system/kubernetes%20architecture.png">
+<meta property="og:updated_time" content="2018-06-13T14:01:26.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes System">
 <meta name="twitter:description" content="ClusterA cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications. kubectl cluster-info">
+<meta name="twitter:image" content="http://superliuwr.github.io/2018/06/13/kubernetes-system/kubernetes%20architectural%20overview.png">
   
     <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
   
@@ -74,6 +77,19 @@
 		
     	<h1 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h1><p>A cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications.</p>
 <p><code>kubectl cluster-info</code></p>
+<p><img src="kubernetes architectural overview.png" alt=""><br><img src="kubernetes architecture.png" alt=""></p>
+<a id="more"></a>
+<h1 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h1><h2 id="ETCD"><a href="#ETCD" class="headerlink" title="ETCD"></a>ETCD</h2><p>All persistent state data is stored an etcd cluster. This provides a distributed way to store configuration data reliably.</p>
+<h2 id="API-server"><a href="#API-server" class="headerlink" title="API server"></a>API server</h2><p>The API server is the central management point of the entire cluster, and allows the admin to configure Kubernetes workloads and organizational units. The API server is also responsible for making sure etcd and the service details of deployed containers are in agreement.</p>
+<p>In other words, the API server validates and configures (on command) the data for pods, services, and replication controllers. It also assigns pods to nodes and synchronizes pod information with service configuration.</p>
+<h2 id="Controller-manager"><a href="#Controller-manager" class="headerlink" title="Controller manager"></a>Controller manager</h2><p>The controller manager service handles the replication processes defined by individual replication tasks. The details of these operations are written to etcd, which the controller manager watches for changes. When a change is seen, the controller manager reads the information and implements the replication procedure that fulfills the desired state, e.g. scaling the application group up or down.</p>
+<p>In other words, the controller manager watches etcd for replication tasks and uses the API to enforce the desired state.</p>
+<h2 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h2><p>The scheduler assigns workloads to specific nodes in the cluster. It does this by reading in the workload operating requirements, analyzing the current environment (i.e. the health and operational details of the individual nodes in the cluster), and then placing the workload on a suitable node, or nodes.</p>
+<h1 id="Nodes"><a href="#Nodes" class="headerlink" title="Nodes"></a>Nodes</h1><p>A node (sometimes called a worker node) is a physical or virtual machine running Kubernetes services, onto which pods can be scheduled.</p>
+<p><code>kubectl get nodes</code></p>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>A Docker Daemon is running in each node.</p>
+<h2 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h2><p>The kubelet daemon is the primary agent that runs on each node. The kubelet daemon watches the master API server and ensures the appropriate local containers are started, remain healthy, and continue to run.</p>
+<h2 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h2><p>The kube-proxy daemon runs on each node as a simple network proxy and load balancer for the services on that node.</p>
 
     
 	</div>
