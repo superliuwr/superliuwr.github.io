@@ -45,10 +45,121 @@
     <div id="main">
       
   
-    <article id="post-kubernetes" class="post">
+    <article id="post-kubernetes-system" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
-			<a href="/2018/06/12/kubernetes/" class="article-date">
+			<a href="/2018/06/13/kubernetes-system/" class="article-date">
+  <time datetime="2018-06-13T09:29:09.000Z" itemprop="datePublished">2018-06-13</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/13/kubernetes-system/">Kubernetes System</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/devops/">devops</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kubernetes/">kubernetes</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-kubernetes-advanced" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/13/kubernetes-advanced/" class="article-date">
+  <time datetime="2018-06-13T09:27:32.000Z" itemprop="datePublished">2018-06-13</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/13/kubernetes-advanced/">Kubernetes Advanced</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Service-Discovery"><a href="#Service-Discovery" class="headerlink" title="Service Discovery"></a>Service Discovery</h1><p>Kubernetes 里服务发现有多种方式：</p>
+<ol>
+<li><p>通过环境变量注入发现服务。<br>当 Pods 在集群的 Node 中运行时，Kubernetes 会为它增加一些列的环境变量。</p>
+</li>
+<li><p>通过 Kubernetes DNS 服务器。<br>Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并且为每个 Service 记录一个 DNS 的记录。这样做的好处是：只要 DNS 服务在集群里有访问权限，那么所有的 Pods 都能访问新注册的 Service。举例：如果你有一个 Service 在 Kubernetes Namespace “my-ns”下 ，名字叫做叫 “my-service”，那么一条叫做”my-service.my-ns”的记录就会被创建。所有在”my-ns” Namespace 里的 Pods 都能通过 DNS 查找到”my-service”。</p>
+</li>
+</ol>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/devops/">devops</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kubernetes/">kubernetes</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-kubernetes-overview" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/12/kubernetes-overview/" class="article-date">
   <time datetime="2018-06-12T12:38:21.000Z" itemprop="datePublished">2018-06-12</time>
 </a>
 		</span>
@@ -62,7 +173,7 @@
 		
   
     <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/12/kubernetes/">Kubernetes</a>
+      <a class="article-title" href="/2018/06/12/kubernetes-overview/">Kubernetes Overview</a>
     </h1>
   
 
@@ -74,7 +185,7 @@
 <p>Docker 的作用是计算资源和环境的描述和调度，Kubernetes 的作用是以应用为中心的生命周期的管理。</p>
 			
 				<p class="article-more-link">
-					<a href="/2018/06/12/kubernetes/#more">Read More</a>
+					<a href="/2018/06/12/kubernetes-overview/#more">Read More</a>
 				</p>
       
     
