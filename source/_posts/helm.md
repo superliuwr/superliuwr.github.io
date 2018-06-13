@@ -19,6 +19,7 @@ Helm’s approach scales from monoliths to complex micro service applications.
 
 Helm itself uses a client-server model. The helm command (the client) talks to the tiller  (the server). The Helm client may interact with any number of different tiller services. In practice, there is a single tiller service running one Kubernetes cluster. This helps teams collaborate. It also means that Helm may run anywhere, such as on your CI servers or on your own computer. Tiller does the work to coordinate with Kubernetes and get the chart installed.
 
+<!-- more -->
 
 # Install Helm
 
@@ -175,3 +176,7 @@ Pre-defined values: .Values, Chart, Release, etc.
 
 
 # CI/CD
+To be added
+
+# References
+1. https://www.influxdata.com/blog/packaged-kubernetes-deployments-writing-helm-chart/

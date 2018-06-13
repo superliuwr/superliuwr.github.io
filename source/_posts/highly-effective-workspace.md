@@ -28,6 +28,8 @@ tags:
     * ctrl + space
     * User Snippets by language filter
 
+<!-- more -->
+
 # Shell
 
 ## iTerm2
