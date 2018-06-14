@@ -12,8 +12,8 @@ A cluster is a set of physical or virtual machines (or both) combined with other
 
 `kubectl cluster-info`
 
-![](kubernetes architectural overview.png)
-![](kubernetes architecture.png)
+![Kubernetes Architectural Overview](kubernetes architectural overview.png)
+![Kubernetes Architecture](kubernetes architecture.png)
 
 <!-- more -->
 
@@ -55,3 +55,8 @@ The kubelet daemon is the primary agent that runs on each node. The kubelet daem
 ## kube-proxy
 
 The kube-proxy daemon runs on each node as a simple network proxy and load balancer for the services on that node.
+
+# References
+1. [带着问题学 Kubernetes 架构](https://github.com/jasonGeng88/blog/blob/master/201707/k8s-architecture.md)
+2. [带着问题学 Kubernetes 基本单元 Pod](https://github.com/jasonGeng88/blog/blob/master/201707/k8s-pod.md)
+3. [带着问题学 Kubernetes 抽象对象 Service](https://github.com/jasonGeng88/blog/blob/master/201707/k8s-service.md)
