@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>hyperledger-overview | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Hyperledger Fabric 是 IBM 贡献给 Linux 基金会的商用分布式账本系统，自项目创立伊始就吸引了金融、银行、互联网、传统行业领域的巨头们的眼光。 Hyperledger Fabric 是基于 Golang 实现的可插拔的区块链系统，它主要面向企业之间或者企业多个部门之间提供服务。   Membership 即成员管理服务，提供身份管理、证书校验。在 Fabric 中每个通讯">
+<meta name="keywords" content="hyperledger,blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hyperledger-overview">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/14/hyperledger-overview/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Hyperledger Fabric 是 IBM 贡献给 Linux 基金会的商用分布式账本系统，自项目创立伊始就吸引了金融、银行、互联网、传统行业领域的巨头们的眼光。 Hyperledger Fabric 是基于 Golang 实现的可插拔的区块链系统，它主要面向企业之间或者企业多个部门之间提供服务。   Membership 即成员管理服务，提供身份管理、证书校验。在 Fabric 中每个通讯">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/14/hyperledger-overview/1.png">
+<meta property="og:updated_time" content="2018-06-14T11:39:28.888Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hyperledger-overview">
+<meta name="twitter:description" content="Hyperledger Fabric 是 IBM 贡献给 Linux 基金会的商用分布式账本系统，自项目创立伊始就吸引了金融、银行、互联网、传统行业领域的巨头们的眼光。 Hyperledger Fabric 是基于 Golang 实现的可插拔的区块链系统，它主要面向企业之间或者企业多个部门之间提供服务。   Membership 即成员管理服务，提供身份管理、证书校验。在 Fabric 中每个通讯">
+<meta name="twitter:image" content="http://superliuwr.github.io/2018/06/14/hyperledger-overview/1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-hyperledger-overview" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/14/hyperledger-overview/" class="article-date">
+  <time datetime="2018-06-14T11:34:54.000Z" itemprop="datePublished">2018-06-14</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      hyperledger-overview
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>Hyperledger Fabric 是 IBM 贡献给 Linux 基金会的商用分布式账本系统，自项目创立伊始就吸引了金融、银行、互联网、传统行业领域的巨头们的眼光。</p>
+<p>Hyperledger Fabric 是基于 Golang 实现的可插拔的区块链系统，它主要面向企业之间或者企业多个部门之间提供服务。</p>
+<p><img src="1.png" alt="Hyperledger Fabric Architecture"></p>
+<ul>
+<li>Membership 即成员管理服务，提供身份管理、证书校验。在 Fabric 中每个通讯组件都必须提供身份证明，每个事务的发起者会被永久记录在区块链上，审核人员可以追溯事务。</li>
+<li>Blockchain Services 即区块链服务，提供分布式一致性算法，维护全网数据一致，提供账本存储服务，基于 P2P 网络实现节点之间的通讯。</li>
+<li>Chaincode Services 即链码服务，智能合约在 Fabric 中称为链码。链码是操作状态数据库的唯一方法，大部分事务都是通过链码完成的。该部分提供链码的部署和运行环境。</li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hyperledger/">hyperledger</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/13/kubectl/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          kubectl
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

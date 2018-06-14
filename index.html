@@ -45,6 +45,66 @@
     <div id="main">
       
   
+    <article id="post-hyperledger-overview" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/14/hyperledger-overview/" class="article-date">
+  <time datetime="2018-06-14T11:34:54.000Z" itemprop="datePublished">2018-06-14</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/14/hyperledger-overview/">hyperledger-overview</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>Hyperledger Fabric 是 IBM 贡献给 Linux 基金会的商用分布式账本系统，自项目创立伊始就吸引了金融、银行、互联网、传统行业领域的巨头们的眼光。</p>
+<p>Hyperledger Fabric 是基于 Golang 实现的可插拔的区块链系统，它主要面向企业之间或者企业多个部门之间提供服务。</p>
+<p><img src="1.png" alt="Hyperledger Fabric Architecture"></p>
+<ul>
+<li>Membership 即成员管理服务，提供身份管理、证书校验。在 Fabric 中每个通讯组件都必须提供身份证明，每个事务的发起者会被永久记录在区块链上，审核人员可以追溯事务。</li>
+<li>Blockchain Services 即区块链服务，提供分布式一致性算法，维护全网数据一致，提供账本存储服务，基于 P2P 网络实现节点之间的通讯。</li>
+<li>Chaincode Services 即链码服务，智能合约在 Fabric 中称为链码。链码是操作状态数据库的唯一方法，大部分事务都是通过链码完成的。该部分提供链码的部署和运行环境。</li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/blockchain/">blockchain</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockchain/">blockchain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hyperledger/">hyperledger</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
     <article id="post-kubectl" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -149,7 +209,7 @@
 		
 			<h1 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h1><p>A cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications.</p>
 <p><code>kubectl cluster-info</code></p>
-<p><img src="kubernetes architectural overview.png" alt=""><br><img src="kubernetes architecture.png" alt=""></p>
+<p><img src="kubernetes architectural overview.png" alt="Kubernetes Architectural Overview"><br><img src="kubernetes architecture.png" alt="Kubernetes Architecture"></p>
 			
 				<p class="article-more-link">
 					<a href="/2018/06/13/kubernetes-system/#more">Read More</a>

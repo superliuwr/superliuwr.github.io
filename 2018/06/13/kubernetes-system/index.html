@@ -15,7 +15,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://superliuwr.github.io/2018/06/13/kubernetes-system/kubernetes%20architectural%20overview.png">
 <meta property="og:image" content="http://superliuwr.github.io/2018/06/13/kubernetes-system/kubernetes%20architecture.png">
-<meta property="og:updated_time" content="2018-06-13T14:01:26.073Z">
+<meta property="og:updated_time" content="2018-06-14T09:58:38.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes System">
 <meta name="twitter:description" content="ClusterA cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications. kubectl cluster-info">
@@ -77,7 +77,7 @@
 		
     	<h1 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h1><p>A cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications.</p>
 <p><code>kubectl cluster-info</code></p>
-<p><img src="kubernetes architectural overview.png" alt=""><br><img src="kubernetes architecture.png" alt=""></p>
+<p><img src="kubernetes architectural overview.png" alt="Kubernetes Architectural Overview"><br><img src="kubernetes architecture.png" alt="Kubernetes Architecture"></p>
 <a id="more"></a>
 <h1 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h1><h2 id="ETCD"><a href="#ETCD" class="headerlink" title="ETCD"></a>ETCD</h2><p>All persistent state data is stored an etcd cluster. This provides a distributed way to store configuration data reliably.</p>
 <h2 id="API-server"><a href="#API-server" class="headerlink" title="API server"></a>API server</h2><p>The API server is the central management point of the entire cluster, and allows the admin to configure Kubernetes workloads and organizational units. The API server is also responsible for making sure etcd and the service details of deployed containers are in agreement.</p>
@@ -90,6 +90,11 @@
 <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>A Docker Daemon is running in each node.</p>
 <h2 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h2><p>The kubelet daemon is the primary agent that runs on each node. The kubelet daemon watches the master API server and ensures the appropriate local containers are started, remain healthy, and continue to run.</p>
 <h2 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h2><p>The kube-proxy daemon runs on each node as a simple network proxy and load balancer for the services on that node.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li><a href="https://github.com/jasonGeng88/blog/blob/master/201707/k8s-architecture.md" target="_blank" rel="noopener">带着问题学 Kubernetes 架构</a></li>
+<li><a href="https://github.com/jasonGeng88/blog/blob/master/201707/k8s-pod.md" target="_blank" rel="noopener">带着问题学 Kubernetes 基本单元 Pod</a></li>
+<li><a href="https://github.com/jasonGeng88/blog/blob/master/201707/k8s-service.md" target="_blank" rel="noopener">带着问题学 Kubernetes 抽象对象 Service</a></li>
+</ol>
 
     
 	</div>
