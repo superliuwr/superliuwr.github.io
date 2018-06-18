@@ -91,3 +91,4 @@ theme_config:
     Archives: /archives
     About: /about
   rss: /atom.xml
+  favicon: images/favicon.ico
