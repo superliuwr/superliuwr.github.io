@@ -2,9 +2,9 @@
 title: kubectl
 date: 2018-06-13 20:51:25
 categories:
-- devops
+- Devops
 tags:
-- kubernetes
+- Kubernetes
 ---
 # Frequently Used Commands
 

@@ -2,11 +2,11 @@
 title: Highly Effective Workspace with Macbook
 date: 2018-06-10 20:09:59
 categories:
-- other
+- Other
 tags:
-- vsc
-- zsh
-- vim
+- VSC
+- Zsh
+- Vim
 ---
 # MacOS
 

@@ -2,8 +2,8 @@
 title: Serverless Stack
 date: 2018-06-08 00:31:37
 categories:
-- architecture
+- Architecture
 tags:
-- serverless
+- Serverless
 ---
 *Serverless*

@@ -2,10 +2,9 @@
 title: AWS
 date: 2018-06-16 12:50:58
 categories:
-- cloud
+- Cloud
 tags:
-- aws
-- cloud
+- AWS
 ---
 # Overview
 

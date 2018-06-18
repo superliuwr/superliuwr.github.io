@@ -2,9 +2,9 @@
 title: Kubernetes Overview
 date: 2018-06-12 22:38:21
 categories:
-- devops
+- Devops
 tags:
-- kubernetes
+- Kubernetes
 ---
 # Why
 
