@@ -190,6 +190,8 @@ console.log(typeof arrayFromNumber[0])   // number
 
 ## Modules
 
+External modules as comparing to `Namespaces`.
+
 ## Third-party Declaration Files
 
 When using a library that was originally designed for regular JavaScript, we need to apply a declaration file to make that library compatible with TypeScript. A declaration file has the extension .d.ts and contains various information about the library and its API.
@@ -205,6 +207,8 @@ TypeScript declaration files are usually written by hand, but there’s a high c
 ## Namespaces
 
 模块是用来组织一些具有某种内在联系的特性和对象。模块能够使代码的结构更加清晰，可以使用 namespace 和 export 关键字在 TypeScript 中声明模块。
+
+Internal modules as comparing to `Modules`.
 
 ``` typescript
 namespace mygame{
