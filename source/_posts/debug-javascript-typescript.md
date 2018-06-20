@@ -1,5 +1,5 @@
 ---
-title: debug-javascript-typescript
+title: Debug Javascript/TypeScript
 date: 2018-06-20 22:34:22
 categories:
 - Node.js
