@@ -34,31 +34,6 @@ ESLint/TSLint
 
 https://github.com/standard/standard
 
-## Debugging
-
-### With Chrome DevTools
-
-`node --inspect app.js`
-
-`node --inspect-brk=9229 app.js` - set debug port to 9229 and add a breakpoint at the first line
-
-`node -e 'process._debugProcess(30464)'` - to attach debugger to a running application(not in inspect mode)
-
-`kill -SIGUSR1 30464`
-A Node.js process started without --inspect can also be instructed to start listening for debugging messages by signaling it with SIGUSR1 (on Linux and OS X). As of Node 7 this activates the legacy Debugger API; in Node 8 and later it will activate the Inspector API.
-
-`chrome://inspect` 或者 `about:inspect`
-
-### With VSC
-
-### With node-inspector
-
-https://github.com/node-inspector/node-inspector
-
-`npm install -g node-inspector`
-
-`node-debug app.js`
-
 ## Security
 
 # Delivery and Deployment
