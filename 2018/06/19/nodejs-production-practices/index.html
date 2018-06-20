@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Node.js Production Practices | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="DevelopmentDesignProject StructureHandle Different Environments and ConfigurationsValidationUse Messaging for Background ProcessesIf you are using HTTP for sending messages, then whenever the receivin">
+<meta name="keywords" content="Node.js,Best Practices">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js Production Practices">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/19/nodejs-production-practices/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="DevelopmentDesignProject StructureHandle Different Environments and ConfigurationsValidationUse Messaging for Background ProcessesIf you are using HTTP for sending messages, then whenever the receivin">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-20T12:33:52.294Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js Production Practices">
+<meta name="twitter:description" content="DevelopmentDesignProject StructureHandle Different Environments and ConfigurationsValidationUse Messaging for Background ProcessesIf you are using HTTP for sending messages, then whenever the receivin">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-nodejs-production-practices" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/19/nodejs-production-practices/" class="article-date">
+  <time datetime="2018-06-19T00:10:18.000Z" itemprop="datePublished">2018-06-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      Node.js Production Practices
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Development"><a href="#Development" class="headerlink" title="Development"></a>Development</h1><h2 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h2><h3 id="Project-Structure"><a href="#Project-Structure" class="headerlink" title="Project Structure"></a>Project Structure</h3><h3 id="Handle-Different-Environments-and-Configurations"><a href="#Handle-Different-Environments-and-Configurations" class="headerlink" title="Handle Different Environments and Configurations"></a>Handle Different Environments and Configurations</h3><h3 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h3><h3 id="Use-Messaging-for-Background-Processes"><a href="#Use-Messaging-for-Background-Processes" class="headerlink" title="Use Messaging for Background Processes"></a>Use Messaging for Background Processes</h3><p>If you are using HTTP for sending messages, then whenever the receiving party is down, all your messages are lost. However, if you pick a persistent transport layer, like a message queue to send messages, you won’t have this problem.</p>
+<p>If the receiving service is down, the messages will be kept, and can be processed later. If the service is not down, but there is an issue, processing can be retried, so no data gets lost.</p>
+<h2 id="Unit-Testing"><a href="#Unit-Testing" class="headerlink" title="Unit Testing"></a>Unit Testing</h2><h2 id="E2E-Testing"><a href="#E2E-Testing" class="headerlink" title="E2E Testing"></a>E2E Testing</h2><h2 id="Linting-and-Styling"><a href="#Linting-and-Styling" class="headerlink" title="Linting and Styling"></a>Linting and Styling</h2><p>Prettier<br>ESLint/TSLint</p>
+<p><a href="https://github.com/standard/standard" target="_blank" rel="noopener">https://github.com/standard/standard</a></p>
+<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><h1 id="Delivery-and-Deployment"><a href="#Delivery-and-Deployment" class="headerlink" title="Delivery and Deployment"></a>Delivery and Deployment</h1><h2 id="Dockerize"><a href="#Dockerize" class="headerlink" title="Dockerize"></a>Dockerize</h2><h2 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h2><p>JSDoc</p>
+<h2 id="SemVer"><a href="#SemVer" class="headerlink" title="SemVer"></a>SemVer</h2><p>Versioning your application / modules is critical - your consumers must know if a new version of a module is published and what needs to be done on their side to get the new version.</p>
+<p>This is where semantic versioning comes into the picture. Given a version number MAJOR.MINOR.PATCH, increment the:</p>
+<ul>
+<li>MAJOR version when you make incompatible API changes,</li>
+<li>MINOR version when you add functionality (without breaking the API), and</li>
+<li>PATCH version when you make backwards-compatible bug fixes.</li>
+</ul>
+<h2 id="PM2"><a href="#PM2" class="headerlink" title="PM2"></a>PM2</h2><h2 id="Logging-and-Tracing"><a href="#Logging-and-Tracing" class="headerlink" title="Logging and Tracing"></a>Logging and Tracing</h2><p>Separate access logs and application logs</p>
+<p>Opentracing</p>
+<h2 id="Monitoring-and-Metrics"><a href="#Monitoring-and-Metrics" class="headerlink" title="Monitoring and Metrics"></a>Monitoring and Metrics</h2><p>Prometheus</p>
+<h2 id="Scaling"><a href="#Scaling" class="headerlink" title="Scaling"></a>Scaling</h2><h2 id="Profiling"><a href="#Profiling" class="headerlink" title="Profiling"></a>Profiling</h2><ul>
+<li><code>npm install -g autocannon</code></li>
+<li><code>npm install -g clinic</code></li>
+</ul>
+<p><code>autocannon -c100 localhost:3000/seed/v1</code></p>
+<p><code>clinic doctor --on-port=’autocannon -c100 localhost:$PORT/seed/v1’ -- node index.js</code></p>
+<p><code>clinic flame --on-port=’autocannon -c100 localhost:$PORT/seed/v1’ -- node index.js</code></p>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a href="https://www.smashingmagazine.com/2018/06/nodejs-tools-techniques-performance-servers/" target="_blank" rel="noopener">Keeping Node.js Fast: Tools, Techniques, And Tips For Making High-Performance Node.js Servers</a></li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practices/">Best Practices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/20/debug-javascript-typescript/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          debug-javascript-typescript
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/18/typescript/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          TypeScript
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
