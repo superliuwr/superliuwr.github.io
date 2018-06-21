@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>aws-networking | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Virtual Private Network (VPC)Within a region, you can create multiple Amazon VPCs, and each Amazon VPC is logically isolated even if it shares its IP address space. When you create an Amazon VPC, you">
+<meta name="keywords" content="AWS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="aws-networking">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/21/aws-networking/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Virtual Private Network (VPC)Within a region, you can create multiple Amazon VPCs, and each Amazon VPC is logically isolated even if it shares its IP address space. When you create an Amazon VPC, you">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/21/aws-networking/vpc1.jpg">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/21/aws-networking/vpc2.jpg">
+<meta property="og:updated_time" content="2018-06-21T13:03:23.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="aws-networking">
+<meta name="twitter:description" content="Virtual Private Network (VPC)Within a region, you can create multiple Amazon VPCs, and each Amazon VPC is logically isolated even if it shares its IP address space. When you create an Amazon VPC, you">
+<meta name="twitter:image" content="http://superliuwr.github.io/2018/06/21/aws-networking/vpc1.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-aws-networking" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/21/aws-networking/" class="article-date">
+  <time datetime="2018-06-21T12:08:26.000Z" itemprop="datePublished">2018-06-21</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      aws-networking
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Virtual-Private-Network-VPC"><a href="#Virtual-Private-Network-VPC" class="headerlink" title="Virtual Private Network (VPC)"></a>Virtual Private Network (VPC)</h1><p>Within a region, you can create multiple Amazon VPCs, and each Amazon VPC is logically isolated even if it shares its IP address space.</p>
+<p>When you create an Amazon VPC, you must specify the IPv4 address range by choosing a Classless Inter-Domain Routing (CIDR) block, such as 10.0.0.0/16. The address range of the Amazon VPC cannot be changed after the Amazon VPC is created. An Amazon VPC address range may be as large as /16 (65,536 available addresses) or as small as /28 (16 available addresses) and should not overlap any other network with which they are to be connected.</p>
+<p>AWS accounts that support EC2-VPC will have a default VPC created in each region with a default subnet created in each Availability Zone. The assigned CIDR block of the VPC will be 172.31.0.0/16.</p>
+<p>An Amazon VPC consists of the following components:</p>
+<ul>
+<li>Subnets</li>
+<li>Route tables</li>
+<li>Dynamic Host Configuration Protocol (DHCP) option sets</li>
+<li>Security groups</li>
+<li>Network Access Control Lists (ACLs)</li>
+</ul>
+<p>An Amazon VPC has the following optional components:</p>
+<ul>
+<li>Internet Gateways (IGWs)</li>
+<li>Elastic IP (EIP) addresses</li>
+<li>Elastic Network Interfaces (ENIs)</li>
+<li>Endpoints</li>
+<li>Peering</li>
+<li>Network Address Translation (NATs) instances and NAT gateways</li>
+<li>Virtual Private Gateway (VPG), Customer Gateways (CGWs), and Virtual Private Networks (VPNs)</li>
+</ul>
+<h2 id="Subnets"><a href="#Subnets" class="headerlink" title="Subnets"></a>Subnets</h2><p>CIDR blocks define subnets (for example, 10.0.1.0/24 and 192.168.0.0/24). The smallest subnet that you can create is a /28 (16 IP addresses). AWS reserves the first four IP addresses and the last IP address of every subnet for internal networking purposes.</p>
+<p>Subnets reside within one Availability Zone and cannot span zones. You can, however, have multiple subnets in one Availability Zone.</p>
+<p><img src="vpc1.jpg" alt=""></p>
+<p>Subnets can be classified as public, private, or VPN-only.</p>
+<ul>
+<li>A public subnet is one in which the associated route table directs the subnet’s traffic to the Amazon VPC’s IGW.</li>
+<li>A private subnet is one in which the associated route table does not direct the subnet’s traffic to the Amazon VPC’s IGW.</li>
+<li>A VPN-only subnet is one in which the associated route table directs the subnet’s traffic to the Amazon VPC’s VPG and does not have a route to the IGW.</li>
+</ul>
+<p>Regardless of the type of subnet, the internal IP address range of the subnet is always private (that is, non-routable on the Internet).</p>
+<p>Default Amazon VPCs contain one public subnet in every Availability Zone within the region, with a netmask of /20.</p>
+<h2 id="Route-Tables"><a href="#Route-Tables" class="headerlink" title="Route Tables"></a>Route Tables</h2><p>A route table is a logical construct within an Amazon VPC that contains a set of rules (called routes) that are applied to the subnet and used to determine where network traffic is directed.</p>
+<p>Each route table contains a default route called the local route, which enables communication within the Amazon VPC, and this route cannot be modified or removed. Additional routes can be added to direct traffic to exit the Amazon VPC via the IGW, the VPG, or the NAT instance.</p>
+<p>You should remember the following points about route tables:</p>
+<ul>
+<li>Your VPC has an implicit router.</li>
+<li>Your VPC automatically comes with a main route table that you can modify.</li>
+<li>You can create additional custom route tables for your VPC.</li>
+<li>Each subnet must be associated with a route table, which controls the routing for the subnet. If you don’t explicitly associate a subnet with a particular route table, the subnet uses the main route table.</li>
+<li>You can replace the main route table with a custom table that you’ve created so that each new subnet is automatically associated with it.</li>
+<li>Each route in a table specifies a destination CIDR and a target; for example, traffic destined for 172.16.0.0/12 is targeted for the VPG. AWS uses the most specific route that matches the traffic to determine how to route the traffic.</li>
+</ul>
+<h2 id="Internet-Gateways"><a href="#Internet-Gateways" class="headerlink" title="Internet Gateways"></a>Internet Gateways</h2><p>An Internet Gateway (IGW) is a horizontally scaled, redundant, and highly available Amazon VPC component that allows communication between instances in your Amazon VPC and the Internet. An IGW provides a target in your Amazon VPC route tables for Internet-routable traffic, and it performs network address translation for instances that have been assigned public IP addresses.</p>
+<p>You must do the following to create a public subnet with Internet access:</p>
+<ul>
+<li>Attach an IGW to your Amazon VPC.</li>
+<li>Create a subnet route table rule to send all non-local traffic (0.0.0.0/0) to the IGW.</li>
+<li>Configure your network ACLs and security group rules to allow relevant traffic to flow to and from your instance.</li>
+</ul>
+<p>You must do the following to enable an Amazon EC2 instance to send and receive traffic from the Internet:</p>
+<ul>
+<li>Assign a public IP address or EIP address.</li>
+<li>You can scope the route to all destinations not explicitly known to the route table (0.0.0.0/0), or you can scope the route to a narrower range of IP addresses, such as the public IP addresses of your company’s public endpoints outside of AWS or the EIP addresses of other Amazon EC2 instances outside your Amazon VPC.</li>
+</ul>
+<p><img src="vpc2.jpg" alt=""></p>
+<h2 id="Dynamic-Host-Configuration-Protocol-DHCP-Option-Sets"><a href="#Dynamic-Host-Configuration-Protocol-DHCP-Option-Sets" class="headerlink" title="Dynamic Host Configuration Protocol (DHCP) Option Sets"></a>Dynamic Host Configuration Protocol (DHCP) Option Sets</h2><h2 id="Elastic-IP-Addresses-EIPs"><a href="#Elastic-IP-Addresses-EIPs" class="headerlink" title="Elastic IP Addresses (EIPs)"></a>Elastic IP Addresses (EIPs)</h2><h2 id="Elastic-Network-Interfaces-ENIs"><a href="#Elastic-Network-Interfaces-ENIs" class="headerlink" title="Elastic Network Interfaces (ENIs)"></a>Elastic Network Interfaces (ENIs)</h2><h2 id="Endpoints"><a href="#Endpoints" class="headerlink" title="Endpoints"></a>Endpoints</h2><h2 id="Peering"><a href="#Peering" class="headerlink" title="Peering"></a>Peering</h2><h2 id="Security-Groups"><a href="#Security-Groups" class="headerlink" title="Security Groups"></a>Security Groups</h2><h2 id="Network-Access-Control-Lists-ACLs"><a href="#Network-Access-Control-Lists-ACLs" class="headerlink" title="Network Access Control Lists (ACLs)"></a>Network Access Control Lists (ACLs)</h2><h2 id="Network-Address-Translation-NAT-Instances-and-NAT-Gateways"><a href="#Network-Address-Translation-NAT-Instances-and-NAT-Gateways" class="headerlink" title="Network Address Translation (NAT) Instances and NAT Gateways"></a>Network Address Translation (NAT) Instances and NAT Gateways</h2><h3 id="NAT-INSTANCE"><a href="#NAT-INSTANCE" class="headerlink" title="NAT INSTANCE"></a>NAT INSTANCE</h3><h3 id="NAT-GATEWAY"><a href="#NAT-GATEWAY" class="headerlink" title="NAT GATEWAY"></a>NAT GATEWAY</h3><h2 id="Virtual-Private-Gateways-VPGs-Customer-Gateways-CGWs-and-Virtual-Private-Networks-VPNs"><a href="#Virtual-Private-Gateways-VPGs-Customer-Gateways-CGWs-and-Virtual-Private-Networks-VPNs" class="headerlink" title="Virtual Private Gateways (VPGs), Customer Gateways (CGWs), and Virtual Private Networks (VPNs)"></a>Virtual Private Gateways (VPGs), Customer Gateways (CGWs), and Virtual Private Networks (VPNs)</h2>
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/20/debug-javascript-typescript/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Debug Javascript/TypeScript
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
