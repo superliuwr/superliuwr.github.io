@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>TypeScript | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Installation and IDE supportnpm install -g typescript tsc -v tsc main.ts tsc *.ts --watch ts-node server.ts VSC has built-in support of TypeScript. Online tool Template Project FeaturesStatic Typing n">
+<meta name="keywords" content="TypeScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/18/typescript/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Installation and IDE supportnpm install -g typescript tsc -v tsc main.ts tsc *.ts --watch ts-node server.ts VSC has built-in support of TypeScript. Online tool Template Project FeaturesStatic Typing n">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-22T09:12:40.469Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TypeScript">
+<meta name="twitter:description" content="Installation and IDE supportnpm install -g typescript tsc -v tsc main.ts tsc *.ts --watch ts-node server.ts VSC has built-in support of TypeScript. Online tool Template Project FeaturesStatic Typing n">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-typescript" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/18/typescript/" class="article-date">
+  <time datetime="2018-06-18T05:34:21.000Z" itemprop="datePublished">2018-06-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      TypeScript
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Installation-and-IDE-support"><a href="#Installation-and-IDE-support" class="headerlink" title="Installation and IDE support"></a>Installation and IDE support</h1><p><code>npm install -g typescript</code></p>
+<p><code>tsc -v</code></p>
+<p><code>tsc main.ts</code></p>
+<p><code>tsc *.ts --watch</code></p>
+<p><code>ts-node server.ts</code></p>
+<p>VSC has built-in support of TypeScript.</p>
+<p><a href="http://www.typescriptlang.org/play/index.html" target="_blank" rel="noopener">Online tool</a></p>
+<p><a href="https://github.com/superliuwr/api_template_typescript" target="_blank" rel="noopener">Template Project</a></p>
+<h1 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h1><h2 id="Static-Typing"><a href="#Static-Typing" class="headerlink" title="Static Typing"></a>Static Typing</h2><ul>
+<li>number – All numeric values are represented by the number type, there aren’t separate definitions for integers, floats or others.</li>
+<li>string – The text type, just like in vanilla JS strings can be surrounded by ‘single quotes’ or “double quotes”.</li>
+<li>boolean – true or false, using 0 and 1 will cause a compilation error.</li>
+<li>any – A variable with this type can have it’s value set to a string, number, or anything else.</li>
+<li>Arrays – Has two possible syntaxes: my_arr: number[]; or my_arr: Array<number>.</number></li>
+<li>void – Used on function that don’t return anything.</li>
+<li>tuple - <code>let x: [ string, number ] = [ &quot;hello&quot;, 10 ]</code></li>
+<li>enum - <code>enum Color { Red, Green, Blue }; let c: Color = Color.Green</code></li>
+<li>null and undefined</li>
+<li>never</li>
+<li>union - <code>number | string</code></li>
+</ul>
+<h2 id="Interfaces"><a href="#Interfaces" class="headerlink" title="Interfaces"></a>Interfaces</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Food &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    calories: <span class="built_in">number</span>;</span><br><span class="line">    readonly x: <span class="built_in">number</span>;</span><br><span class="line">    color?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> LoggerInterface&#123;</span><br><span class="line">    log(arg:<span class="built_in">any</span>):<span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数接口</span></span><br><span class="line"><span class="keyword">interface</span> SearchFunc &#123;</span><br><span class="line">  (source: <span class="built_in">string</span>, subString: <span class="built_in">string</span>): <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> StringArray&#123;</span><br><span class="line">    [index: <span class="built_in">number</span>]: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> MyArray: StringArray;</span><br><span class="line">MyArray = [<span class="string">"是"</span>,<span class="string">"云"</span>,<span class="string">"随"</span>,<span class="string">"风"</span>];</span><br><span class="line"><span class="built_in">console</span>.log(MyArray[<span class="number">2</span>]); <span class="comment">// 随</span></span><br></pre></td></tr></table></figure>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 普通函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b?: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数参数</span></span><br><span class="line">function readFile(file: string, callback: (err: Error | null, data: Buffer) =&gt; void) &#123;</span><br><span class="line">  fs.readFile(file, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过 type 语句定义类型</span></span><br><span class="line"><span class="keyword">type</span> CallbackFunction = <span class="function">(<span class="params">err: <span class="built_in">Error</span> | <span class="literal">null</span>, data: Buffer</span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">file: <span class="built_in">string</span>, callback: CallbackFunction</span>) </span>&#123;</span><br><span class="line">  fs.readFile(file, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过 interface 语句来定义类型</span></span><br><span class="line"><span class="keyword">interface</span> CallbackFunction &#123;</span><br><span class="line">  (err: <span class="built_in">Error</span> | <span class="literal">null</span>, data: Buffer): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">file: <span class="built_in">string</span>, callback: CallbackFunction</span>) </span>&#123;</span><br><span class="line">  fs.readFile(file, callback);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Menu &#123;</span><br><span class="line">  <span class="comment">// Our properties:</span></span><br><span class="line">  <span class="comment">// By default they are public, but can also be private or protected.</span></span><br><span class="line">  <span class="keyword">private</span> items: <span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt;;  <span class="comment">// The items in the menu, an array of strings.</span></span><br><span class="line">  <span class="keyword">protected</span> pages: <span class="built_in">number</span>;         <span class="comment">// How many pages will the menu be, a number.</span></span><br><span class="line">  readonly other: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> numOfPages(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> pages.length;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// A straightforward constructor. </span></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">item_list: <span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt;, total_pages: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    <span class="comment">// The this keyword is mandatory.</span></span><br><span class="line">    <span class="keyword">this</span>.items = item_list;    </span><br><span class="line">    <span class="keyword">this</span>.pages = total_pages;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Methods</span></span><br><span class="line">  <span class="keyword">public</span> list(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Our menu for today:"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="keyword">this</span>.items.length; i++) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.items[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new instance of the Menu class.</span></span><br><span class="line"><span class="keyword">var</span> sundayMenu = <span class="keyword">new</span> Menu([<span class="string">"pancakes"</span>,<span class="string">"waffles"</span>,<span class="string">"orange juice"</span>], <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Call the list method.</span></span><br><span class="line">sundayMenu.list();</span><br></pre></td></tr></table></figure>
+<p>Inheritance</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> HappyMeal <span class="keyword">extends</span> Menu &#123;</span><br><span class="line">  <span class="comment">// Properties are inherited</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// A new constructor has to be defined.</span></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">item_list: <span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt;, total_pages: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    <span class="comment">// In this case we want the exact same constructor as the parent class (Menu), </span></span><br><span class="line">    <span class="comment">// To automatically copy it we can call super() - a reference to the parent's constructor.</span></span><br><span class="line">    <span class="keyword">super</span>(item_list, total_pages);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Just like the properties, methods are inherited from the parent.</span></span><br><span class="line">  <span class="comment">// However, we want to override the list() function so we redefine it.</span></span><br><span class="line">  list(): <span class="built_in">void</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Our special menu for children:"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="keyword">this</span>.items.length; i++) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.items[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new instance of the HappyMeal class.</span></span><br><span class="line"><span class="keyword">var</span> menu_for_children = <span class="keyword">new</span> HappyMeal([<span class="string">"candy"</span>,<span class="string">"drink"</span>,<span class="string">"toy"</span>], <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// This time the log message will begin with the special introduction.</span></span><br><span class="line">menu_for_children.list();</span><br></pre></td></tr></table></figure>
+<h2 id="Generics"><a href="#Generics" class="headerlink" title="Generics"></a>Generics</h2><p>Generics are templates that allow the same function to accept arguments of various different types. Creating reusable components using generics is better than using the any data type, as generics preserve the types of the variables that go in and out of them.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The &lt;T&gt; after the function name symbolizes that it's a generic function.</span></span><br><span class="line"><span class="comment">// When we call the function, every instance of T will be replaced with the actual provided type.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Receives one argument of type T,</span></span><br><span class="line"><span class="comment">// Returns an array of type T.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">genericFunc</span>&lt;<span class="title">T</span>&gt;(<span class="params">argument: T</span>): <span class="title">T</span>[] </span>&#123;    </span><br><span class="line">  <span class="keyword">var</span> arrayOfT: T[] = [];    <span class="comment">// Create empty array of type T.</span></span><br><span class="line">  arrayOfT.push(argument);   <span class="comment">// Push, now arrayOfT = [argument].</span></span><br><span class="line">  <span class="keyword">return</span> arrayOfT;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arrayFromString = genericFunc&lt;<span class="built_in">string</span>&gt;(<span class="string">"beep"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arrayFromString[<span class="number">0</span>]);         <span class="comment">// "beep"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> arrayFromString[<span class="number">0</span>])   <span class="comment">// String</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arrayFromNumber = genericFunc(<span class="number">42</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arrayFromNumber[<span class="number">0</span>]);         <span class="comment">// 42</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> arrayFromNumber[<span class="number">0</span>])   <span class="comment">// number</span></span><br></pre></td></tr></table></figure>
+<h2 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h2><p>External modules as comparing to <code>Namespaces</code>.</p>
+<h2 id="Third-party-Declaration-Files"><a href="#Third-party-Declaration-Files" class="headerlink" title="Third-party Declaration Files"></a>Third-party Declaration Files</h2><p>When using a library that was originally designed for regular JavaScript, we need to apply a declaration file to make that library compatible with TypeScript. A declaration file has the extension .d.ts and contains various information about the library and its API.</p>
+<p>TypeScript declaration files are usually written by hand, but there’s a high chance that the library you need already has a .d.ts. file created by somebody else. DefinitelyTyped is the biggest public repository, containing files for over a thousand libraries. There is also a popular Node.js module for managing TypeScript definitions called Typings.</p>
+<p>当遇到缺少模块声明文件的情况，开发者可以尝试通过 npm install @types/xxx 来安装模块声明文件即可。</p>
+<p>如果我们使用的第三方模块在 DefinitelyTyped 找不到对应声明文件，也可以尝试使用require()这个终极的解决方法，它会将模块解析成 any 类型，不好的地方就是没有静态类型检查了。</p>
+<h2 id="Advanced-Types-and-Type-Guards"><a href="#Advanced-Types-and-Type-Guards" class="headerlink" title="Advanced Types and Type Guards"></a>Advanced Types and Type Guards</h2><h2 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h2><p>模块是用来组织一些具有某种内在联系的特性和对象。模块能够使代码的结构更加清晰，可以使用 namespace 和 export 关键字在 TypeScript 中声明模块。</p>
+<p>Internal modules as comparing to <code>Modules</code>.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> mygame&#123;</span><br><span class="line">    <span class="keyword">interface</span> Test1Interface&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">interface</span> Test2Interface&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">interface</span> Test3Interface&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">class</span> Rect&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">class</span> Circle <span class="keyword">implements</span> Test2Interface&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h1><h2 id="tsconfig-json-配置文件"><a href="#tsconfig-json-配置文件" class="headerlink" title="tsconfig.json 配置文件"></a>tsconfig.json 配置文件</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">//tsconfig.json 指定了用来编译这个项目的根文件和编译选项。</span><br><span class="line">&#123;</span><br><span class="line">  "compilerOptions": &#123;     //compilerOptions:编译选项,可以被忽略，这时编译器会使用默认值</span><br><span class="line">    "allowSyntheticDefaultImports": true,//允许从没有设置默认导出的模块中默认导入。这并不影响代码的显示，仅为了类型检查。</span><br><span class="line">    "baseUrl": "./src",//解析非相对模块名的基准目录</span><br><span class="line">    "emitDecoratorMetadata": true, //给源码里的装饰器声明加上设计类型元数据</span><br><span class="line">    "experimentalDecorators": true,//启用实验性的ES装饰器</span><br><span class="line">    "module": "commonjs",        //指定生成哪个模块系统代码</span><br><span class="line">    "moduleResolution": "node",  //决定如何处理模块。或者是"Node"对于Node.js/io.js，或者是"Classic"（默认）</span><br><span class="line">    "noEmitHelpers": true,//不再输出文件中生成用户自定义的帮助函数代码，如__extends。</span><br><span class="line">    "noImplicitAny": false,     //在表达式和声明上有隐含的any类型时报错</span><br><span class="line">    "sourceMap": true,          //用于debug ,生成相应的.map文件</span><br><span class="line">    "strictNullChecks": false,//在严格的null检查模式下，null和undefined值不包含在任何类型里，只允许用它们自己和any来赋值（有个例外，undefined可以赋值到void）。</span><br><span class="line">    "target": "es5",             //目标代码类型</span><br><span class="line">    "paths": &#123;  //模块名到基于baseUrl的路径映射的列表</span><br><span class="line">    &#125;,</span><br><span class="line">    "lib": [  //编译过程中需要引入的库文件的列表</span><br><span class="line">        "dom",</span><br><span class="line">        <span class="string">"es6"</span></span><br><span class="line">      ],</span><br><span class="line">    "types": [  //要包含的类型声明文件名列表；如果指定了types，只有被列出来的包才会被包含进来</span><br><span class="line">      "hammerjs",</span><br><span class="line">      "node",</span><br><span class="line">      "source-map",</span><br><span class="line">      "uglify-js",</span><br><span class="line">      <span class="string">"webpack"</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  "exclude": [  //如果"files"和"include"都没有被指定，编译器默认包含当前目录和子目录下所有的TypeScript文件（.ts, .d.ts 和 .tsx），排除在"exclude"里指定的文件。</span><br><span class="line">    "node_modules",</span><br><span class="line">    <span class="string">"dist"</span></span><br><span class="line">  ],</span><br><span class="line">  "awesomeTypescriptLoaderOptions": &#123;  //Typescript加载选项</span><br><span class="line">    "forkChecker": true,</span><br><span class="line">    "useWebpackText": true</span><br><span class="line">  &#125;,</span><br><span class="line">  "compileOnSave": false,          </span><br><span class="line">  "buildOnSave": false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="TSLint-代码规范检查"><a href="#TSLint-代码规范检查" class="headerlink" title="TSLint 代码规范检查"></a>TSLint 代码规范检查</h2><h2 id="发布模块"><a href="#发布模块" class="headerlink" title="发布模块"></a>发布模块</h2><p>相比直接使用 JavaScript 编写的 npm 模块，使用 TypeScript 编写的模块需要增加以下几个额外的工作：</p>
+<ul>
+<li>发布前将 TypeScript 源码编译成 JavaScript.</li>
+<li>需要修改 tsconfig.json 的配置，使得编译时生成模块对应的 .d.ts 文件。</li>
+<li>在 package.json 文件增加 types 属性。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"commonjs"</span>,</span><br><span class="line">    <span class="attr">"moduleResolution"</span>: <span class="string">"node"</span>,</span><br><span class="line">    <span class="attr">"target"</span>: <span class="string">"es6"</span>,</span><br><span class="line">    <span class="attr">"rootDir"</span>: <span class="string">"src"</span>,</span><br><span class="line">    <span class="attr">"outDir"</span>: <span class="string">"dist"</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"declaration"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noImplicitAny"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noImplicitReturns"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noImplicitThis"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"dist/math.js"</span>,</span><br><span class="line">  <span class="attr">"typings"</span>: <span class="string">"dist/math.d.ts"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"compile"</span>: <span class="string">"rm -rf dist &amp;&amp; tsc"</span>,</span><br><span class="line">    <span class="attr">"prepublish"</span>: <span class="string">"npm run compile"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>要执行使用 TypeScript 编写的单元测试程序，可以有两种方法：</p>
+<ul>
+<li>先通过 tsc 编译成 JavaScript 代码后，再执行。</li>
+<li>直接执行 .ts 源文件。</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"mocha --compilers ts:ts-node/register src/test.ts"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li><a href="https://zhongsp.gitbooks.io/typescript-handbook/content/index.html" target="_blank" rel="noopener">https://zhongsp.gitbooks.io/typescript-handbook/content/index.html</a></li>
+<li><a href="http://www.typescriptlang.org/docs/tutorial.html" target="_blank" rel="noopener">http://www.typescriptlang.org/docs/tutorial.html</a></li>
+<li><a href="https://legacy.gitbook.com/book/basarat/typescript/details" target="_blank" rel="noopener">https://legacy.gitbook.com/book/basarat/typescript/details</a></li>
+</ol>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeScript/">TypeScript</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/19/nodejs-production-practices/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Node.js Production Practices
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/16/aws-security/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          AWS Security
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

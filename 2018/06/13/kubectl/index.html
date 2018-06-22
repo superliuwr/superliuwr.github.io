@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>kubectl | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Frequently Used Commandscd ~/workspace/infrastructure-kubernetes-client-config./cluster.sh development k config use-context production k get namespaces k get pod -n api-content-production-v1 k logs -n">
+<meta name="keywords" content="Kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubectl">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/13/kubectl/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Frequently Used Commandscd ~/workspace/infrastructure-kubernetes-client-config./cluster.sh development k config use-context production k get namespaces k get pod -n api-content-production-v1 k logs -n">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-22T09:12:40.460Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kubectl">
+<meta name="twitter:description" content="Frequently Used Commandscd ~/workspace/infrastructure-kubernetes-client-config./cluster.sh development k config use-context production k get namespaces k get pod -n api-content-production-v1 k logs -n">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-kubectl" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/13/kubectl/" class="article-date">
+  <time datetime="2018-06-13T10:51:25.000Z" itemprop="datePublished">2018-06-13</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      kubectl
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Frequently-Used-Commands"><a href="#Frequently-Used-Commands" class="headerlink" title="Frequently Used Commands"></a>Frequently Used Commands</h1><p>cd ~/workspace/infrastructure-kubernetes-client-config<br>./cluster.sh development</p>
+<p>k config use-context production</p>
+<p>k get namespaces</p>
+<p>k get pod -n api-content-production-v1</p>
+<p>k logs -n api-content-production-v1 api-content-12-03k</p>
+<p>kubectl –namespace=<namespace> exec -it <pod name=""> sh</pod></namespace></p>
+<p>k logs -n api-content-production-v1 api-content-12-03k -p</p>
+<p>k logs -n api-content-production-v1 api-content-12-03k -f </p>
+<p>k logs [name] | grep p4yvsf –since=14h</p>
+<p>kubectl -n=pusher-content-capi-production-v1 logs lqudo-blue-app-1991648162-cnr97 | grep ExportFailure</p>
+<p>k get deploy -n api-content-development-v1</p>
+<p>k scale deploy -n api-content-development-v1 api-content —replicas=1</p>
+<p>k describe pod -n api-content-development-v1 a-edf-pod-name</p>
+<p>k get node</p>
+<p>k get node —all-namespaces | grep -v Running</p>
+<p>k get ing –all-namespaces</p>
+<p>kubectl -n loader-content-capi-development-v1 get secrets -o yaml</p>
+<p>echo “&lt;encoded_secret_value&gt;” | base64 –decode</p>
+<p>In the node:</p>
+<p>apk –no-cache add postgresql-client<br>psql $DATABASE_URL<br>\dt to list table<br>\q to quit</p>
+<p>psql $DB_URL -t -A -F”,” -o &lt;csv_file_name&gt; -c “&lt;sql_query&gt;”</p>
+<p>kubectl –n=<namespace> cp <podname>:&lt;file_name_on_pod&gt; &lt;local_file_name&gt;</podname></namespace></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li><a href="https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/" target="_blank" rel="noopener">https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/</a></li>
+<li><a href="https://github.com/feiskyer/kubernetes-handbook" target="_blank" rel="noopener">https://github.com/feiskyer/kubernetes-handbook</a></li>
+</ol>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Devops/">Devops</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/14/hyperledger-overview/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          hyperledger-overview
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/13/kubernetes-system/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Kubernetes System
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
