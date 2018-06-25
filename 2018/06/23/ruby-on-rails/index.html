@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ruby on Rails | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Development EnvironmentFollow this guide. PhilosohpyDon’t repeat yourselfConvention over ConfigurationMVC Model: 操作数据库 Controller: 把每个 http request 分发到对应的 Action( method) 来处理 View: 显示页面  Routerconfig/">
+<meta name="keywords" content="Ruby,Rails">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ruby on Rails">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/23/ruby-on-rails/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Development EnvironmentFollow this guide. PhilosohpyDon’t repeat yourselfConvention over ConfigurationMVC Model: 操作数据库 Controller: 把每个 http request 分发到对应的 Action( method) 来处理 View: 显示页面  Routerconfig/">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-24T13:42:30.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ruby on Rails">
+<meta name="twitter:description" content="Development EnvironmentFollow this guide. PhilosohpyDon’t repeat yourselfConvention over ConfigurationMVC Model: 操作数据库 Controller: 把每个 http request 分发到对应的 Action( method) 来处理 View: 显示页面  Routerconfig/">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-ruby-on-rails" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/23/ruby-on-rails/" class="article-date">
+  <time datetime="2018-06-23T12:56:16.000Z" itemprop="datePublished">2018-06-23</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      Ruby on Rails
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h2 id="Development-Environment"><a href="#Development-Environment" class="headerlink" title="Development Environment"></a>Development Environment</h2><p>Follow <a href="https://ruby-china.org/wiki/install_ruby_guide" target="_blank" rel="noopener">this</a> guide.</p>
+<h2 id="Philosohpy"><a href="#Philosohpy" class="headerlink" title="Philosohpy"></a>Philosohpy</h2><h3 id="Don’t-repeat-yourself"><a href="#Don’t-repeat-yourself" class="headerlink" title="Don’t repeat yourself"></a>Don’t repeat yourself</h3><h3 id="Convention-over-Configuration"><a href="#Convention-over-Configuration" class="headerlink" title="Convention over Configuration"></a>Convention over Configuration</h3><h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><ul>
+<li>Model: 操作数据库</li>
+<li>Controller: 把每个 http request 分发到对应的 Action( method) 来处理</li>
+<li>View: 显示页面</li>
+</ul>
+<h3 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h3><p>config/routes.rb: <code>resources :users</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET  /users         index     显示 user的列表页</span><br><span class="line">GET  /users/new     new       显示 user的新建页面。</span><br><span class="line">GET  /users/3       show      显示id是3的user</span><br><span class="line">GET  /users/3/edit  edit      显示 user(id =3)的编辑页面。</span><br><span class="line">PUT  /users/3       update    对id = 3的user进行修改 （后面还会紧跟一大串的参数)</span><br><span class="line">POST /users         create    对users进行创建（后面也有一大堆参数)</span><br><span class="line">DELETE  /users/3    destroy   对 id=3的 user 进行删除操作。</span><br></pre></td></tr></table></figure>
+<p>可以使用<code>$ rake routes</code>查看当前项目中所有的路由</p>
+<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><h2 id="Database-Migration"><a href="#Database-Migration" class="headerlink" title="Database Migration"></a>Database Migration</h2>
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RoR/">RoR</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rails/">Rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/24/ruby/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Ruby
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/21/aws-networking/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          aws-networking
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

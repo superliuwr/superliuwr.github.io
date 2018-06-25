@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Advanced Git | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Important concepts RepositoriesGit has two repository types: local and remote.  The local repo is on your computer for only your direct use.  The remote repo is typically elsewhere and for your indire">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Git">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/25/git/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Important concepts RepositoriesGit has two repository types: local and remote.  The local repo is on your computer for only your direct use.  The remote repo is typically elsewhere and for your indire">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/25/git/git%20concepts.jpg">
+<meta property="og:updated_time" content="2018-06-25T12:57:34.272Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Advanced Git">
+<meta name="twitter:description" content="Important concepts RepositoriesGit has two repository types: local and remote.  The local repo is on your computer for only your direct use.  The remote repo is typically elsewhere and for your indire">
+<meta name="twitter:image" content="http://superliuwr.github.io/2018/06/25/git/git%20concepts.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-git" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/25/git/" class="article-date">
+  <time datetime="2018-06-25T10:12:34.000Z" itemprop="datePublished">2018-06-25</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      Advanced Git
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Important-concepts"><a href="#Important-concepts" class="headerlink" title="Important concepts"></a>Important concepts</h1><p><img src="git concepts.jpg" alt="Git concepts"></p>
+<h2 id="Repositories"><a href="#Repositories" class="headerlink" title="Repositories"></a>Repositories</h2><p>Git has two repository types: local and remote.  The local repo is on your computer for only your direct use.  The remote repo is typically elsewhere and for your indirect use.  Git supports multiple remote repositories.</p>
+<h2 id="Committing-is-a-Multi-Step-Process"><a href="#Committing-is-a-Multi-Step-Process" class="headerlink" title="Committing is a Multi-Step Process"></a>Committing is a Multi-Step Process</h2><p>Git is a three step process to share your files with the team:</p>
+<ol>
+<li>Add. This copies new or updated files to the “stage” or “index” (you will see doc and info that use both terms).</li>
+<li>Commit. This copies your staged files to the local repo.</li>
+<li>Push. This copies your files from the local repo to the remote repo (only the changes the remote repos does not have).</li>
+</ol>
+<h2 id="File-Diffs-in-Workspace-Stage-and-Repo"><a href="#File-Diffs-in-Workspace-Stage-and-Repo" class="headerlink" title="File Diffs in Workspace, Stage, and Repo"></a>File Diffs in Workspace, Stage, and Repo</h2><p>Files can exist in three locations with Git.  The same file can have different content in each location:</p>
+<ol>
+<li>Committed in the repo: the HEAD version, the contents as the file was last committed.</li>
+<li>Staged in the index: edits made or the file removed, added to the index, ready to commit.</li>
+<li>Workspace: Work in progress (usually most files are unchanged, having the same content as the committed version).</li>
+</ol>
+<p>The Git diff command options allow comparing between the three locations (and more).</p>
+<ul>
+<li>Specifying no option compares the workspace to the staged/index version.</li>
+<li>Specifying –cached or –staged compares the staged/index version with a committed version.</li>
+<li>Additional diff options include comparing with any two files on disk, comparing two commits, and any file with any commit.</li>
+</ul>
+<h2 id="Scenario-based-Commands"><a href="#Scenario-based-Commands" class="headerlink" title="Scenario-based Commands"></a>Scenario-based Commands</h2><h3 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h3><h4 id="从远程主机克隆一个版本库"><a href="#从远程主机克隆一个版本库" class="headerlink" title="从远程主机克隆一个版本库"></a>从远程主机克隆一个版本库</h4><ul>
+<li>git clone &lt;版本库的网址&gt;</li>
+<li>git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</li>
+<li>git clone –recursive git://github.com/foo/bar.git</li>
+</ul>
+<h4 id="管理主机名"><a href="#管理主机名" class="headerlink" title="管理主机名"></a>管理主机名</h4><ul>
+<li>git remote</li>
+<li>git remote -v</li>
+<li>git remote show &lt;主机名&gt;</li>
+<li>git remote add &lt;主机名&gt; &lt;网址&gt;</li>
+</ul>
+<h4 id="将远程主机的版本库更新取回本地"><a href="#将远程主机的版本库更新取回本地" class="headerlink" title="将远程主机的版本库更新取回本地"></a>将远程主机的版本库更新取回本地</h4><ul>
+<li>git fetch &lt;远程主机名&gt;</li>
+<li>git fetch &lt;远程主机名&gt; &lt;分支名&gt;</li>
+</ul>
+<p>git fetch命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
+<p>所取回的更新，在本地主机上要用”远程主机名/分支名”的形式读取。比如origin主机的master，就要用origin/master读取。</p>
+<h4 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h4><ul>
+<li>git branch -r</li>
+<li>git branch -a</li>
+</ul>
+<p>取回远程主机的更新以后，可以在它的基础上，使用git checkout命令创建一个新的分支:</p>
+<ul>
+<li>git checkout -b newBrach origin/master</li>
+</ul>
+<p>也可以使用git merge命令或者git rebase命令，在本地分支上合并远程分支:</p>
+<ul>
+<li>git merge origin/master</li>
+<li>git rebase origin/master</li>
+</ul>
+<p>取回远程主机某个分支的更新，再与本地的指定分支合并:</p>
+<ul>
+<li>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</li>
+<li>git pull origin next 远程分支是与当前分支合并, 等同于先做git fetch，再做git merge</li>
+</ul>
+<p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动”追踪”origin/master分支。</p>
+<p>Git也允许手动建立追踪关系:</p>
+<ul>
+<li>git branch –set-upstream master origin/next</li>
+</ul>
+<p>如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名:</p>
+<ul>
+<li>git pull origin</li>
+</ul>
+<p>如果当前分支只有一个追踪分支，连远程主机名都可以省略:</p>
+<ul>
+<li>git pull</li>
+</ul>
+<p>如果合并需要采用rebase模式，可以使用–rebase选项:</p>
+<ul>
+<li>git pull –rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</li>
+</ul>
+<p>加上参数 -p 就会在本地删除远程已经删除的分支:</p>
+<ul>
+<li>git pull -p</li>
+</ul>
+<p>将本地分支的更新，推送到远程主机:</p>
+<ul>
+<li>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</li>
+</ul>
+<p>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支（通常两者同名），如果该远程分支不存在，则会被新建:</p>
+<ul>
+<li>git push origin master</li>
+</ul>
+<p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支:</p>
+<ul>
+<li>git push origin :master</li>
+</ul>
+<p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略:</p>
+<ul>
+<li>git push origin</li>
+</ul>
+<p>如果当前分支只有一个追踪分支，那么主机名都可以省略:</p>
+<ul>
+<li>git push</li>
+</ul>
+<p>如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push:</p>
+<ul>
+<li>git push -u origin master</li>
+</ul>
+<p>将本地的所有分支都推送到远程主机:</p>
+<ul>
+<li>git push –all origin</li>
+</ul>
+<p>git push不会推送标签（tag），除非使用–tags选项:</p>
+<ul>
+<li>git push origin –tags</li>
+</ul>
+<h3 id="Frequently-used"><a href="#Frequently-used" class="headerlink" title="Frequently used"></a>Frequently used</h3><p>check last commit</p>
+<ul>
+<li>git show</li>
+<li>git log -n1 -p</li>
+</ul>
+<p>check commit history for the feature branch</p>
+<ul>
+<li>git log develop..feature/REF-123</li>
+</ul>
+<p>This will show you all not pushed commits from all branches</p>
+<ul>
+<li>git log –branches –not –remotes</li>
+</ul>
+<p>and this must show you all your local commits</p>
+<ul>
+<li>git log origin/master..HEAD</li>
+</ul>
+<p>view the changes in a commit</p>
+<ul>
+<li>git show 877897e8a64043cc9277a859c616ec2e4ff57634</li>
+</ul>
+<p>To get the exact copy of remote develop branch, all local changes not pushed will be lost</p>
+<ul>
+<li>git fetch –all</li>
+<li>git reset –hard origin/master</li>
+</ul>
+<p>To rename a branch</p>
+<ul>
+<li>git branch -m <oldname> <newname></newname></oldname></li>
+<li>git branch -m <newname></newname></li>
+</ul>
+<p>stash</p>
+<ul>
+<li>git stash</li>
+<li>git stash list</li>
+<li>git stash apply</li>
+<li>git stash apply stash@{2}</li>
+<li>git stash drop stash@{2}</li>
+<li>git stash show stash@{2}</li>
+</ul>
+<p>remove everything from the index/staging<br>– dry run</p>
+<ul>
+<li>git clean -n<br>– actually do the job</li>
+<li>git clean -f<br>– do the job with both files and folders</li>
+<li>git clean -xf</li>
+</ul>
+<p>remove all staged changes</p>
+<ul>
+<li>git reset HEAD – .</li>
+</ul>
+<p>remove all unstaged changes</p>
+<ul>
+<li>git checkout – .</li>
+</ul>
+<p>remove all untracked changes</p>
+<ul>
+<li>git clean -df</li>
+</ul>
+<p>garbage collection</p>
+<ul>
+<li>git gc</li>
+</ul>
+<p>Use the following command while being on “master”, to list merged branches:</p>
+<ul>
+<li>git branch –merged | grep -v “*“</li>
+</ul>
+<p>To get the commit into current branch</p>
+<ul>
+<li>git cherry-pick COMMIT_HASH</li>
+</ul>
+<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>Each commit should be a single logical change. Don’t make several logical changes in one commit.<br>Don’t split a single logical change into several commits.</p>
+<p>git commit –amend</p>
+<h4 id="Git-commit-message-format"><a href="#Git-commit-message-format" class="headerlink" title="Git commit message format"></a>Git commit message format</h4><p><a href="https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html" target="_blank" rel="noopener">guide</a></p>
+<h2 id="Use-different-SSH-keys-for-multiple-Bitbucket-accounts"><a href="#Use-different-SSH-keys-for-multiple-Bitbucket-accounts" class="headerlink" title="Use different SSH keys for multiple Bitbucket accounts"></a>Use different SSH keys for multiple Bitbucket accounts</h2><p><a href="https://developer.atlassian.com/blog/2016/04/different-ssh-keys-multiple-bitbucket-accounts/" target="_blank" rel="noopener">guide</a></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://blog.coding.net/blog/principle-of-Git" target="_blank" rel="noopener">使用原理视角看 Git</a></li>
+<li><a href="https://github.com/k88hudson/git-flight-rules" target="_blank" rel="noopener">git flight rules</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="noopener">Git远程操作详解</a></li>
+<li><a href="https://www.atlassian.com/git/tutorials" target="_blank" rel="noopener">Atlassian Git Tutorials</a></li>
+</ol>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Development-Environment/">Development Environment</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/24/vue/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Vue.js
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

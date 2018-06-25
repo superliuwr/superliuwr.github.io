@@ -45,6 +45,411 @@
     <div id="main">
       
   
+    <article id="post-git" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/25/git/" class="article-date">
+  <time datetime="2018-06-25T10:12:34.000Z" itemprop="datePublished">2018-06-25</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/25/git/">Advanced Git</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Important-concepts"><a href="#Important-concepts" class="headerlink" title="Important concepts"></a>Important concepts</h1><p><img src="git concepts.jpg" alt="Git concepts"></p>
+<h2 id="Repositories"><a href="#Repositories" class="headerlink" title="Repositories"></a>Repositories</h2><p>Git has two repository types: local and remote.  The local repo is on your computer for only your direct use.  The remote repo is typically elsewhere and for your indirect use.  Git supports multiple remote repositories.</p>
+<h2 id="Committing-is-a-Multi-Step-Process"><a href="#Committing-is-a-Multi-Step-Process" class="headerlink" title="Committing is a Multi-Step Process"></a>Committing is a Multi-Step Process</h2><p>Git is a three step process to share your files with the team:</p>
+<ol>
+<li>Add. This copies new or updated files to the “stage” or “index” (you will see doc and info that use both terms).</li>
+<li>Commit. This copies your staged files to the local repo.</li>
+<li>Push. This copies your files from the local repo to the remote repo (only the changes the remote repos does not have).</li>
+</ol>
+<h2 id="File-Diffs-in-Workspace-Stage-and-Repo"><a href="#File-Diffs-in-Workspace-Stage-and-Repo" class="headerlink" title="File Diffs in Workspace, Stage, and Repo"></a>File Diffs in Workspace, Stage, and Repo</h2><p>Files can exist in three locations with Git.  The same file can have different content in each location:</p>
+<ol>
+<li>Committed in the repo: the HEAD version, the contents as the file was last committed.</li>
+<li>Staged in the index: edits made or the file removed, added to the index, ready to commit.</li>
+<li>Workspace: Work in progress (usually most files are unchanged, having the same content as the committed version).</li>
+</ol>
+<p>The Git diff command options allow comparing between the three locations (and more).</p>
+<ul>
+<li>Specifying no option compares the workspace to the staged/index version.</li>
+<li>Specifying –cached or –staged compares the staged/index version with a committed version.</li>
+<li>Additional diff options include comparing with any two files on disk, comparing two commits, and any file with any commit.</li>
+</ul>
+<h2 id="Scenario-based-Commands"><a href="#Scenario-based-Commands" class="headerlink" title="Scenario-based Commands"></a>Scenario-based Commands</h2><h3 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h3><h4 id="从远程主机克隆一个版本库"><a href="#从远程主机克隆一个版本库" class="headerlink" title="从远程主机克隆一个版本库"></a>从远程主机克隆一个版本库</h4><ul>
+<li>git clone &lt;版本库的网址&gt;</li>
+<li>git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</li>
+<li>git clone –recursive git://github.com/foo/bar.git</li>
+</ul>
+<h4 id="管理主机名"><a href="#管理主机名" class="headerlink" title="管理主机名"></a>管理主机名</h4><ul>
+<li>git remote</li>
+<li>git remote -v</li>
+<li>git remote show &lt;主机名&gt;</li>
+<li>git remote add &lt;主机名&gt; &lt;网址&gt;</li>
+</ul>
+<h4 id="将远程主机的版本库更新取回本地"><a href="#将远程主机的版本库更新取回本地" class="headerlink" title="将远程主机的版本库更新取回本地"></a>将远程主机的版本库更新取回本地</h4><ul>
+<li>git fetch &lt;远程主机名&gt;</li>
+<li>git fetch &lt;远程主机名&gt; &lt;分支名&gt;</li>
+</ul>
+<p>git fetch命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
+<p>所取回的更新，在本地主机上要用”远程主机名/分支名”的形式读取。比如origin主机的master，就要用origin/master读取。</p>
+<h4 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h4><ul>
+<li>git branch -r</li>
+<li>git branch -a</li>
+</ul>
+<p>取回远程主机的更新以后，可以在它的基础上，使用git checkout命令创建一个新的分支:</p>
+<ul>
+<li>git checkout -b newBrach origin/master</li>
+</ul>
+<p>也可以使用git merge命令或者git rebase命令，在本地分支上合并远程分支:</p>
+<ul>
+<li>git merge origin/master</li>
+<li>git rebase origin/master</li>
+</ul>
+<p>取回远程主机某个分支的更新，再与本地的指定分支合并:</p>
+<ul>
+<li>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</li>
+<li>git pull origin next 远程分支是与当前分支合并, 等同于先做git fetch，再做git merge</li>
+</ul>
+<p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动”追踪”origin/master分支。</p>
+<p>Git也允许手动建立追踪关系:</p>
+<ul>
+<li>git branch –set-upstream master origin/next</li>
+</ul>
+<p>如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名:</p>
+<ul>
+<li>git pull origin</li>
+</ul>
+<p>如果当前分支只有一个追踪分支，连远程主机名都可以省略:</p>
+<ul>
+<li>git pull</li>
+</ul>
+<p>如果合并需要采用rebase模式，可以使用–rebase选项:</p>
+<ul>
+<li>git pull –rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</li>
+</ul>
+<p>加上参数 -p 就会在本地删除远程已经删除的分支:</p>
+<ul>
+<li>git pull -p</li>
+</ul>
+<p>将本地分支的更新，推送到远程主机:</p>
+<ul>
+<li>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</li>
+</ul>
+<p>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支（通常两者同名），如果该远程分支不存在，则会被新建:</p>
+<ul>
+<li>git push origin master</li>
+</ul>
+<p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支:</p>
+<ul>
+<li>git push origin :master</li>
+</ul>
+<p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略:</p>
+<ul>
+<li>git push origin</li>
+</ul>
+<p>如果当前分支只有一个追踪分支，那么主机名都可以省略:</p>
+<ul>
+<li>git push</li>
+</ul>
+<p>如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push:</p>
+<ul>
+<li>git push -u origin master</li>
+</ul>
+<p>将本地的所有分支都推送到远程主机:</p>
+<ul>
+<li>git push –all origin</li>
+</ul>
+<p>git push不会推送标签（tag），除非使用–tags选项:</p>
+<ul>
+<li>git push origin –tags</li>
+</ul>
+<h3 id="Frequently-used"><a href="#Frequently-used" class="headerlink" title="Frequently used"></a>Frequently used</h3><p>check last commit</p>
+<ul>
+<li>git show</li>
+<li>git log -n1 -p</li>
+</ul>
+<p>check commit history for the feature branch</p>
+<ul>
+<li>git log develop..feature/REF-123</li>
+</ul>
+<p>This will show you all not pushed commits from all branches</p>
+<ul>
+<li>git log –branches –not –remotes</li>
+</ul>
+<p>and this must show you all your local commits</p>
+<ul>
+<li>git log origin/master..HEAD</li>
+</ul>
+<p>view the changes in a commit</p>
+<ul>
+<li>git show 877897e8a64043cc9277a859c616ec2e4ff57634</li>
+</ul>
+<p>To get the exact copy of remote develop branch, all local changes not pushed will be lost</p>
+<ul>
+<li>git fetch –all</li>
+<li>git reset –hard origin/master</li>
+</ul>
+<p>To rename a branch</p>
+<ul>
+<li>git branch -m <oldname> <newname></newname></oldname></li>
+<li>git branch -m <newname></newname></li>
+</ul>
+<p>stash</p>
+<ul>
+<li>git stash</li>
+<li>git stash list</li>
+<li>git stash apply</li>
+<li>git stash apply stash@{2}</li>
+<li>git stash drop stash@{2}</li>
+<li>git stash show stash@{2}</li>
+</ul>
+<p>remove everything from the index/staging<br>– dry run</p>
+<ul>
+<li>git clean -n<br>– actually do the job</li>
+<li>git clean -f<br>– do the job with both files and folders</li>
+<li>git clean -xf</li>
+</ul>
+<p>remove all staged changes</p>
+<ul>
+<li>git reset HEAD – .</li>
+</ul>
+<p>remove all unstaged changes</p>
+<ul>
+<li>git checkout – .</li>
+</ul>
+<p>remove all untracked changes</p>
+<ul>
+<li>git clean -df</li>
+</ul>
+<p>garbage collection</p>
+<ul>
+<li>git gc</li>
+</ul>
+<p>Use the following command while being on “master”, to list merged branches:</p>
+<ul>
+<li>git branch –merged | grep -v “*“</li>
+</ul>
+<p>To get the commit into current branch</p>
+<ul>
+<li>git cherry-pick COMMIT_HASH</li>
+</ul>
+<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>Each commit should be a single logical change. Don’t make several logical changes in one commit.<br>Don’t split a single logical change into several commits.</p>
+<p>git commit –amend</p>
+<h4 id="Git-commit-message-format"><a href="#Git-commit-message-format" class="headerlink" title="Git commit message format"></a>Git commit message format</h4><p><a href="https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html" target="_blank" rel="noopener">guide</a></p>
+<h2 id="Use-different-SSH-keys-for-multiple-Bitbucket-accounts"><a href="#Use-different-SSH-keys-for-multiple-Bitbucket-accounts" class="headerlink" title="Use different SSH keys for multiple Bitbucket accounts"></a>Use different SSH keys for multiple Bitbucket accounts</h2><p><a href="https://developer.atlassian.com/blog/2016/04/different-ssh-keys-multiple-bitbucket-accounts/" target="_blank" rel="noopener">guide</a></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://blog.coding.net/blog/principle-of-Git" target="_blank" rel="noopener">使用原理视角看 Git</a></li>
+<li><a href="https://github.com/k88hudson/git-flight-rules" target="_blank" rel="noopener">git flight rules</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="noopener">Git远程操作详解</a></li>
+<li><a href="https://www.atlassian.com/git/tutorials" target="_blank" rel="noopener">Atlassian Git Tutorials</a></li>
+</ol>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Development-Environment/">Development Environment</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-vue" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/24/vue/" class="article-date">
+  <time datetime="2018-06-24T10:47:26.000Z" itemprop="datePublished">2018-06-24</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/24/vue/">Vue.js</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-ruby" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/24/ruby/" class="article-date">
+  <time datetime="2018-06-24T10:45:30.000Z" itemprop="datePublished">2018-06-24</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/24/ruby/">Ruby</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RoR/">RoR</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-ruby-on-rails" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/23/ruby-on-rails/" class="article-date">
+  <time datetime="2018-06-23T12:56:16.000Z" itemprop="datePublished">2018-06-23</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/23/ruby-on-rails/">Ruby on Rails</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h2 id="Development-Environment"><a href="#Development-Environment" class="headerlink" title="Development Environment"></a>Development Environment</h2><p>Follow <a href="https://ruby-china.org/wiki/install_ruby_guide" target="_blank" rel="noopener">this</a> guide.</p>
+<h2 id="Philosohpy"><a href="#Philosohpy" class="headerlink" title="Philosohpy"></a>Philosohpy</h2><h3 id="Don’t-repeat-yourself"><a href="#Don’t-repeat-yourself" class="headerlink" title="Don’t repeat yourself"></a>Don’t repeat yourself</h3><h3 id="Convention-over-Configuration"><a href="#Convention-over-Configuration" class="headerlink" title="Convention over Configuration"></a>Convention over Configuration</h3><h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><ul>
+<li>Model: 操作数据库</li>
+<li>Controller: 把每个 http request 分发到对应的 Action( method) 来处理</li>
+<li>View: 显示页面</li>
+</ul>
+<h3 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h3><p>config/routes.rb: <code>resources :users</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET  /users         index     显示 user的列表页</span><br><span class="line">GET  /users/new     new       显示 user的新建页面。</span><br><span class="line">GET  /users/3       show      显示id是3的user</span><br><span class="line">GET  /users/3/edit  edit      显示 user(id =3)的编辑页面。</span><br><span class="line">PUT  /users/3       update    对id = 3的user进行修改 （后面还会紧跟一大串的参数)</span><br><span class="line">POST /users         create    对users进行创建（后面也有一大堆参数)</span><br><span class="line">DELETE  /users/3    destroy   对 id=3的 user 进行删除操作。</span><br></pre></td></tr></table></figure>
+<p>可以使用<code>$ rake routes</code>查看当前项目中所有的路由</p>
+<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><h2 id="Database-Migration"><a href="#Database-Migration" class="headerlink" title="Database Migration"></a>Database Migration</h2>
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/RoR/">RoR</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rails/">Rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
     <article id="post-aws-networking" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -616,305 +1021,6 @@
 			<span class="tags">
 				
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-hyperledger-overview" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/14/hyperledger-overview/" class="article-date">
-  <time datetime="2018-06-14T11:34:54.000Z" itemprop="datePublished">2018-06-14</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/14/hyperledger-overview/">hyperledger-overview</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<p>Hyperledger Fabric 是 IBM 贡献给 Linux 基金会的商用分布式账本系统，自项目创立伊始就吸引了金融、银行、互联网、传统行业领域的巨头们的眼光。</p>
-<p>Hyperledger Fabric 是基于 Golang 实现的可插拔的区块链系统，它主要面向企业之间或者企业多个部门之间提供服务。</p>
-<p><img src="architecture.jpg" alt="Architecture"></p>
-<ul>
-<li>Membership 即成员管理服务，提供身份管理、证书校验。在 Fabric 中每个通讯组件都必须提供身份证明，每个事务的发起者会被永久记录在区块链上，审核人员可以追溯事务。</li>
-<li>Blockchain Services 即区块链服务，提供分布式一致性算法，维护全网数据一致，提供账本存储服务，基于 P2P 网络实现节点之间的通讯。</li>
-<li>Chaincode Services 即链码服务，智能合约在 Fabric 中称为链码。链码是操作状态数据库的唯一方法，大部分事务都是通过链码完成的。该部分提供链码的部署和运行环境。</li>
-</ul>
-<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><p>区块链是一种<strong>分布式多写</strong>的、<strong>防篡改</strong>的<strong>数据库</strong></p>
-<h2 id="分布式多写"><a href="#分布式多写" class="headerlink" title="分布式多写"></a>分布式多写</h2><h3 id="共识算法"><a href="#共识算法" class="headerlink" title="共识算法"></a>共识算法</h3><p>多写一定要保证数据最终一致性；也搞清楚解决问题的办法——通过“固定的”规则决定顺序，节点中的所有服务器只要遵循这个规则那么数据最终一定一致。</p>
-<h3 id="拜占庭将军和-PBFT"><a href="#拜占庭将军和-PBFT" class="headerlink" title="拜占庭将军和 PBFT"></a>拜占庭将军和 PBFT</h3><p>拜占庭将军问题是要解决在一个消息可能丢失、重复、伪造的环境达到数据一致问题。</p>
-<p>接下来看 Practical Byzantine Fault Tolerance（PBFT）算法，它的过程如下：</p>
-<ol>
-<li>从全网节点选举出一个主节点，新区块由主节点负责生成。</li>
-<li>每个节点把新交易向全网广播，主节点把从网络收集到需放在新区块内的多个交易排序后存入列表，并将该列表向全网广播。</li>
-<li>每个节点接收到交易列表后，依据排序模拟执行交易。所有交易执行完后，基于交易结果计算新区块的哈希摘要，并向全网广播。</li>
-<li>如果一个节点收到的 2f（f 为可容忍的恶意节点数）条其它节点发来的摘要都和自己相同，就向全网广播一条 commit 消息。</li>
-<li>如果一个节点收到 2f+1 条 commit 消息， 即可正式提交新区块及其交易到本地的区块链和状态数据库。</li>
-</ol>
-<p>PBFT只适合于内部使用（联盟链或者私有链），因为互联网上不太可能确定“全网排序节点”。</p>
-<h3 id="防篡改"><a href="#防篡改" class="headerlink" title="防篡改"></a>防篡改</h3><p><img src="merkle tree.jpg" alt="Merkle Tree"></p>
-<p>所有的数据（事务）都放在二叉树的叶子节点，非叶子节点是其对应子节点的 Hash 值。当数据发生变化会引起非叶子节点的连环变化，最终引起 Root 的变化。</p>
-<p>区块链的底层存储是一个链表，包括区块头和区块体。头部是一个链表结构，分别是前一块的 Hash 值、Merkle Root、本数据块的 Hash 值（Nonce)；区块体是一个树结构，叶子节点是事务（Tx），其他节点是下级节点的 Hash 值，最终树根的 Hash 值就叫 Merkle Root，放在头部。</p>
-<p><img src="block.jpg" alt="Blocks"></p>
-<p>所以如果要篡改某个区块必须把该区块的所有前驱都给修改掉，修改比较麻烦——注意不是不能修改</p>
-<p>对于比特币来说仅仅做到这一点是不够的，它毕竟是数字货币，利益诱惑比较大。所以比特币设计了两个门槛：</p>
-<ul>
-<li>最新的前驱节点（最新的数据块）不一定被篡改者算出来，除非计算能力特别强大；</li>
-<li>区块的 Hash 值是特殊的，PoW 中的“Hash 游戏”是寻找一种特别的 Hash 值，只能通过不断遍历才可能算出这个值，这也是“工作量”体现。所以重新计算 Hash 值相当于重新进行工作量计算，这个计算开销也非常巨大。相当于把整个链上的区块全部重新算一遍。</li>
-</ul>
-<h1 id="Hyperledger-和-Fabric"><a href="#Hyperledger-和-Fabric" class="headerlink" title="Hyperledger 和 Fabric"></a>Hyperledger 和 Fabric</h1><p>Hyperledger 是一个开放源代码的区块链和相关工具的总括项目，由 Linux 基金会管理。Fabric 是一个商用分布式账本，它最早由 IBM 和 Digital Asset 贡献给了 Hyperledger 项目。它主要用于“企业内部使用”，技术架构选择了和比特币、以太坊完全不同的策略。</p>
-<h2 id="Fabric-的共识设计"><a href="#Fabric-的共识设计" class="headerlink" title="Fabric 的共识设计"></a>Fabric 的共识设计</h2><p>Fabric 被设计为一个数据存储系统，写入速度是一个非常重要的性能指标，所以不可能采用 PoW 算法。</p>
-<p>共识就是要解决排序问题</p>
-<p>Fabric 采用了一个很简单、粗暴，而又充满工程化考虑的设计方案——排序节点（PBFT 算法）。在整个网络中有一个或者一组节点充当排序节点，其他节点都按照排序节点给出的顺序进行数据写入，完整的过程如下图所示。</p>
-<p><img src="pbft.jpg" alt="PBFT"></p>
-<p>应用程序首先向所有 Peer 节点（也有文档叫背书节点、记账节点）发起“记账要求”（Proposal）；每个节点把数据记录下来——此时还没有提交到状态数据库（没有生效），然后返回应用程序一个“事务签名”（Proposal Response）；应用程序把“事务签名”发送给排序服务器，排序服务器可能同时收到很多事务，按照一定规则给出事务的顺序，发送给记账节点；记账节点在收到排序服务器的顺序后会校验一下“事务签名”确定是自己给出的票然后更新状态数据库，数据生效。这个过程可以简单的归纳为投票 -&gt; 排序 -&gt; 验证。</p>
-<p>排序服务器排序的规则有两种，SOLO 和 Kafka 。可以把 SOLO 机制理解为单机版的队列，排序服务器按收到的顺序依次放入队列。SOLO 的性能并不高，在开发环境中用这种机制，生产环境建议使用“真刀真枪的 MQ”——Kafka。</p>
-<h2 id="Fabric-的防篡改机制"><a href="#Fabric-的防篡改机制" class="headerlink" title="Fabric 的防篡改机制"></a>Fabric 的防篡改机制</h2><p>比特币防篡改的机制是基于 PoW 精心设计的，如果要修改数据那么必须“算力足够”，所以比特币的一切都是围绕 PoW 设计，而设计目标则是——发币。对于没有采用 PoW 的 Fabric 来说防篡改机制必须另谋出路。</p>
-<p>这个“出路”其实不是技术考虑，更多的是业务场景考虑。Fabric 主要面向内部使用（联盟链或者私有链）“内部环境”比较容易实现“审计机制”，我们可以通过 Fabric 的 Event 记录整个系统的运行过程，当数据不一致的时候通过“审计机制”发现谁的数据有问题（需要人工介入）然后把它“踢”出去。简单来说——Fabric 的防篡改是“人肉审计”机制。</p>
-<p>Fabric 提供一个模块化的构架，其中的节点、智能合约、共识机制、成员服务都是模块化，可扩展的。如果开发者觉得 Fabric 的设计策略不适合，那么可以做相关的扩展开发。</p>
-<h3 id="Fabric-基本概念"><a href="#Fabric-基本概念" class="headerlink" title="Fabric 基本概念"></a>Fabric 基本概念</h3><ul>
-<li>Channel，一个“链”。可以理解为一个数据库。以太坊、比特币它们都属于“单链”，Fabric 可以同时运行多个链。</li>
-<li>Chaincode，链码。区块链上的数据改变都是通过智能合约操作的，在 Fabric 中智能合约叫 ChainCode。</li>
-<li>Fabric 网络，在 Fabric 中组成区块链系统的各个进程组成的通讯网络叫 Fabric 网络。<br>Fabric 网络可以是由一个物理节点组成，也可以由多个不同的物理节点组成。一般在开发环境中运行在同一个物理节点上（开发者自己的机器），在生产环境中需要根据组织或者部门在不同的节点上启动相关进程。</li>
-</ul>
-<p>Fabric 提供了各个平台的二进制文件，但是一般不直接使用这些二进制文件，而是通过容器的方式部署系统。</p>
-<p>锚节点 Peer （Anchor peer）</p>
-
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Blockchain/">Blockchain</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blockchain/">Blockchain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hyperledger/">Hyperledger</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-kubectl" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/13/kubectl/" class="article-date">
-  <time datetime="2018-06-13T10:51:25.000Z" itemprop="datePublished">2018-06-13</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/13/kubectl/">kubectl</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="Frequently-Used-Commands"><a href="#Frequently-Used-Commands" class="headerlink" title="Frequently Used Commands"></a>Frequently Used Commands</h1><p>cd ~/workspace/infrastructure-kubernetes-client-config<br>./cluster.sh development</p>
-<p>k config use-context production</p>
-<p>k get namespaces</p>
-<p>k get pod -n api-content-production-v1</p>
-<p>k logs -n api-content-production-v1 api-content-12-03k</p>
-<p>kubectl –namespace=<namespace> exec -it <pod name=""> sh</pod></namespace></p>
-<p>k logs -n api-content-production-v1 api-content-12-03k -p</p>
-<p>k logs -n api-content-production-v1 api-content-12-03k -f </p>
-<p>k logs [name] | grep p4yvsf –since=14h</p>
-<p>kubectl -n=pusher-content-capi-production-v1 logs lqudo-blue-app-1991648162-cnr97 | grep ExportFailure</p>
-<p>k get deploy -n api-content-development-v1</p>
-<p>k scale deploy -n api-content-development-v1 api-content —replicas=1</p>
-<p>k describe pod -n api-content-development-v1 a-edf-pod-name</p>
-<p>k get node</p>
-<p>k get node —all-namespaces | grep -v Running</p>
-<p>k get ing –all-namespaces</p>
-<p>kubectl -n loader-content-capi-development-v1 get secrets -o yaml</p>
-<p>echo “&lt;encoded_secret_value&gt;” | base64 –decode</p>
-<p>In the node:</p>
-<p>apk –no-cache add postgresql-client<br>psql $DATABASE_URL<br>\dt to list table<br>\q to quit</p>
-<p>psql $DB_URL -t -A -F”,” -o &lt;csv_file_name&gt; -c “&lt;sql_query&gt;”</p>
-<p>kubectl –n=<namespace> cp <podname>:&lt;file_name_on_pod&gt; &lt;local_file_name&gt;</podname></namespace></p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
-<li><a href="https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/" target="_blank" rel="noopener">https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/</a></li>
-<li><a href="https://github.com/feiskyer/kubernetes-handbook" target="_blank" rel="noopener">https://github.com/feiskyer/kubernetes-handbook</a></li>
-</ol>
-
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Devops/">Devops</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-kubernetes-system" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/13/kubernetes-system/" class="article-date">
-  <time datetime="2018-06-13T09:29:09.000Z" itemprop="datePublished">2018-06-13</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/13/kubernetes-system/">Kubernetes System</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h1><p>A cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications.</p>
-<p><code>kubectl cluster-info</code></p>
-<p><img src="kubernetes architectural overview.png" alt="Kubernetes Architectural Overview"><br><img src="kubernetes architecture.png" alt="Kubernetes Architecture"></p>
-			
-				<p class="article-more-link">
-					<a href="/2018/06/13/kubernetes-system/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Devops/">Devops</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-kubernetes-advanced" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/13/kubernetes-advanced/" class="article-date">
-  <time datetime="2018-06-13T09:27:32.000Z" itemprop="datePublished">2018-06-13</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/13/kubernetes-advanced/">Kubernetes Advanced</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="Service-Discovery"><a href="#Service-Discovery" class="headerlink" title="Service Discovery"></a>Service Discovery</h1><p>Kubernetes 里服务发现有多种方式：</p>
-<ol>
-<li><p>通过环境变量注入发现服务。<br>当 Pods 在集群的 Node 中运行时，Kubernetes 会为它增加一些列的环境变量。</p>
-</li>
-<li><p>通过 Kubernetes DNS 服务器。<br>Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并且为每个 Service 记录一个 DNS 的记录。这样做的好处是：只要 DNS 服务在集群里有访问权限，那么所有的 Pods 都能访问新注册的 Service。举例：如果你有一个 Service 在 Kubernetes Namespace “my-ns”下 ，名字叫做叫 “my-service”，那么一条叫做”my-service.my-ns”的记录就会被创建。所有在”my-ns” Namespace 里的 Pods 都能通过 DNS 查找到”my-service”。</p>
-</li>
-</ol>
-			
-				<p class="article-more-link">
-					<a href="/2018/06/13/kubernetes-advanced/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Devops/">Devops</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li></ul>
 
 			</span>
 		</div>
