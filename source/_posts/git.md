@@ -8,7 +8,7 @@ tags:
 ---
 # Important concepts
 
-![Git concepts](git concepts.jpg)
+![Git concepts](./git concepts.jpg)
 
 ## Repositories
 
