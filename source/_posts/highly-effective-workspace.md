@@ -66,6 +66,8 @@ tags:
 * fonts
     * brew tap caskroom/fonts
     * brew cask install font-fira-code
+* How to upgrade formulas
+    * brew upgrade terraform
 
 ## Others
 * open
