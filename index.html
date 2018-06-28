@@ -45,6 +45,72 @@
     <div id="main">
       
   
+    <article id="post-ci-cd-pipeline" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/28/ci-cd-pipeline/" class="article-date">
+  <time datetime="2018-06-28T12:49:17.000Z" itemprop="datePublished">2018-06-28</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/28/ci-cd-pipeline/">CI, CD and Pipelines</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="What-are-CI-and-CD"><a href="#What-are-CI-and-CD" class="headerlink" title="What are CI and CD"></a>What are CI and CD</h1><p>Continuous Integration (CI) is a development practice that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early.</p>
+<p>Continuous Delivery (CD) is the natural extension of Continuous Integration: an approach in which teams ensure that every change to the system is releasable, and that we can release any version at the push of a button. Continuous Delivery aims to make releases boring, so we can deliver frequently and get fast feedback on what users care about.</p>
+<h1 id="持续集成应有的标准规范"><a href="#持续集成应有的标准规范" class="headerlink" title="持续集成应有的标准规范"></a>持续集成应有的标准规范</h1><ol>
+<li>频繁提交</li>
+<li>自动化测试</li>
+<li>较短的构建和测试过程</li>
+<li>本地开发环境与持续集成环境、测试环境、生产环境一致</li>
+</ol>
+<h1 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h1><ul>
+<li>Github/Gitlab/Bitbucket</li>
+<li>Buildkite/Jenkins/Codefresh/Codeship</li>
+<li>Docker</li>
+</ul>
+<h1 id="发布策略"><a href="#发布策略" class="headerlink" title="发布策略"></a>发布策略</h1><p>Canary</p>
+<h1 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h1>
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CD/">CD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI/">CI</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
     <article id="post-git" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -985,82 +1051,9 @@
 
 
   
-    <article id="post-aws" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/16/aws/" class="article-date">
-  <time datetime="2018-06-16T02:50:58.000Z" itemprop="datePublished">2018-06-16</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/16/aws/">AWS</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h2 id="Cloud-computing-deployment-modes"><a href="#Cloud-computing-deployment-modes" class="headerlink" title="Cloud computing deployment modes"></a>Cloud computing deployment modes</h2><ul>
-<li>all-in cloud-based application deployment</li>
-<li>hybrid deployment</li>
-</ul>
-<h2 id="Regions-Availability-Zones-and-Edge-locations"><a href="#Regions-Availability-Zones-and-Edge-locations" class="headerlink" title="Regions, Availability Zones and Edge locations"></a>Regions, Availability Zones and Edge locations</h2><ul>
-<li>AWS Management Console</li>
-<li>CLI</li>
-<li>SDKs</li>
-</ul>
-<p>AWS provides a highly available technology infrastructure platform with multiple locations worldwide. These locations are composed of regions and Availability Zones. Each <strong>region</strong> is a separate geographic area. Each region has multiple, isolated locations known as Availability Zones. AWS enables the placement of resources and data in multiple locations. Resources aren’t replicated across regions unless organizations choose to do so.</p>
-<p>Each region is completely independent and is designed to be completely isolated from the other regions. This achieves the greatest possible fault tolerance and stability. Each <strong>Availability Zone</strong> is also isolated, but the Availability Zones in a region are connected through low-latency links.</p>
-<p>An <strong>Edge location</strong> is a CDN or Content Delivery Network endpoint for CloudFront.</p>
-<h2 id="ACCESSING-THE-PLATFORM"><a href="#ACCESSING-THE-PLATFORM" class="headerlink" title="ACCESSING THE PLATFORM"></a>ACCESSING THE PLATFORM</h2><h1 id="Topics"><a href="#Topics" class="headerlink" title="Topics"></a>Topics</h1><p><a href="aws-security.md">Security</a></p>
-<p><a href="aws-networking.md">Networking</a></p>
-<p><a href="aws-computing.md">Computing</a></p>
-<p><a href="aws-storage.md">Storage</a></p>
-<p><a href="aws-database.md">Database</a></p>
-<p><a href="aws-analytics.md">Analytics</a></p>
-<p><a href="aws-developer-management-tool.md">Developer and Management Tool</a></p>
-<p><a href="aws-mobile-application-services.md">Mobile and Application Services</a></p>
-<p><a href="aws-high-availability-fault-tolerance.md">High Availability and Fault Tolerance</a></p>
-
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
