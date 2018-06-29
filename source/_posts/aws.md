@@ -3,6 +3,7 @@ title: AWS
 date: 2018-06-16 12:50:58
 categories:
 - Cloud
+- DevOps
 tags:
 - AWS
 ---

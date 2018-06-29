@@ -2,7 +2,7 @@
 title: Kubernetes Advanced
 date: 2018-06-13 19:27:32
 categories:
-- Devops
+- DevOps
 tags:
 - Kubernetes
 ---

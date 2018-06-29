@@ -2,7 +2,7 @@
 title: kubectl
 date: 2018-06-13 20:51:25
 categories:
-- Devops
+- DevOps
 tags:
 - Kubernetes
 ---

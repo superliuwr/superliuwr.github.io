@@ -3,6 +3,7 @@ title: aws-networking
 date: 2018-06-21 22:08:26
 categories:
 - Cloud
+- DevOps
 tags:
 - AWS
 ---

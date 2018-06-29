@@ -2,7 +2,7 @@
 title: Helm
 date: 2018-06-11 23:04:25
 categories:
-- Devops
+- DevOps
 tags:
 - Helm
 - Kubernetes
