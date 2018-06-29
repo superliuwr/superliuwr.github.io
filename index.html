@@ -45,6 +45,121 @@
     <div id="main">
       
   
+    <article id="post-metrics-and-prometheus" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/29/metrics-and-prometheus/" class="article-date">
+  <time datetime="2018-06-29T13:09:56.000Z" itemprop="datePublished">2018-06-29</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/29/metrics-and-prometheus/">Metrics, OpenTracing, Prometheus and Grafana</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Microservices/">Microservices</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Grafana/">Grafana</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Metrics/">Metrics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenTracing/">OpenTracing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prometheus/">Prometheus</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-microservices-and-devops" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/28/microservices-and-devops/" class="article-date">
+  <time datetime="2018-06-28T13:42:14.000Z" itemprop="datePublished">2018-06-28</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/06/28/microservices-and-devops/">Microservices and DevOps</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><h2 id="Shared-Code"><a href="#Shared-Code" class="headerlink" title="Shared Code"></a>Shared Code</h2><h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><h2 id="Middlewares"><a href="#Middlewares" class="headerlink" title="Middlewares"></a>Middlewares</h2><h3 id="Pub-Sub"><a href="#Pub-Sub" class="headerlink" title="Pub/Sub"></a>Pub/Sub</h3><h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><h2 id="Reliability"><a href="#Reliability" class="headerlink" title="Reliability"></a>Reliability</h2><h2 id="Health-Check"><a href="#Health-Check" class="headerlink" title="Health Check"></a>Health Check</h2><h2 id="Service-Discovery"><a href="#Service-Discovery" class="headerlink" title="Service Discovery"></a>Service Discovery</h2><h2 id="Load-Balancing"><a href="#Load-Balancing" class="headerlink" title="Load Balancing"></a>Load Balancing</h2><h2 id="Configuration-centre"><a href="#Configuration-centre" class="headerlink" title="Configuration centre"></a>Configuration centre</h2><h2 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h2><h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h2><h2 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h2><h2 id="Circuit-Breaker"><a href="#Circuit-Breaker" class="headerlink" title="Circuit Breaker"></a>Circuit Breaker</h2><h2 id="Distributed-Tracing"><a href="#Distributed-Tracing" class="headerlink" title="Distributed Tracing"></a>Distributed Tracing</h2><h1 id="Key-Points-to-validate"><a href="#Key-Points-to-validate" class="headerlink" title="Key Points to validate"></a>Key Points to validate</h1><ul>
+<li>How many Microservices should I divide the business capabilities into thinking in terms of domain driven design.</li>
+<li>Partitioning the data into different services with their own database solution with the understanding of which segment of data needs to be kept redundant locally for each of these services.</li>
+<li>How data is synchronized between Microservices for redundant data.</li>
+<li>Consistency requirements of data. (Whether its transactional requiring strong consistency vs possibility of implementing eventual consistency).</li>
+<li>Selection of right interfaces, channels, and middleware for communications and interaction between services.</li>
+<li>Required level of Security, Reliability, Performance, and Efficiency thinking the costs in mind.</li>
+<li>Tools and technologies to be used for individual Microservices. (Serverless, Containers, Web Technologies &amp; etc.)</li>
+<li>How to version and share code (If required) in the form of libraries using repositories like NPM.</li>
+<li>How the teams and processes (Development, DevOps, Change Management &amp; etc.) are structured around Microservices.</li>
+</ul>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1>
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>»<a class="article-category-link" href="/categories/DevOps/Microservices/">Microservices</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
     <article id="post-ci-cd-pipeline" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -628,7 +743,7 @@
 			<span class="category">
 				
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>
+    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>»<a class="article-category-link" href="/categories/Cloud/DevOps/">DevOps</a>
   </div>
 
 			</span>
@@ -799,245 +914,6 @@
 			<span class="tags">
 				
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practices/">Best Practices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-typescript" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/18/typescript/" class="article-date">
-  <time datetime="2018-06-18T05:34:21.000Z" itemprop="datePublished">2018-06-18</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/18/typescript/">TypeScript</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="Installation-and-IDE-support"><a href="#Installation-and-IDE-support" class="headerlink" title="Installation and IDE support"></a>Installation and IDE support</h1><p><code>npm install -g typescript</code></p>
-<p><code>tsc -v</code></p>
-<p><code>tsc main.ts</code></p>
-<p><code>tsc *.ts --watch</code></p>
-<p><code>ts-node server.ts</code></p>
-<p>VSC has built-in support of TypeScript.</p>
-<p><a href="http://www.typescriptlang.org/play/index.html" target="_blank" rel="noopener">Online tool</a></p>
-<p><a href="https://github.com/superliuwr/api_template_typescript" target="_blank" rel="noopener">Template Project</a></p>
-<h1 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h1><h2 id="Static-Typing"><a href="#Static-Typing" class="headerlink" title="Static Typing"></a>Static Typing</h2><ul>
-<li>number – All numeric values are represented by the number type, there aren’t separate definitions for integers, floats or others.</li>
-<li>string – The text type, just like in vanilla JS strings can be surrounded by ‘single quotes’ or “double quotes”.</li>
-<li>boolean – true or false, using 0 and 1 will cause a compilation error.</li>
-<li>any – A variable with this type can have it’s value set to a string, number, or anything else.</li>
-<li>Arrays – Has two possible syntaxes: my_arr: number[]; or my_arr: Array<number>.</number></li>
-<li>void – Used on function that don’t return anything.</li>
-<li>tuple - <code>let x: [ string, number ] = [ &quot;hello&quot;, 10 ]</code></li>
-<li>enum - <code>enum Color { Red, Green, Blue }; let c: Color = Color.Green</code></li>
-<li>null and undefined</li>
-<li>never</li>
-<li>union - <code>number | string</code></li>
-</ul>
-<h2 id="Interfaces"><a href="#Interfaces" class="headerlink" title="Interfaces"></a>Interfaces</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Food &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">    calories: <span class="built_in">number</span>;</span><br><span class="line">    readonly x: <span class="built_in">number</span>;</span><br><span class="line">    color?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> LoggerInterface&#123;</span><br><span class="line">    log(arg:<span class="built_in">any</span>):<span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数接口</span></span><br><span class="line"><span class="keyword">interface</span> SearchFunc &#123;</span><br><span class="line">  (source: <span class="built_in">string</span>, subString: <span class="built_in">string</span>): <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> StringArray&#123;</span><br><span class="line">    [index: <span class="built_in">number</span>]: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> MyArray: StringArray;</span><br><span class="line">MyArray = [<span class="string">"是"</span>,<span class="string">"云"</span>,<span class="string">"随"</span>,<span class="string">"风"</span>];</span><br><span class="line"><span class="built_in">console</span>.log(MyArray[<span class="number">2</span>]); <span class="comment">// 随</span></span><br></pre></td></tr></table></figure>
-<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 普通函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a: <span class="built_in">number</span>, b?: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数参数</span></span><br><span class="line">function readFile(file: string, callback: (err: Error | null, data: Buffer) =&gt; void) &#123;</span><br><span class="line">  fs.readFile(file, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过 type 语句定义类型</span></span><br><span class="line"><span class="keyword">type</span> CallbackFunction = <span class="function">(<span class="params">err: <span class="built_in">Error</span> | <span class="literal">null</span>, data: Buffer</span>) =&gt;</span> <span class="built_in">void</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">file: <span class="built_in">string</span>, callback: CallbackFunction</span>) </span>&#123;</span><br><span class="line">  fs.readFile(file, callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过 interface 语句来定义类型</span></span><br><span class="line"><span class="keyword">interface</span> CallbackFunction &#123;</span><br><span class="line">  (err: <span class="built_in">Error</span> | <span class="literal">null</span>, data: Buffer): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params">file: <span class="built_in">string</span>, callback: CallbackFunction</span>) </span>&#123;</span><br><span class="line">  fs.readFile(file, callback);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Menu &#123;</span><br><span class="line">  <span class="comment">// Our properties:</span></span><br><span class="line">  <span class="comment">// By default they are public, but can also be private or protected.</span></span><br><span class="line">  <span class="keyword">private</span> items: <span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt;;  <span class="comment">// The items in the menu, an array of strings.</span></span><br><span class="line">  <span class="keyword">protected</span> pages: <span class="built_in">number</span>;         <span class="comment">// How many pages will the menu be, a number.</span></span><br><span class="line">  readonly other: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> numOfPages(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> pages.length;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// A straightforward constructor. </span></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">item_list: <span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt;, total_pages: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    <span class="comment">// The this keyword is mandatory.</span></span><br><span class="line">    <span class="keyword">this</span>.items = item_list;    </span><br><span class="line">    <span class="keyword">this</span>.pages = total_pages;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Methods</span></span><br><span class="line">  <span class="keyword">public</span> list(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Our menu for today:"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="keyword">this</span>.items.length; i++) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.items[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new instance of the Menu class.</span></span><br><span class="line"><span class="keyword">var</span> sundayMenu = <span class="keyword">new</span> Menu([<span class="string">"pancakes"</span>,<span class="string">"waffles"</span>,<span class="string">"orange juice"</span>], <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Call the list method.</span></span><br><span class="line">sundayMenu.list();</span><br></pre></td></tr></table></figure>
-<p>Inheritance</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> HappyMeal <span class="keyword">extends</span> Menu &#123;</span><br><span class="line">  <span class="comment">// Properties are inherited</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// A new constructor has to be defined.</span></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params">item_list: <span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt;, total_pages: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    <span class="comment">// In this case we want the exact same constructor as the parent class (Menu), </span></span><br><span class="line">    <span class="comment">// To automatically copy it we can call super() - a reference to the parent's constructor.</span></span><br><span class="line">    <span class="keyword">super</span>(item_list, total_pages);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Just like the properties, methods are inherited from the parent.</span></span><br><span class="line">  <span class="comment">// However, we want to override the list() function so we redefine it.</span></span><br><span class="line">  list(): <span class="built_in">void</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Our special menu for children:"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="keyword">this</span>.items.length; i++) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.items[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new instance of the HappyMeal class.</span></span><br><span class="line"><span class="keyword">var</span> menu_for_children = <span class="keyword">new</span> HappyMeal([<span class="string">"candy"</span>,<span class="string">"drink"</span>,<span class="string">"toy"</span>], <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// This time the log message will begin with the special introduction.</span></span><br><span class="line">menu_for_children.list();</span><br></pre></td></tr></table></figure>
-<h2 id="Generics"><a href="#Generics" class="headerlink" title="Generics"></a>Generics</h2><p>Generics are templates that allow the same function to accept arguments of various different types. Creating reusable components using generics is better than using the any data type, as generics preserve the types of the variables that go in and out of them.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The &lt;T&gt; after the function name symbolizes that it's a generic function.</span></span><br><span class="line"><span class="comment">// When we call the function, every instance of T will be replaced with the actual provided type.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Receives one argument of type T,</span></span><br><span class="line"><span class="comment">// Returns an array of type T.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">genericFunc</span>&lt;<span class="title">T</span>&gt;(<span class="params">argument: T</span>): <span class="title">T</span>[] </span>&#123;    </span><br><span class="line">  <span class="keyword">var</span> arrayOfT: T[] = [];    <span class="comment">// Create empty array of type T.</span></span><br><span class="line">  arrayOfT.push(argument);   <span class="comment">// Push, now arrayOfT = [argument].</span></span><br><span class="line">  <span class="keyword">return</span> arrayOfT;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arrayFromString = genericFunc&lt;<span class="built_in">string</span>&gt;(<span class="string">"beep"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arrayFromString[<span class="number">0</span>]);         <span class="comment">// "beep"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> arrayFromString[<span class="number">0</span>])   <span class="comment">// String</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arrayFromNumber = genericFunc(<span class="number">42</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arrayFromNumber[<span class="number">0</span>]);         <span class="comment">// 42</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> arrayFromNumber[<span class="number">0</span>])   <span class="comment">// number</span></span><br></pre></td></tr></table></figure>
-<h2 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h2><p>External modules as comparing to <code>Namespaces</code>.</p>
-<h2 id="Third-party-Declaration-Files"><a href="#Third-party-Declaration-Files" class="headerlink" title="Third-party Declaration Files"></a>Third-party Declaration Files</h2><p>When using a library that was originally designed for regular JavaScript, we need to apply a declaration file to make that library compatible with TypeScript. A declaration file has the extension .d.ts and contains various information about the library and its API.</p>
-<p>TypeScript declaration files are usually written by hand, but there’s a high chance that the library you need already has a .d.ts. file created by somebody else. DefinitelyTyped is the biggest public repository, containing files for over a thousand libraries. There is also a popular Node.js module for managing TypeScript definitions called Typings.</p>
-<p>当遇到缺少模块声明文件的情况，开发者可以尝试通过 npm install @types/xxx 来安装模块声明文件即可。</p>
-<p>如果我们使用的第三方模块在 DefinitelyTyped 找不到对应声明文件，也可以尝试使用require()这个终极的解决方法，它会将模块解析成 any 类型，不好的地方就是没有静态类型检查了。</p>
-<h2 id="Advanced-Types-and-Type-Guards"><a href="#Advanced-Types-and-Type-Guards" class="headerlink" title="Advanced Types and Type Guards"></a>Advanced Types and Type Guards</h2><h2 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h2><p>模块是用来组织一些具有某种内在联系的特性和对象。模块能够使代码的结构更加清晰，可以使用 namespace 和 export 关键字在 TypeScript 中声明模块。</p>
-<p>Internal modules as comparing to <code>Modules</code>.</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> mygame&#123;</span><br><span class="line">    <span class="keyword">interface</span> Test1Interface&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">interface</span> Test2Interface&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">interface</span> Test3Interface&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">class</span> Rect&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">class</span> Circle <span class="keyword">implements</span> Test2Interface&#123;</span><br><span class="line">        <span class="comment">/*...*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h1><h2 id="tsconfig-json-配置文件"><a href="#tsconfig-json-配置文件" class="headerlink" title="tsconfig.json 配置文件"></a>tsconfig.json 配置文件</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">//tsconfig.json 指定了用来编译这个项目的根文件和编译选项。</span><br><span class="line">&#123;</span><br><span class="line">  "compilerOptions": &#123;     //compilerOptions:编译选项,可以被忽略，这时编译器会使用默认值</span><br><span class="line">    "allowSyntheticDefaultImports": true,//允许从没有设置默认导出的模块中默认导入。这并不影响代码的显示，仅为了类型检查。</span><br><span class="line">    "baseUrl": "./src",//解析非相对模块名的基准目录</span><br><span class="line">    "emitDecoratorMetadata": true, //给源码里的装饰器声明加上设计类型元数据</span><br><span class="line">    "experimentalDecorators": true,//启用实验性的ES装饰器</span><br><span class="line">    "module": "commonjs",        //指定生成哪个模块系统代码</span><br><span class="line">    "moduleResolution": "node",  //决定如何处理模块。或者是"Node"对于Node.js/io.js，或者是"Classic"（默认）</span><br><span class="line">    "noEmitHelpers": true,//不再输出文件中生成用户自定义的帮助函数代码，如__extends。</span><br><span class="line">    "noImplicitAny": false,     //在表达式和声明上有隐含的any类型时报错</span><br><span class="line">    "sourceMap": true,          //用于debug ,生成相应的.map文件</span><br><span class="line">    "strictNullChecks": false,//在严格的null检查模式下，null和undefined值不包含在任何类型里，只允许用它们自己和any来赋值（有个例外，undefined可以赋值到void）。</span><br><span class="line">    "target": "es5",             //目标代码类型</span><br><span class="line">    "paths": &#123;  //模块名到基于baseUrl的路径映射的列表</span><br><span class="line">    &#125;,</span><br><span class="line">    "lib": [  //编译过程中需要引入的库文件的列表</span><br><span class="line">        "dom",</span><br><span class="line">        <span class="string">"es6"</span></span><br><span class="line">      ],</span><br><span class="line">    "types": [  //要包含的类型声明文件名列表；如果指定了types，只有被列出来的包才会被包含进来</span><br><span class="line">      "hammerjs",</span><br><span class="line">      "node",</span><br><span class="line">      "source-map",</span><br><span class="line">      "uglify-js",</span><br><span class="line">      <span class="string">"webpack"</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  "exclude": [  //如果"files"和"include"都没有被指定，编译器默认包含当前目录和子目录下所有的TypeScript文件（.ts, .d.ts 和 .tsx），排除在"exclude"里指定的文件。</span><br><span class="line">    "node_modules",</span><br><span class="line">    <span class="string">"dist"</span></span><br><span class="line">  ],</span><br><span class="line">  "awesomeTypescriptLoaderOptions": &#123;  //Typescript加载选项</span><br><span class="line">    "forkChecker": true,</span><br><span class="line">    "useWebpackText": true</span><br><span class="line">  &#125;,</span><br><span class="line">  "compileOnSave": false,          </span><br><span class="line">  "buildOnSave": false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="TSLint-代码规范检查"><a href="#TSLint-代码规范检查" class="headerlink" title="TSLint 代码规范检查"></a>TSLint 代码规范检查</h2><h2 id="发布模块"><a href="#发布模块" class="headerlink" title="发布模块"></a>发布模块</h2><p>相比直接使用 JavaScript 编写的 npm 模块，使用 TypeScript 编写的模块需要增加以下几个额外的工作：</p>
-<ul>
-<li>发布前将 TypeScript 源码编译成 JavaScript.</li>
-<li>需要修改 tsconfig.json 的配置，使得编译时生成模块对应的 .d.ts 文件。</li>
-<li>在 package.json 文件增加 types 属性。</li>
-</ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"commonjs"</span>,</span><br><span class="line">    <span class="attr">"moduleResolution"</span>: <span class="string">"node"</span>,</span><br><span class="line">    <span class="attr">"target"</span>: <span class="string">"es6"</span>,</span><br><span class="line">    <span class="attr">"rootDir"</span>: <span class="string">"src"</span>,</span><br><span class="line">    <span class="attr">"outDir"</span>: <span class="string">"dist"</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"declaration"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noImplicitAny"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noImplicitReturns"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noImplicitThis"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"dist/math.js"</span>,</span><br><span class="line">  <span class="attr">"typings"</span>: <span class="string">"dist/math.d.ts"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"compile"</span>: <span class="string">"rm -rf dist &amp;&amp; tsc"</span>,</span><br><span class="line">    <span class="attr">"prepublish"</span>: <span class="string">"npm run compile"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>要执行使用 TypeScript 编写的单元测试程序，可以有两种方法：</p>
-<ul>
-<li>先通过 tsc 编译成 JavaScript 代码后，再执行。</li>
-<li>直接执行 .ts 源文件。</li>
-</ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"mocha --compilers ts:ts-node/register src/test.ts"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
-<li><a href="https://zhongsp.gitbooks.io/typescript-handbook/content/index.html" target="_blank" rel="noopener">https://zhongsp.gitbooks.io/typescript-handbook/content/index.html</a></li>
-<li><a href="http://www.typescriptlang.org/docs/tutorial.html" target="_blank" rel="noopener">http://www.typescriptlang.org/docs/tutorial.html</a></li>
-<li><a href="https://legacy.gitbook.com/book/basarat/typescript/details" target="_blank" rel="noopener">https://legacy.gitbook.com/book/basarat/typescript/details</a></li>
-</ol>
-
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeScript/">TypeScript</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-aws-security" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/16/aws-security/" class="article-date">
-  <time datetime="2018-06-16T02:54:01.000Z" itemprop="datePublished">2018-06-16</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/16/aws-security/">AWS Security</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="AWS-Identity-and-Access-Management-IAM"><a href="#AWS-Identity-and-Access-Management-IAM" class="headerlink" title="AWS Identity and Access Management (IAM)"></a>AWS Identity and Access Management (IAM)</h1><p>IAM is a powerful service that allows you to control how people and programs are allowed to manipulate your AWS infrastructure.</p>
-<p>IAM is not:</p>
-<ul>
-<li>an identity store/authorization system for your applications<ul>
-<li>use AWS Directory Service or Cognito instead</li>
-</ul>
-</li>
-<li>operating system identity management<ul>
-<li>shared responsibility</li>
-</ul>
-</li>
-</ul>
-<h2 id="Principals"><a href="#Principals" class="headerlink" title="Principals"></a>Principals</h2><h3 id="Root-user"><a href="#Root-user" class="headerlink" title="Root user"></a>Root user</h3><p>it has full privileges to do anything in the account, including closing the account. It is strongly recommended that you do not use the root user for your everyday tasks, even the administrative ones.</p>
-<h3 id="IAM-users"><a href="#IAM-users" class="headerlink" title="IAM users"></a>IAM users</h3><p>no expiration period</p>
-<h3 id="ROLES-TEMPORARY-SECURITY-TOKENS"><a href="#ROLES-TEMPORARY-SECURITY-TOKENS" class="headerlink" title="ROLES/TEMPORARY SECURITY TOKENS"></a>ROLES/TEMPORARY SECURITY TOKENS</h3><p>Roles are used to grant specific privileges to specific <strong>actors</strong> for a set duration of time. These actors can be authenticated by AWS or some trusted external system. When one of these actors assumes a role, AWS provides the actor with a <strong>temporary security token</strong> from the AWS Security Token Service (STS) that the actor can use to access AWS Cloud services. Requesting a temporary security token requires specifying how long the token will exist before it expires. The range of a temporary security token lifetime is 15 minutes to 36 hours.</p>
-<p>Roles and temporary security tokens enable a number of use cases:</p>
-<ul>
-<li>Amazon EC2 Roles<ul>
-<li>Granting permissions to applications running on an Amazon EC2 instance.</li>
-</ul>
-</li>
-<li>Cross-Account Access<ul>
-<li>Granting permissions to users from other AWS accounts, whether you control those accounts or not.</li>
-</ul>
-</li>
-<li>Federation<ul>
-<li>Granting permissions to users authenticated by a trusted external system.</li>
-</ul>
-</li>
-</ul>
-<h4 id="Amazon-EC2-Roles"><a href="#Amazon-EC2-Roles" class="headerlink" title="Amazon EC2 Roles"></a>Amazon EC2 Roles</h4><p>Suppose that an application running on an Amazon EC2 instance needs to access an Amazon Simple Storage Service (Amazon S3) bucket. An IAM role that grants the required access to the Amazon S3 bucket. When the Amazon EC2 instance is launched, the role is assigned to the instance. When the application running on the instance uses the Application Programming Interface (API) to access the Amazon S3 bucket, it assumes the role assigned to the instance and obtains a temporary token that it sends to the API. The process of obtaining the temporary token and passing it to the API is handled automatically by most of the AWS SDKs, allowing the application to make a call to access the Amazon S3 bucket without worrying about authentication.</p>
-<h4 id="Crosss-account-Access"><a href="#Crosss-account-Access" class="headerlink" title="Crosss-account Access"></a>Crosss-account Access</h4><p>You can set up an IAM role with the permissions you want to grant to users in the other account, then users in the other account can assume that role to access your resources.</p>
-<h4 id="Federation"><a href="#Federation" class="headerlink" title="Federation"></a>Federation</h4><p>IAM Identity Providers provide the ability to federate these outside identities with IAM and assign privileges to those users authenticated outside of IAM.</p>
-<ul>
-<li>OpenID Connect</li>
-<li>SAML</li>
-</ul>
-<h2 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h2><ul>
-<li>User name/Password</li>
-<li>Access Key ID/Access Secret Key</li>
-<li>Access Key ID/Access Secret Key/Session Token<ul>
-<li>When a process operates under an assumed role, the temporary security token provides an access key for authentication. In addition to the access key (remember that it consists of two parts), the token also includes a session token. Calls to AWS must include both the two-part access key and the session token to authenticate.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Authorization"><a href="#Authorization" class="headerlink" title="Authorization"></a>Authorization</h2><p>Authorization is handled in IAM by defining specific privileges in policies and associating those policies with principals.</p>
-<h3 id="POLICIES"><a href="#POLICIES" class="headerlink" title="POLICIES"></a>POLICIES</h3><p>A policy is a JSON document that fully defines a set of permissions to access and manipulate AWS resources. Policy documents contain one or more permissions, with each permission defining:</p>
-<ul>
-<li>Effect—A single word: Allow or Deny.</li>
-<li>Service—For what service does this permission apply? Most AWS Cloud services support granting access through IAM, including IAM itself.</li>
-<li>Resource—The resource value specifies the specific AWS infrastructure for which this permission applies. This is specified as an Amazon Resource Name (ARN). The format for an ARN varies slightly between services, but the basic format is: “arn:aws:service:region:account-id:[resourcetype:]resource”</li>
-<li>Action—The action value specifies the subset of actions within a service that the permission allows or denies. </li>
-<li>Condition—The condition value optionally defines one or more additional restrictions that limit the actions allowed by the permission.</li>
-</ul>
-<p>A Sample policy:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"Version"</span>: <span class="string">"2012–10–17"</span>,</span><br><span class="line">    <span class="attr">"Statement"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"Sid"</span>: <span class="string">"Stmt1441716043000"</span>,</span><br><span class="line">            "Effect": "Allow",	&lt;-  This policy grants access</span><br><span class="line">            "Action": [	&lt;-  Allows identities to list</span><br><span class="line">                "s3:GetObject",	&lt;-  and get objects in</span><br><span class="line">                "s3:ListBucket"	&lt;-  the S3 bucket</span><br><span class="line">            ],</span><br><span class="line">            "Condition": &#123;</span><br><span class="line">                "IpAddress": &#123;				&lt;-  Only from a specific</span><br><span class="line">                    "aws:SourceIp": "192.168.0.1"	&lt;-  IP Address</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            "Resource": [</span><br><span class="line">                "arn:aws:s3:::my_public_bucket/*"	&lt;-  Only this bucket</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="ASSOCIATING-POLICIES-WITH-PRINCIPALS"><a href="#ASSOCIATING-POLICIES-WITH-PRINCIPALS" class="headerlink" title="ASSOCIATING POLICIES WITH PRINCIPALS"></a>ASSOCIATING POLICIES WITH PRINCIPALS</h3><p>A policy can be associated directly with an IAM user in one of two ways:</p>
-<ul>
-<li>User Policy—These policies exist only in the context of the user to which they are attached. In the console, a user policy is entered into the user interface on the IAM user page.</li>
-<li>Managed Policies—These policies are created in the Policies tab on the IAM page (or through the CLI, and so forth) and exist independently of any individual user. In this way, the same policy can be associated with many users or groups of users. There are a large number of predefined managed policies that you can review on the Policies tab of the IAM page in the AWS Management Console. In addition, you can write your own policies specific to your use cases.</li>
-</ul>
-<p>The other common method for associating policies with users is with the IAM groups feature. Groups simplify managing permissions for large numbers of users. After a policy is assigned to a group, any user who is a member of that group assumes those permissions.</p>
-<p>There are two ways a policy can be associated with an IAM group:</p>
-<ul>
-<li>Group Policy—These policies exist only in the context of the group to which they are attached. In the AWS Management Console, a group policy is entered into the user interface on the IAM Group page.</li>
-<li>Managed Policies—In the same way that managed policies (discussed in the “Authorization” section) can be associated with IAM users, they can also be associated with IAM groups.</li>
-</ul>
-<p>The final way an actor can be associated with a policy is by assuming a role. In this case, the actor can be:</p>
-<ul>
-<li>An authenticated IAM user (person or process). In this case, the IAM user must have the rights to assume the role.</li>
-<li>A person or process authenticated by a trusted service outside of AWS, such as an on-premises LDAP directory or a web authentication service. In this situation, an AWS Cloud service will assume the role on the actor’s behalf and return a token to the actor.</li>
-</ul>
-<p>After an actor has assumed a role, it is provided with a temporary security token associated with the policies of that role. The token contains all the information required to authenticate API calls. This information includes a standard access key plus an additional session token required for authenticating calls under an assumed role.</p>
-<h2 id="Other-Key-Features"><a href="#Other-Key-Features" class="headerlink" title="Other Key Features"></a>Other Key Features</h2><h3 id="MULTI-FACTOR-AUTHENTICATION-MFA"><a href="#MULTI-FACTOR-AUTHENTICATION-MFA" class="headerlink" title="MULTI-FACTOR AUTHENTICATION (MFA)"></a>MULTI-FACTOR AUTHENTICATION (MFA)</h3><h2 id="ROTATING-KEYS"><a href="#ROTATING-KEYS" class="headerlink" title="ROTATING KEYS"></a>ROTATING KEYS</h2><h2 id="RESOLVING-MULTIPLE-PERMISSIONS"><a href="#RESOLVING-MULTIPLE-PERMISSIONS" class="headerlink" title="RESOLVING MULTIPLE PERMISSIONS"></a>RESOLVING MULTIPLE PERMISSIONS</h2><ol>
-<li>Initially the request is denied by default.</li>
-<li>All the appropriate policies are evaluated; if there is an explicit “deny” found in any policy, the request is denied and evaluation stops.</li>
-<li>If no explicit “deny” is found and an explicit “allow” is found in any policy, the request is allowed.</li>
-<li>If there are no explicit “allow” or “deny” permissions found, then the default “deny” is maintained and the request is denied.</li>
-</ol>
-<p>The only exception to this rule is if an AssumeRole call includes a role and a policy, the policy cannot expand the privileges of the role (for example, the policy cannot override any permission that is denied by default in the role).</p>
-
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
 
 			</span>
 		</div>
