@@ -34,6 +34,8 @@ ESLint/TSLint
 
 https://github.com/standard/standard
 
+integrated with git
+
 ## Security
 
 # Delivery and Deployment
