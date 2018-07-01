@@ -35,50 +35,6 @@ tags:
 
 ## Logging
 
-Use [Bunyan](https://github.com/trentm/node-bunyan) to log structured records.
-
-Bunyan log records are JSON. A few fields are added automatically: "pid", "hostname", "time" and "v".
-
-```javascript
-// Log with an optional 'fields' object as the first parameter
-log.info({foo: 'bar', err: err}, 'some msg about this error');
-```
-
-Bunyan has a concept of a child logger to specialize a logger for a sub-component of your application, i.e. to create a new logger with additional bound fields that will be included in its log records. A child logger is created with `log.child(...)`.
-
-Bunyan has a concept of "serializer" functions to produce a JSON-able object from a JavaScript object, so you can easily do the following:
-
-`log.info({req: <request object>}, 'something about handling this request');`
-
-and have the req entry in the log record be just a reasonable subset of <request object> fields (or computed data about those fields).
-
-### 收集渠道
-
-1. 系统未捕获错误，埋点如下，输出级别为 error。
-```javascript
-process.on('uncaughtException', processErrorHandler);  
-process.on('unhandledRejection', processErrorHandler);
-```
-2. 程序内 byLog 的输出
-3. console.error 等于 byLog.error
-
-针对 Express 可做如下埋点
-```javascript
-// 在所有路由最后，添加错误处理，必须同时含有四个参数
-// http://expressjs.com/en/guide/error-handling.html
-app.use(function(err, req, res, next) {  
-    res.send({
-        code: 500,
-        message: `System Error! Please send serial number ${req.x_request_id} to administer`
-    });
-    byLog.error(err, null, {
-        req_id: req.x_request_id
-    });
-});
-```
-
-### Set traceToken or reqId
-
 ## Metrics
 
 ## Monitoring
