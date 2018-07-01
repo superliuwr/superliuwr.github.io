@@ -6,12 +6,13 @@ categories:
 tags:
 - Node.js
 - Logging
+- Best Practices
 ---
  Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and analyzed to ensure that the desired information (e.g. error rate, following an entire transaction through services and servers, etc) can really be extracted.
 
 ## Bunyan
 
-Use [Bunyan](https://github.com/trentm/node-bunyan) to log structured records.
+Use [Bunyan](https://github.com/trentm/node-bunyan) to log structured records. Alternatively you can use [pino](https://www.npmjs.com/package/pino).
 
 Bunyan log records are JSON. A few fields are added automatically: "pid", "hostname", "time" and "v".
 
@@ -56,6 +57,11 @@ app.use(function(err, req, res, next) {
 ```
 
 ## Logging in Distributed Systems
+### Have an Application Instance Identifier
+Use the `name` field in bunyan.
+
+### Always Use UTC Time
+
 ### Adding correlation IDs
 This ID has to be passed around in function calls, and it has to be sent to downstream services too.
 
