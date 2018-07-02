@@ -81,4 +81,4 @@ By default, it will not produce any output. To enable this logger, you have run 
 Once you do that, the debug module will come to life and will start producing log events for stdout.
 
 ## References
-
+1. [How to Get Node.js Logging Right](https://blog.risingstack.com/node-js-logging-tutorial/)
