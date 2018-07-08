@@ -25,6 +25,11 @@ Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并�
 # Horizontal Auto Scaling
 
 # Networking
+* [Kubernetes, Ingress controllers and Traefik](https://hackernoon.com/kubernetes-ingress-controllers-and-traefik-a32648a4ae95)
+* [Ingress doc](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+* [Understanding kubernetes networking: pods](https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727)
+* [Understanding kubernetes networking: services](https://medium.com/google-cloud/understanding-kubernetes-networking-services-f0cb48e4cc82)
+* [Understanding kubernetes networking: ingress] (https://medium.com/google-cloud/understanding-kubernetes-networking-ingress-1bc341c84078)
 
 # Rolling Deployment and Rollback
 
