@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Microservices with Node.js | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="MicroservicesFrameworkContainerDatabaseService GatewayMiddlewaresPub/SubQueueAuthentication and AuthorisationReliabilityHealth CheckService Registry And DiscoveryLoad BalancingConfiguration centreLogg">
+<meta name="keywords" content="Microservices">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Microservices with Node.js">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/28/microservices-with-nodejs/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="MicroservicesFrameworkContainerDatabaseService GatewayMiddlewaresPub/SubQueueAuthentication and AuthorisationReliabilityHealth CheckService Registry And DiscoveryLoad BalancingConfiguration centreLogg">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-01T00:05:42.206Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Microservices with Node.js">
+<meta name="twitter:description" content="MicroservicesFrameworkContainerDatabaseService GatewayMiddlewaresPub/SubQueueAuthentication and AuthorisationReliabilityHealth CheckService Registry And DiscoveryLoad BalancingConfiguration centreLogg">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-microservices-with-nodejs" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/28/microservices-with-nodejs/" class="article-date">
+  <time datetime="2018-06-28T13:42:14.000Z" itemprop="datePublished">2018-06-28</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      Microservices with Node.js
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><h2 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h2><h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><h2 id="Service-Gateway"><a href="#Service-Gateway" class="headerlink" title="Service Gateway"></a>Service Gateway</h2><h2 id="Middlewares"><a href="#Middlewares" class="headerlink" title="Middlewares"></a>Middlewares</h2><h3 id="Pub-Sub"><a href="#Pub-Sub" class="headerlink" title="Pub/Sub"></a>Pub/Sub</h3><h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><h2 id="Authentication-and-Authorisation"><a href="#Authentication-and-Authorisation" class="headerlink" title="Authentication and Authorisation"></a>Authentication and Authorisation</h2><h2 id="Reliability"><a href="#Reliability" class="headerlink" title="Reliability"></a>Reliability</h2><h2 id="Health-Check"><a href="#Health-Check" class="headerlink" title="Health Check"></a>Health Check</h2><h2 id="Service-Registry-And-Discovery"><a href="#Service-Registry-And-Discovery" class="headerlink" title="Service Registry And Discovery"></a>Service Registry And Discovery</h2><h2 id="Load-Balancing"><a href="#Load-Balancing" class="headerlink" title="Load Balancing"></a>Load Balancing</h2><h2 id="Configuration-centre"><a href="#Configuration-centre" class="headerlink" title="Configuration centre"></a>Configuration centre</h2><h2 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h2><h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h2><h2 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h2><h2 id="Circuit-Breaker"><a href="#Circuit-Breaker" class="headerlink" title="Circuit Breaker"></a>Circuit Breaker</h2><h2 id="Distributed-Tracing"><a href="#Distributed-Tracing" class="headerlink" title="Distributed Tracing"></a>Distributed Tracing</h2><h1 id="Key-Points-to-validate"><a href="#Key-Points-to-validate" class="headerlink" title="Key Points to validate"></a>Key Points to validate</h1><ul>
+<li>How many Microservices should I divide the business capabilities into thinking in terms of domain driven design.</li>
+<li>Partitioning the data into different services with their own database solution with the understanding of which segment of data needs to be kept redundant locally for each of these services.</li>
+<li>How data is synchronized between Microservices for redundant data.</li>
+<li>Consistency requirements of data. (Whether its transactional requiring strong consistency vs possibility of implementing eventual consistency).</li>
+<li>Selection of right interfaces, channels, and middleware for communications and interaction between services.</li>
+<li>Required level of Security, Reliability, Performance, and Efficiency thinking the costs in mind.</li>
+<li>Tools and technologies to be used for individual Microservices. (Serverless, Containers, Web Technologies &amp; etc.)</li>
+<li>How to version and share code (If required) in the form of libraries using repositories like NPM.</li>
+<li>How the teams and processes (Development, DevOps, Change Management &amp; etc.) are structured around Microservices.</li>
+</ul>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1>
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Microservices/">Microservices</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/29/metrics-and-prometheus/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Metrics, OpenTracing, Prometheus and Grafana
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/28/ci-cd-pipeline/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          CI, CD and Pipelines
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

@@ -45,6 +45,232 @@
     <div id="main">
       
   
+    <article id="post-aws-cloudfront" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/07/08/aws-cloudfront/" class="article-date">
+  <time datetime="2018-07-08T11:41:35.000Z" itemprop="datePublished">2018-07-08</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/07/08/aws-cloudfront/">aws-cloudfront</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="AMAZON-CLOUDFRONT"><a href="#AMAZON-CLOUDFRONT" class="headerlink" title="AMAZON CLOUDFRONT"></a>AMAZON CLOUDFRONT</h1><p>Amazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end users with low latency, high data transfer speeds, and no minimum usage commitments.</p>
+<p>Amazon CloudFront is AWS CDN. It can be used to deliver your web content using Amazon’s global network of <em>edge locations</em>.</p>
+<p>Amazon CloudFront is optimized to work with other AWS cloud services as the origin server, including Amazon S3 buckets, Amazon S3 static websites, Amazon Elastic Compute Cloud (Amazon EC2), and Elastic Load Balancing. Amazon CloudFront also works seamlessly with any non-AWS origin server, such as an existing on-premises web server. Amazon CloudFront also integrates with Amazon Route 53.</p>
+<p>Amazon CloudFront supports all content that can be served over HTTP or HTTPS. This includes any popular static files that are a part of your web application, such as HTML files, images, JavaScript, and CSS files, and also audio, video, media files, or software downloads. Amazon CloudFront also supports serving dynamic web pages, so it can actually be used to deliver your entire website. Finally, Amazon CloudFront supports media streaming, using both HTTP and RTMP.</p>
+<h2 id="Distributions"><a href="#Distributions" class="headerlink" title="Distributions"></a>Distributions</h2><p>To use Amazon CloudFront, you start by creating a distribution, which is identified by a DNS domain name such as d111111abcdef8.cloudfront.net.</p>
+<p>You can use the Amazon CloudFront distribution domain name as-is, or you can create a user-friendly DNS name in your own domain by creating a CNAME record in Amazon Route 53 or another DNS service. The CNAME is automatically redirected to your Amazon CloudFront distribution domain name.</p>
+<h2 id="Origins"><a href="#Origins" class="headerlink" title="Origins"></a>Origins</h2><p>When you create a distribution, you must specify the DNS domain name of the origin—the Amazon S3 bucket or HTTP server—from which you want Amazon CloudFront to get the definitive version of your objects (web files).</p>
+<p>For example:</p>
+<ul>
+<li>Amazon S3 bucket: myawsbucket.s3.amazonaws.com</li>
+<li>Amazon EC2 instance: ec2–203–0–113–25.compute-1.amazonaws.com</li>
+<li>Elastic Load Balancing load balancer: my-load-balancer-1234567890.us-west-2.elb.amazonaws.com</li>
+<li>Website URL: mywebserver.mycompanydomain.com</li>
+</ul>
+<h2 id="cache-control"><a href="#cache-control" class="headerlink" title="cache control"></a>cache control</h2><p>Once requested and served from an edge location, objects stay in the cache until they expire or are evicted to make room for more frequently requested content. By default, objects expire from the cache after 24 hours.</p>
+<p>Optionally, you can control how long objects stay in an Amazon CloudFront cache before expiring. To do this, you can choose to use Cache-Control headers set by your origin server or you can set the minimum, maximum, and default Time to Live (TTL) for objects in your Amazon CloudFront distribution.</p>
+<p>You can also remove copies of an object from all Amazon CloudFront edge locations at any time by calling the invalidation Application Program Interface (API).</p>
+<p>Instead of invalidating objects manually or programmatically, it is a best practice to use a version identifier as part of the object (file) path name. For example:</p>
+<ul>
+<li>Old file: assets/v1/css/narrow.css</li>
+<li>New file: assets/v2/css/narrow.css</li>
+</ul>
+<h2 id="Dynamic-Content-Multiple-Origins-and-Cache-Behaviors"><a href="#Dynamic-Content-Multiple-Origins-and-Cache-Behaviors" class="headerlink" title="Dynamic Content, Multiple Origins, and Cache Behaviors"></a>Dynamic Content, Multiple Origins, and Cache Behaviors</h2><p>Serving static assets, such as described previously, is a common way to use a CDN. An Amazon CloudFront distribution, however, can easily be set up to serve dynamic content in addition to static content and to use more than one origin server. You control which requests are served by which origin and how requests are cached using a feature called cache behaviors.</p>
+<p>A cache behavior lets you configure a variety of Amazon CloudFront functionalities for a given URL path pattern for files on your website.</p>
+<p>The functionality you can configure for each cache behavior includes the following:</p>
+<ul>
+<li>The path pattern</li>
+<li>Which origin to forward your requests to</li>
+<li>Whether to forward query strings to your origin</li>
+<li>Whether accessing the specified files requires signed URLs</li>
+<li>Whether to require HTTPS access</li>
+<li>The amount of time that those files stay in the Amazon CloudFront cache (regardless of the value of any Cache-Control headers that your origin adds to the files)</li>
+</ul>
+<h2 id="Private-Content"><a href="#Private-Content" class="headerlink" title="Private Content"></a>Private Content</h2><p>In many cases, you may want to restrict access to content in Amazon CloudFront to only selected requestors, such as paid subscribers or to applications or users in your company network. Amazon CloudFront provides several mechanisms to allow you to serve private content. These include:</p>
+<ul>
+<li><p>Signed URLs Use URLs that are valid only between certain times and optionally from certain IP addresses.</p>
+</li>
+<li><p>Signed Cookies Require authentication via public and private key pairs.</p>
+</li>
+<li><p>Origin Access Identities (OAI) Restrict access to an Amazon S3 bucket only to a special Amazon CloudFront user associated with your distribution. This is the easiest way to ensure that content in a bucket is only accessed by Amazon CloudFront.</p>
+</li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>»<a class="article-category-link" href="/categories/Cloud/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-nodejs-error-handling" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/07/01/nodejs-error-handling/" class="article-date">
+  <time datetime="2018-07-01T01:09:47.000Z" itemprop="datePublished">2018-07-01</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/07/01/nodejs-error-handling/">Node.js Error Handling Best Practices</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practices/">Best Practices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Error-Handling/">Error Handling</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-nodejs-logging" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/07/01/nodejs-logging/" class="article-date">
+  <time datetime="2018-07-01T00:04:37.000Z" itemprop="datePublished">2018-07-01</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/07/01/nodejs-logging/">Node.js Logging Best Practices</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p> Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and analyzed to ensure that the desired information (e.g. error rate, following an entire transaction through services and servers, etc) can really be extracted.</p>
+<h2 id="Bunyan"><a href="#Bunyan" class="headerlink" title="Bunyan"></a>Bunyan</h2><p>Use <a href="https://github.com/trentm/node-bunyan" target="_blank" rel="noopener">Bunyan</a> to log structured records. Alternatively you can use <a href="https://www.npmjs.com/package/pino" target="_blank" rel="noopener">pino</a>.</p>
+<p>Bunyan log records are JSON. A few fields are added automatically: “pid”, “hostname”, “time” and “v”.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Log with an optional 'fields' object as the first parameter</span></span><br><span class="line">log.info(&#123;<span class="attr">foo</span>: <span class="string">'bar'</span>, <span class="attr">err</span>: err&#125;, <span class="string">'some msg about this error'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="Child-Logger"><a href="#Child-Logger" class="headerlink" title="Child Logger"></a>Child Logger</h3><p>Bunyan has a concept of a child logger to specialize a logger for a sub-component of your application, i.e. to create a new logger with additional bound fields that will be included in its log records. A child logger is created with <code>log.child(...)</code>.</p>
+<p>Bunyan has a concept of “serializer” functions to produce a JSON-able object from a JavaScript object, so you can easily do the following:</p>
+<p><code>log.info({req: &lt;request object&gt;}, &#39;something about handling this request&#39;);</code></p>
+<p>and have the req entry in the log record be just a reasonable subset of <request object=""> fields (or computed data about those fields).</request></p>
+<h2 id="收集渠道"><a href="#收集渠道" class="headerlink" title="收集渠道"></a>收集渠道</h2><ol>
+<li><p>系统未捕获错误:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">process.on(<span class="string">'uncaughtException'</span>, processErrorHandler);  </span><br><span class="line">process.on(<span class="string">'unhandledRejection'</span>, processErrorHandler);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>程序内 byLog 的输出</p>
+</li>
+<li>console.error</li>
+</ol>
+<p>针对 Express 可做如下埋点:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在所有路由最后，添加错误处理，必须同时含有四个参数</span></span><br><span class="line"><span class="comment">// http://expressjs.com/en/guide/error-handling.html</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">err, req, res, next</span>) </span>&#123;  </span><br><span class="line">    res.send(&#123;</span><br><span class="line">        code: <span class="number">500</span>,</span><br><span class="line">        message: <span class="string">`System Error! Please send serial number <span class="subst">$&#123;req.x_request_id&#125;</span> to administer`</span></span><br><span class="line">    &#125;);</span><br><span class="line">    byLog.error(err, <span class="literal">null</span>, &#123;</span><br><span class="line">        req_id: req.x_request_id</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Logging-in-Distributed-Systems"><a href="#Logging-in-Distributed-Systems" class="headerlink" title="Logging in Distributed Systems"></a>Logging in Distributed Systems</h2><h3 id="Have-an-Application-Instance-Identifier"><a href="#Have-an-Application-Instance-Identifier" class="headerlink" title="Have an Application Instance Identifier"></a>Have an Application Instance Identifier</h3><p>Use the <code>name</code> field in bunyan.</p>
+<h3 id="Always-Use-UTC-Time"><a href="#Always-Use-UTC-Time" class="headerlink" title="Always Use UTC Time"></a>Always Use UTC Time</h3><h3 id="Adding-correlation-IDs"><a href="#Adding-correlation-IDs" class="headerlink" title="Adding correlation IDs"></a>Adding correlation IDs</h3><p>This ID has to be passed around in function calls, and it has to be sent to downstream services too.</p>
+<h3 id="Using-Trace"><a href="#Using-Trace" class="headerlink" title="Using Trace"></a>Using Trace</h3><p><a href="https://trace.risingstack.com/" target="_blank" rel="noopener">https://trace.risingstack.com/</a></p>
+<h2 id="Never-ever-log-credentials-passwords-or-any-sensitive-information"><a href="#Never-ever-log-credentials-passwords-or-any-sensitive-information" class="headerlink" title="Never, ever log credentials, passwords or any sensitive information."></a>Never, ever log credentials, passwords or any sensitive information.</h2><h2 id="Logging-in-NPM-modules"><a href="#Logging-in-NPM-modules" class="headerlink" title="Logging in NPM modules"></a>Logging in NPM modules</h2><p>Use the <a href="https://www.npmjs.com/package/debug" target="_blank" rel="noopener">debug</a> module.</p>
+<p>By default, it will not produce any output. To enable this logger, you have run your application with a special environment variable, called DEBUG.</p>
+<p><code>DEBUG=my-namespace,express* node app.js</code></p>
+<p>Once you do that, the debug module will come to life and will start producing log events for stdout.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://blog.risingstack.com/node-js-logging-tutorial/" target="_blank" rel="noopener">How to Get Node.js Logging Right</a></li>
+</ol>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practices/">Best Practices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Logging/">Logging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
     <article id="post-metrics-and-prometheus" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -69,7 +295,8 @@
 	</header>
 	<div class="entry-content">
 		
-    	
+    	<h1 id="Calling-chain"><a href="#Calling-chain" class="headerlink" title="Calling chain"></a>Calling chain</h1><p>一个完整的微服务系统包含多个微服务单元，各个微服务子系统存在互相调用的情况，形成一个 调用链。一个客户端请求从发出到被响应 经历了哪些组件、哪些微服务、请求总时长、每个组件所花时长 等信息我们有必要了解和收集，以帮助我们定位性能瓶颈、进行性能调优，因此监控整个微服务架构的调用链十分有必要。</p>
+<h2 id="Zipkin"><a href="#Zipkin" class="headerlink" title="Zipkin"></a>Zipkin</h2>
     
 	</div>
 	<footer class="entry-footer">
@@ -97,10 +324,10 @@
 
 
   
-    <article id="post-microservices-and-devops" class="post">
+    <article id="post-microservices-with-nodejs" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
-			<a href="/2018/06/28/microservices-and-devops/" class="article-date">
+			<a href="/2018/06/28/microservices-with-nodejs/" class="article-date">
   <time datetime="2018-06-28T13:42:14.000Z" itemprop="datePublished">2018-06-28</time>
 </a>
 		</span>
@@ -114,14 +341,14 @@
 		
   
     <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/28/microservices-and-devops/">Microservices and DevOps</a>
+      <a class="article-title" href="/2018/06/28/microservices-with-nodejs/">Microservices with Node.js</a>
     </h1>
   
 
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><h2 id="Shared-Code"><a href="#Shared-Code" class="headerlink" title="Shared Code"></a>Shared Code</h2><h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><h2 id="Middlewares"><a href="#Middlewares" class="headerlink" title="Middlewares"></a>Middlewares</h2><h3 id="Pub-Sub"><a href="#Pub-Sub" class="headerlink" title="Pub/Sub"></a>Pub/Sub</h3><h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><h2 id="Reliability"><a href="#Reliability" class="headerlink" title="Reliability"></a>Reliability</h2><h2 id="Health-Check"><a href="#Health-Check" class="headerlink" title="Health Check"></a>Health Check</h2><h2 id="Service-Discovery"><a href="#Service-Discovery" class="headerlink" title="Service Discovery"></a>Service Discovery</h2><h2 id="Load-Balancing"><a href="#Load-Balancing" class="headerlink" title="Load Balancing"></a>Load Balancing</h2><h2 id="Configuration-centre"><a href="#Configuration-centre" class="headerlink" title="Configuration centre"></a>Configuration centre</h2><h2 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h2><h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h2><h2 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h2><h2 id="Circuit-Breaker"><a href="#Circuit-Breaker" class="headerlink" title="Circuit Breaker"></a>Circuit Breaker</h2><h2 id="Distributed-Tracing"><a href="#Distributed-Tracing" class="headerlink" title="Distributed Tracing"></a>Distributed Tracing</h2><h1 id="Key-Points-to-validate"><a href="#Key-Points-to-validate" class="headerlink" title="Key Points to validate"></a>Key Points to validate</h1><ul>
+    	<h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><h2 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h2><h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><h2 id="Service-Gateway"><a href="#Service-Gateway" class="headerlink" title="Service Gateway"></a>Service Gateway</h2><h2 id="Middlewares"><a href="#Middlewares" class="headerlink" title="Middlewares"></a>Middlewares</h2><h3 id="Pub-Sub"><a href="#Pub-Sub" class="headerlink" title="Pub/Sub"></a>Pub/Sub</h3><h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><h2 id="Authentication-and-Authorisation"><a href="#Authentication-and-Authorisation" class="headerlink" title="Authentication and Authorisation"></a>Authentication and Authorisation</h2><h2 id="Reliability"><a href="#Reliability" class="headerlink" title="Reliability"></a>Reliability</h2><h2 id="Health-Check"><a href="#Health-Check" class="headerlink" title="Health Check"></a>Health Check</h2><h2 id="Service-Registry-And-Discovery"><a href="#Service-Registry-And-Discovery" class="headerlink" title="Service Registry And Discovery"></a>Service Registry And Discovery</h2><h2 id="Load-Balancing"><a href="#Load-Balancing" class="headerlink" title="Load Balancing"></a>Load Balancing</h2><h2 id="Configuration-centre"><a href="#Configuration-centre" class="headerlink" title="Configuration centre"></a>Configuration centre</h2><h2 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h2><h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h2><h2 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h2><h2 id="Circuit-Breaker"><a href="#Circuit-Breaker" class="headerlink" title="Circuit Breaker"></a>Circuit Breaker</h2><h2 id="Distributed-Tracing"><a href="#Distributed-Tracing" class="headerlink" title="Distributed Tracing"></a>Distributed Tracing</h2><h1 id="Key-Points-to-validate"><a href="#Key-Points-to-validate" class="headerlink" title="Key Points to validate"></a>Key Points to validate</h1><ul>
 <li>How many Microservices should I divide the business capabilities into thinking in terms of domain driven design.</li>
 <li>Partitioning the data into different services with their own database solution with the understanding of which segment of data needs to be kept redundant locally for each of these services.</li>
 <li>How data is synchronized between Microservices for redundant data.</li>
@@ -140,13 +367,13 @@
 			<span class="category">
 				
   <div class="article-category">
-    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>»<a class="article-category-link" href="/categories/DevOps/Microservices/">Microservices</a>
+    <a class="article-category-link" href="/categories/Microservices/">Microservices</a>
   </div>
 
 			</span>
 			<span class="tags">
 				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li></ul>
 
 			</span>
 		</div>
@@ -642,278 +869,6 @@
 			<span class="tags">
 				
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rails/">Rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-aws-networking" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/21/aws-networking/" class="article-date">
-  <time datetime="2018-06-21T12:08:26.000Z" itemprop="datePublished">2018-06-21</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/21/aws-networking/">aws-networking</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="Virtual-Private-Network-VPC"><a href="#Virtual-Private-Network-VPC" class="headerlink" title="Virtual Private Network (VPC)"></a>Virtual Private Network (VPC)</h1><p>Within a region, you can create multiple Amazon VPCs, and each Amazon VPC is logically isolated even if it shares its IP address space.</p>
-<p>When you create an Amazon VPC, you must specify the IPv4 address range by choosing a Classless Inter-Domain Routing (CIDR) block, such as 10.0.0.0/16. The address range of the Amazon VPC cannot be changed after the Amazon VPC is created. An Amazon VPC address range may be as large as /16 (65,536 available addresses) or as small as /28 (16 available addresses) and should not overlap any other network with which they are to be connected.</p>
-<p>AWS accounts that support EC2-VPC will have a default VPC created in each region with a default subnet created in each Availability Zone. The assigned CIDR block of the VPC will be 172.31.0.0/16.</p>
-<p>An Amazon VPC consists of the following components:</p>
-<ul>
-<li>Subnets</li>
-<li>Route tables</li>
-<li>Dynamic Host Configuration Protocol (DHCP) option sets</li>
-<li>Security groups</li>
-<li>Network Access Control Lists (ACLs)</li>
-</ul>
-<p>An Amazon VPC has the following optional components:</p>
-<ul>
-<li>Internet Gateways (IGWs)</li>
-<li>Elastic IP (EIP) addresses</li>
-<li>Elastic Network Interfaces (ENIs)</li>
-<li>Endpoints</li>
-<li>Peering</li>
-<li>Network Address Translation (NATs) instances and NAT gateways</li>
-<li>Virtual Private Gateway (VPG), Customer Gateways (CGWs), and Virtual Private Networks (VPNs)</li>
-</ul>
-<h2 id="Subnets"><a href="#Subnets" class="headerlink" title="Subnets"></a>Subnets</h2><p>CIDR blocks define subnets (for example, 10.0.1.0/24 and 192.168.0.0/24). The smallest subnet that you can create is a /28 (16 IP addresses). AWS reserves the first four IP addresses and the last IP address of every subnet for internal networking purposes.</p>
-<p>Subnets reside within one Availability Zone and cannot span zones. You can, however, have multiple subnets in one Availability Zone.</p>
-<p><img src="vpc1.jpg" alt=""></p>
-<p>Subnets can be classified as public, private, or VPN-only.</p>
-<ul>
-<li>A public subnet is one in which the associated route table directs the subnet’s traffic to the Amazon VPC’s IGW.</li>
-<li>A private subnet is one in which the associated route table does not direct the subnet’s traffic to the Amazon VPC’s IGW.</li>
-<li>A VPN-only subnet is one in which the associated route table directs the subnet’s traffic to the Amazon VPC’s VPG and does not have a route to the IGW.</li>
-</ul>
-<p>Regardless of the type of subnet, the internal IP address range of the subnet is always private (that is, non-routable on the Internet).</p>
-<p>Default Amazon VPCs contain one public subnet in every Availability Zone within the region, with a netmask of /20.</p>
-<h2 id="Route-Tables"><a href="#Route-Tables" class="headerlink" title="Route Tables"></a>Route Tables</h2><p>A route table is a logical construct within an Amazon VPC that contains a set of rules (called routes) that are applied to the subnet and used to determine where network traffic is directed.</p>
-<p>Each route table contains a default route called the local route, which enables communication within the Amazon VPC, and this route cannot be modified or removed. Additional routes can be added to direct traffic to exit the Amazon VPC via the IGW, the VPG, or the NAT instance.</p>
-<p>You should remember the following points about route tables:</p>
-<ul>
-<li>Your VPC has an implicit router.</li>
-<li>Your VPC automatically comes with a main route table that you can modify.</li>
-<li>You can create additional custom route tables for your VPC.</li>
-<li>Each subnet must be associated with a route table, which controls the routing for the subnet. If you don’t explicitly associate a subnet with a particular route table, the subnet uses the main route table.</li>
-<li>You can replace the main route table with a custom table that you’ve created so that each new subnet is automatically associated with it.</li>
-<li>Each route in a table specifies a destination CIDR and a target; for example, traffic destined for 172.16.0.0/12 is targeted for the VPG. AWS uses the most specific route that matches the traffic to determine how to route the traffic.</li>
-</ul>
-<h2 id="Internet-Gateways"><a href="#Internet-Gateways" class="headerlink" title="Internet Gateways"></a>Internet Gateways</h2><p>An Internet Gateway (IGW) is a horizontally scaled, redundant, and highly available Amazon VPC component that allows communication between instances in your Amazon VPC and the Internet. An IGW provides a target in your Amazon VPC route tables for Internet-routable traffic, and it performs network address translation for instances that have been assigned public IP addresses.</p>
-<p>You must do the following to create a public subnet with Internet access:</p>
-<ul>
-<li>Attach an IGW to your Amazon VPC.</li>
-<li>Create a subnet route table rule to send all non-local traffic (0.0.0.0/0) to the IGW.</li>
-<li>Configure your network ACLs and security group rules to allow relevant traffic to flow to and from your instance.</li>
-</ul>
-<p>You must do the following to enable an Amazon EC2 instance to send and receive traffic from the Internet:</p>
-<ul>
-<li>Assign a public IP address or EIP address.</li>
-<li>You can scope the route to all destinations not explicitly known to the route table (0.0.0.0/0), or you can scope the route to a narrower range of IP addresses, such as the public IP addresses of your company’s public endpoints outside of AWS or the EIP addresses of other Amazon EC2 instances outside your Amazon VPC.</li>
-</ul>
-<p><img src="vpc2.jpg" alt=""></p>
-<h2 id="Dynamic-Host-Configuration-Protocol-DHCP-Option-Sets"><a href="#Dynamic-Host-Configuration-Protocol-DHCP-Option-Sets" class="headerlink" title="Dynamic Host Configuration Protocol (DHCP) Option Sets"></a>Dynamic Host Configuration Protocol (DHCP) Option Sets</h2><h2 id="Elastic-IP-Addresses-EIPs"><a href="#Elastic-IP-Addresses-EIPs" class="headerlink" title="Elastic IP Addresses (EIPs)"></a>Elastic IP Addresses (EIPs)</h2><h2 id="Elastic-Network-Interfaces-ENIs"><a href="#Elastic-Network-Interfaces-ENIs" class="headerlink" title="Elastic Network Interfaces (ENIs)"></a>Elastic Network Interfaces (ENIs)</h2><h2 id="Endpoints"><a href="#Endpoints" class="headerlink" title="Endpoints"></a>Endpoints</h2><h2 id="Peering"><a href="#Peering" class="headerlink" title="Peering"></a>Peering</h2><h2 id="Security-Groups"><a href="#Security-Groups" class="headerlink" title="Security Groups"></a>Security Groups</h2><h2 id="Network-Access-Control-Lists-ACLs"><a href="#Network-Access-Control-Lists-ACLs" class="headerlink" title="Network Access Control Lists (ACLs)"></a>Network Access Control Lists (ACLs)</h2><h2 id="Network-Address-Translation-NAT-Instances-and-NAT-Gateways"><a href="#Network-Address-Translation-NAT-Instances-and-NAT-Gateways" class="headerlink" title="Network Address Translation (NAT) Instances and NAT Gateways"></a>Network Address Translation (NAT) Instances and NAT Gateways</h2><h3 id="NAT-INSTANCE"><a href="#NAT-INSTANCE" class="headerlink" title="NAT INSTANCE"></a>NAT INSTANCE</h3><h3 id="NAT-GATEWAY"><a href="#NAT-GATEWAY" class="headerlink" title="NAT GATEWAY"></a>NAT GATEWAY</h3><h2 id="Virtual-Private-Gateways-VPGs-Customer-Gateways-CGWs-and-Virtual-Private-Networks-VPNs"><a href="#Virtual-Private-Gateways-VPGs-Customer-Gateways-CGWs-and-Virtual-Private-Networks-VPNs" class="headerlink" title="Virtual Private Gateways (VPGs), Customer Gateways (CGWs), and Virtual Private Networks (VPNs)"></a>Virtual Private Gateways (VPGs), Customer Gateways (CGWs), and Virtual Private Networks (VPNs)</h2>
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>»<a class="article-category-link" href="/categories/Cloud/DevOps/">DevOps</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-debug-javascript-typescript" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/20/debug-javascript-typescript/" class="article-date">
-  <time datetime="2018-06-20T12:34:22.000Z" itemprop="datePublished">2018-06-20</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/20/debug-javascript-typescript/">Debug Javascript/TypeScript</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="JavaScript-TypeScript-Debugging"><a href="#JavaScript-TypeScript-Debugging" class="headerlink" title="JavaScript/TypeScript Debugging"></a>JavaScript/TypeScript Debugging</h1><p>Node.js 6.3 introduced the “inspect” and “inspect-brk” CLI arguments that make node to listen via WebSockets for diagnostic commands as defined by the Chrome Debugging Protocol.</p>
-<p>Additionally, the Node CLI also provides a “require” argument meant to preload modules (node –require [file]), but most importantly, for debugging purposes, it allows 3rd party libraries to hook into the “require.extensions” module and make Node able to compile and generate source-maps for other languages like TypeScript. For debugging TypeScript we’ll use ts-node. It’s important to remember that in your tsconfig.file , that can be generated by running tsc –init , you should have “sourceMap”: true , which is the default value.</p>
-<p>When a Node.js app is started in “inspect” mode, 2 important things will happen:</p>
-<ul>
-<li>An UUID will be assigned to this debugging session and a WebSockets end-point will spin up at ws://127.0.0.1:9229/[UUID] . This end-point will stream real-time events with the current state of the running code.</li>
-<li>An HTTP end-point will spin up at <a href="http://127.0.0.1:9229/json" target="_blank" rel="noopener">http://127.0.0.1:9229/json</a> . This allows agents like the Chrome DevTools to know about every running Node session and their respectiveUUID .</li>
-</ul>
-<h2 id="With-Chrome-DevTools-for-JavaScript"><a href="#With-Chrome-DevTools-for-JavaScript" class="headerlink" title="With Chrome DevTools for JavaScript"></a>With Chrome DevTools for JavaScript</h2><p>To start application in debug mode:</p>
-<ul>
-<li><code>node --inspect app.js</code></li>
-<li><code>node --inspect-brk=9229 app.js</code> - set debug port to 9229 and add a breakpoint at the first line</li>
-</ul>
-<p>A Node.js process started without –inspect can also be instructed to start listening for debugging messages:</p>
-<ul>
-<li><code>node -e &#39;process._debugProcess(30464)&#39;</code> - to attach debugger to a running application(not in inspect mode)</li>
-<li><code>kill -SIGUSR1 30464</code></li>
-</ul>
-<p>Debug in Chrome:</p>
-<ul>
-<li><code>chrome://inspect</code></li>
-<li><code>about:inspect</code></li>
-<li><code>Cmd + P</code> to navigate to desired file</li>
-</ul>
-<h2 id="With-Chrome-DevTools-for-TypeScript"><a href="#With-Chrome-DevTools-for-TypeScript" class="headerlink" title="With Chrome DevTools for TypeScript"></a>With Chrome DevTools for TypeScript</h2><p>Start application with <code>node --inspect --require ts-node/register index.ts</code> and it is the same after that.</p>
-<h2 id="With-VSC-for-JavaScript"><a href="#With-VSC-for-JavaScript" class="headerlink" title="With VSC for JavaScript"></a>With VSC for JavaScript</h2><p>Just by selecting the target JavaScript file, clicking on the Debug tab (Shift + Cmd + D on Mac) and hitting the ▶️ button should be enough to start debugging the current JavaScript file even without selecting any launch configuration. VS Code will automatically start Node with the –inspect parameter and attach to it.</p>
-<p>You can also very easily create a launch configuration for attaching to a Node process running from the terminal.<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"node"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"attach"</span>,</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Attach"</span>,</span><br><span class="line">            <span class="attr">"port"</span>: <span class="number">9229</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>After the configuration is in place, start the application in inspection mode from the terminal.</p>
-<h2 id="With-VSC-for-TypeScript"><a href="#With-VSC-for-TypeScript" class="headerlink" title="With VSC for TypeScript"></a>With VSC for TypeScript</h2><p>VS Code, when using a configuration “type”:”node” will not allow the program to be a .ts file (at least as this article is being written), then you’re left with 2 options: You can either run ts-node passing a .ts file as the argument (${relativeFile} returns the currently focused one):</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Current TS File"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"node"</span>,</span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="attr">"program"</span>: <span class="string">"$&#123;workspaceRoot&#125;/node_modules/.bin/ts-node"</span>,</span><br><span class="line">            <span class="attr">"args"</span>: [<span class="string">"$&#123;relativeFile&#125;"</span>],</span><br><span class="line">            <span class="attr">"protocol"</span>: <span class="string">"inspector"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>or you can specify the runtimeExecutable to be NPM (instead of the default: node) and pass a script name as an argument. Both of them have the exact same effect:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="attr">"type"</span>: <span class="string">"node"</span>,</span><br><span class="line">           <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">           <span class="attr">"name"</span>: <span class="string">"Launch via NPM"</span>,</span><br><span class="line">           <span class="attr">"runtimeExecutable"</span>: <span class="string">"npm"</span>,</span><br><span class="line">           <span class="attr">"runtimeArgs"</span>: [</span><br><span class="line">               <span class="string">"run-script"</span>,</span><br><span class="line">               <span class="string">"start:debug:ts"</span></span><br><span class="line">           ],</span><br><span class="line">           <span class="attr">"port"</span>: <span class="number">9229</span></span><br><span class="line">       &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>alternatively this one should work too:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">  <span class="attr">"configurations"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"node"</span>,</span><br><span class="line">      <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"Launch current file w/ ts-node"</span>,</span><br><span class="line">      <span class="attr">"protocol"</span>: <span class="string">"inspector"</span>,</span><br><span class="line">      <span class="attr">"args"</span>: [<span class="string">"$&#123;relativeFile&#125;"</span>],</span><br><span class="line">      <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceRoot&#125;"</span>,</span><br><span class="line">      <span class="attr">"runtimeArgs"</span>: [<span class="string">"-r"</span>, <span class="string">"ts-node/register"</span>],</span><br><span class="line">      <span class="attr">"internalConsoleOptions"</span>: <span class="string">"openOnSessionStart"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>If you want, instead, to attach to a running TypeScript process spawn from a terminal, it is the exact same script we used for pure JavaScript.</p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
-<li><a href="https://hackernoon.com/debugging-javascript-typescript-node-apps-with-chrome-devtools-vs-code-and-webstorm-97b882aee0ad" target="_blank" rel="noopener">Debugging JavaScript/TypeScript Node apps with Chrome DevTools, VS Code and WebStorm</a></li>
-</ol>
-
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Debug/">Debug</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-nodejs-production-practices" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/19/nodejs-production-practices/" class="article-date">
-  <time datetime="2018-06-19T00:10:18.000Z" itemprop="datePublished">2018-06-19</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/19/nodejs-production-practices/">Node.js Production Practices</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-    	<h1 id="Development"><a href="#Development" class="headerlink" title="Development"></a>Development</h1><h2 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h2><h3 id="Project-Structure"><a href="#Project-Structure" class="headerlink" title="Project Structure"></a>Project Structure</h3><h3 id="Handle-Different-Environments-and-Configurations"><a href="#Handle-Different-Environments-and-Configurations" class="headerlink" title="Handle Different Environments and Configurations"></a>Handle Different Environments and Configurations</h3><h3 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h3><h3 id="Use-Messaging-for-Background-Processes"><a href="#Use-Messaging-for-Background-Processes" class="headerlink" title="Use Messaging for Background Processes"></a>Use Messaging for Background Processes</h3><p>If you are using HTTP for sending messages, then whenever the receiving party is down, all your messages are lost. However, if you pick a persistent transport layer, like a message queue to send messages, you won’t have this problem.</p>
-<p>If the receiving service is down, the messages will be kept, and can be processed later. If the service is not down, but there is an issue, processing can be retried, so no data gets lost.</p>
-<h2 id="Unit-Testing"><a href="#Unit-Testing" class="headerlink" title="Unit Testing"></a>Unit Testing</h2><h2 id="E2E-Testing"><a href="#E2E-Testing" class="headerlink" title="E2E Testing"></a>E2E Testing</h2><h2 id="Linting-and-Styling"><a href="#Linting-and-Styling" class="headerlink" title="Linting and Styling"></a>Linting and Styling</h2><p>Prettier<br>ESLint/TSLint</p>
-<p><a href="https://github.com/standard/standard" target="_blank" rel="noopener">https://github.com/standard/standard</a></p>
-<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><h1 id="Delivery-and-Deployment"><a href="#Delivery-and-Deployment" class="headerlink" title="Delivery and Deployment"></a>Delivery and Deployment</h1><h2 id="Dockerize"><a href="#Dockerize" class="headerlink" title="Dockerize"></a>Dockerize</h2><h2 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h2><p>JSDoc</p>
-<h2 id="SemVer"><a href="#SemVer" class="headerlink" title="SemVer"></a>SemVer</h2><p>Versioning your application / modules is critical - your consumers must know if a new version of a module is published and what needs to be done on their side to get the new version.</p>
-<p>This is where semantic versioning comes into the picture. Given a version number MAJOR.MINOR.PATCH, increment the:</p>
-<ul>
-<li>MAJOR version when you make incompatible API changes,</li>
-<li>MINOR version when you add functionality (without breaking the API), and</li>
-<li>PATCH version when you make backwards-compatible bug fixes.</li>
-</ul>
-<h2 id="PM2"><a href="#PM2" class="headerlink" title="PM2"></a>PM2</h2><h2 id="Logging-and-Tracing"><a href="#Logging-and-Tracing" class="headerlink" title="Logging and Tracing"></a>Logging and Tracing</h2><p>Separate access logs and application logs</p>
-<p>Opentracing</p>
-<h2 id="Monitoring-and-Metrics"><a href="#Monitoring-and-Metrics" class="headerlink" title="Monitoring and Metrics"></a>Monitoring and Metrics</h2><p>Prometheus</p>
-<h2 id="Scaling"><a href="#Scaling" class="headerlink" title="Scaling"></a>Scaling</h2><h2 id="Profiling"><a href="#Profiling" class="headerlink" title="Profiling"></a>Profiling</h2><ul>
-<li><code>npm install -g autocannon</code></li>
-<li><code>npm install -g clinic</code></li>
-</ul>
-<p><code>autocannon -c100 localhost:3000/seed/v1</code></p>
-<p><code>clinic doctor --on-port=’autocannon -c100 localhost:$PORT/seed/v1’ -- node index.js</code></p>
-<p><code>clinic flame --on-port=’autocannon -c100 localhost:$PORT/seed/v1’ -- node index.js</code></p>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
-<li><a href="https://www.smashingmagazine.com/2018/06/nodejs-tools-techniques-performance-servers/" target="_blank" rel="noopener">Keeping Node.js Fast: Tools, Techniques, And Tips For Making High-Performance Node.js Servers</a></li>
-</ul>
-
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practices/">Best Practices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
 
 			</span>
 		</div>

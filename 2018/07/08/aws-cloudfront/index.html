@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>aws-cloudfront | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="AMAZON CLOUDFRONTAmazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end">
+<meta name="keywords" content="AWS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="aws-cloudfront">
+<meta property="og:url" content="http://superliuwr.github.io/2018/07/08/aws-cloudfront/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="AMAZON CLOUDFRONTAmazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-08T13:31:26.046Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="aws-cloudfront">
+<meta name="twitter:description" content="AMAZON CLOUDFRONTAmazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-aws-cloudfront" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/07/08/aws-cloudfront/" class="article-date">
+  <time datetime="2018-07-08T11:41:35.000Z" itemprop="datePublished">2018-07-08</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      aws-cloudfront
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="AMAZON-CLOUDFRONT"><a href="#AMAZON-CLOUDFRONT" class="headerlink" title="AMAZON CLOUDFRONT"></a>AMAZON CLOUDFRONT</h1><p>Amazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end users with low latency, high data transfer speeds, and no minimum usage commitments.</p>
+<p>Amazon CloudFront is AWS CDN. It can be used to deliver your web content using Amazon’s global network of <em>edge locations</em>.</p>
+<p>Amazon CloudFront is optimized to work with other AWS cloud services as the origin server, including Amazon S3 buckets, Amazon S3 static websites, Amazon Elastic Compute Cloud (Amazon EC2), and Elastic Load Balancing. Amazon CloudFront also works seamlessly with any non-AWS origin server, such as an existing on-premises web server. Amazon CloudFront also integrates with Amazon Route 53.</p>
+<p>Amazon CloudFront supports all content that can be served over HTTP or HTTPS. This includes any popular static files that are a part of your web application, such as HTML files, images, JavaScript, and CSS files, and also audio, video, media files, or software downloads. Amazon CloudFront also supports serving dynamic web pages, so it can actually be used to deliver your entire website. Finally, Amazon CloudFront supports media streaming, using both HTTP and RTMP.</p>
+<h2 id="Distributions"><a href="#Distributions" class="headerlink" title="Distributions"></a>Distributions</h2><p>To use Amazon CloudFront, you start by creating a distribution, which is identified by a DNS domain name such as d111111abcdef8.cloudfront.net.</p>
+<p>You can use the Amazon CloudFront distribution domain name as-is, or you can create a user-friendly DNS name in your own domain by creating a CNAME record in Amazon Route 53 or another DNS service. The CNAME is automatically redirected to your Amazon CloudFront distribution domain name.</p>
+<h2 id="Origins"><a href="#Origins" class="headerlink" title="Origins"></a>Origins</h2><p>When you create a distribution, you must specify the DNS domain name of the origin—the Amazon S3 bucket or HTTP server—from which you want Amazon CloudFront to get the definitive version of your objects (web files).</p>
+<p>For example:</p>
+<ul>
+<li>Amazon S3 bucket: myawsbucket.s3.amazonaws.com</li>
+<li>Amazon EC2 instance: ec2–203–0–113–25.compute-1.amazonaws.com</li>
+<li>Elastic Load Balancing load balancer: my-load-balancer-1234567890.us-west-2.elb.amazonaws.com</li>
+<li>Website URL: mywebserver.mycompanydomain.com</li>
+</ul>
+<h2 id="cache-control"><a href="#cache-control" class="headerlink" title="cache control"></a>cache control</h2><p>Once requested and served from an edge location, objects stay in the cache until they expire or are evicted to make room for more frequently requested content. By default, objects expire from the cache after 24 hours.</p>
+<p>Optionally, you can control how long objects stay in an Amazon CloudFront cache before expiring. To do this, you can choose to use Cache-Control headers set by your origin server or you can set the minimum, maximum, and default Time to Live (TTL) for objects in your Amazon CloudFront distribution.</p>
+<p>You can also remove copies of an object from all Amazon CloudFront edge locations at any time by calling the invalidation Application Program Interface (API).</p>
+<p>Instead of invalidating objects manually or programmatically, it is a best practice to use a version identifier as part of the object (file) path name. For example:</p>
+<ul>
+<li>Old file: assets/v1/css/narrow.css</li>
+<li>New file: assets/v2/css/narrow.css</li>
+</ul>
+<h2 id="Dynamic-Content-Multiple-Origins-and-Cache-Behaviors"><a href="#Dynamic-Content-Multiple-Origins-and-Cache-Behaviors" class="headerlink" title="Dynamic Content, Multiple Origins, and Cache Behaviors"></a>Dynamic Content, Multiple Origins, and Cache Behaviors</h2><p>Serving static assets, such as described previously, is a common way to use a CDN. An Amazon CloudFront distribution, however, can easily be set up to serve dynamic content in addition to static content and to use more than one origin server. You control which requests are served by which origin and how requests are cached using a feature called cache behaviors.</p>
+<p>A cache behavior lets you configure a variety of Amazon CloudFront functionalities for a given URL path pattern for files on your website.</p>
+<p>The functionality you can configure for each cache behavior includes the following:</p>
+<ul>
+<li>The path pattern</li>
+<li>Which origin to forward your requests to</li>
+<li>Whether to forward query strings to your origin</li>
+<li>Whether accessing the specified files requires signed URLs</li>
+<li>Whether to require HTTPS access</li>
+<li>The amount of time that those files stay in the Amazon CloudFront cache (regardless of the value of any Cache-Control headers that your origin adds to the files)</li>
+</ul>
+<h2 id="Private-Content"><a href="#Private-Content" class="headerlink" title="Private Content"></a>Private Content</h2><p>In many cases, you may want to restrict access to content in Amazon CloudFront to only selected requestors, such as paid subscribers or to applications or users in your company network. Amazon CloudFront provides several mechanisms to allow you to serve private content. These include:</p>
+<ul>
+<li><p>Signed URLs Use URLs that are valid only between certain times and optionally from certain IP addresses.</p>
+</li>
+<li><p>Signed Cookies Require authentication via public and private key pairs.</p>
+</li>
+<li><p>Origin Access Identities (OAI) Restrict access to an Amazon S3 bucket only to a special Amazon CloudFront user associated with your distribution. This is the easiest way to ensure that content in a bucket is only accessed by Amazon CloudFront.</p>
+</li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>»<a class="article-category-link" href="/categories/Cloud/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/01/nodejs-error-handling/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Node.js Error Handling Best Practices
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

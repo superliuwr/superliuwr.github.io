@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Node.js Logging Best Practices | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and an">
+<meta name="keywords" content="Node.js,Best Practices,Logging">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js Logging Best Practices">
+<meta property="og:url" content="http://superliuwr.github.io/2018/07/01/nodejs-logging/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and an">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-01T01:51:44.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js Logging Best Practices">
+<meta name="twitter:description" content="Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and an">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-nodejs-logging" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/07/01/nodejs-logging/" class="article-date">
+  <time datetime="2018-07-01T00:04:37.000Z" itemprop="datePublished">2018-07-01</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      Node.js Logging Best Practices
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p> Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and analyzed to ensure that the desired information (e.g. error rate, following an entire transaction through services and servers, etc) can really be extracted.</p>
+<h2 id="Bunyan"><a href="#Bunyan" class="headerlink" title="Bunyan"></a>Bunyan</h2><p>Use <a href="https://github.com/trentm/node-bunyan" target="_blank" rel="noopener">Bunyan</a> to log structured records. Alternatively you can use <a href="https://www.npmjs.com/package/pino" target="_blank" rel="noopener">pino</a>.</p>
+<p>Bunyan log records are JSON. A few fields are added automatically: “pid”, “hostname”, “time” and “v”.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Log with an optional 'fields' object as the first parameter</span></span><br><span class="line">log.info(&#123;<span class="attr">foo</span>: <span class="string">'bar'</span>, <span class="attr">err</span>: err&#125;, <span class="string">'some msg about this error'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="Child-Logger"><a href="#Child-Logger" class="headerlink" title="Child Logger"></a>Child Logger</h3><p>Bunyan has a concept of a child logger to specialize a logger for a sub-component of your application, i.e. to create a new logger with additional bound fields that will be included in its log records. A child logger is created with <code>log.child(...)</code>.</p>
+<p>Bunyan has a concept of “serializer” functions to produce a JSON-able object from a JavaScript object, so you can easily do the following:</p>
+<p><code>log.info({req: &lt;request object&gt;}, &#39;something about handling this request&#39;);</code></p>
+<p>and have the req entry in the log record be just a reasonable subset of <request object=""> fields (or computed data about those fields).</request></p>
+<h2 id="收集渠道"><a href="#收集渠道" class="headerlink" title="收集渠道"></a>收集渠道</h2><ol>
+<li><p>系统未捕获错误:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">process.on(<span class="string">'uncaughtException'</span>, processErrorHandler);  </span><br><span class="line">process.on(<span class="string">'unhandledRejection'</span>, processErrorHandler);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>程序内 byLog 的输出</p>
+</li>
+<li>console.error</li>
+</ol>
+<p>针对 Express 可做如下埋点:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在所有路由最后，添加错误处理，必须同时含有四个参数</span></span><br><span class="line"><span class="comment">// http://expressjs.com/en/guide/error-handling.html</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">err, req, res, next</span>) </span>&#123;  </span><br><span class="line">    res.send(&#123;</span><br><span class="line">        code: <span class="number">500</span>,</span><br><span class="line">        message: <span class="string">`System Error! Please send serial number <span class="subst">$&#123;req.x_request_id&#125;</span> to administer`</span></span><br><span class="line">    &#125;);</span><br><span class="line">    byLog.error(err, <span class="literal">null</span>, &#123;</span><br><span class="line">        req_id: req.x_request_id</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Logging-in-Distributed-Systems"><a href="#Logging-in-Distributed-Systems" class="headerlink" title="Logging in Distributed Systems"></a>Logging in Distributed Systems</h2><h3 id="Have-an-Application-Instance-Identifier"><a href="#Have-an-Application-Instance-Identifier" class="headerlink" title="Have an Application Instance Identifier"></a>Have an Application Instance Identifier</h3><p>Use the <code>name</code> field in bunyan.</p>
+<h3 id="Always-Use-UTC-Time"><a href="#Always-Use-UTC-Time" class="headerlink" title="Always Use UTC Time"></a>Always Use UTC Time</h3><h3 id="Adding-correlation-IDs"><a href="#Adding-correlation-IDs" class="headerlink" title="Adding correlation IDs"></a>Adding correlation IDs</h3><p>This ID has to be passed around in function calls, and it has to be sent to downstream services too.</p>
+<h3 id="Using-Trace"><a href="#Using-Trace" class="headerlink" title="Using Trace"></a>Using Trace</h3><p><a href="https://trace.risingstack.com/" target="_blank" rel="noopener">https://trace.risingstack.com/</a></p>
+<h2 id="Never-ever-log-credentials-passwords-or-any-sensitive-information"><a href="#Never-ever-log-credentials-passwords-or-any-sensitive-information" class="headerlink" title="Never, ever log credentials, passwords or any sensitive information."></a>Never, ever log credentials, passwords or any sensitive information.</h2><h2 id="Logging-in-NPM-modules"><a href="#Logging-in-NPM-modules" class="headerlink" title="Logging in NPM modules"></a>Logging in NPM modules</h2><p>Use the <a href="https://www.npmjs.com/package/debug" target="_blank" rel="noopener">debug</a> module.</p>
+<p>By default, it will not produce any output. To enable this logger, you have run your application with a special environment variable, called DEBUG.</p>
+<p><code>DEBUG=my-namespace,express* node app.js</code></p>
+<p>Once you do that, the debug module will come to life and will start producing log events for stdout.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://blog.risingstack.com/node-js-logging-tutorial/" target="_blank" rel="noopener">How to Get Node.js Logging Right</a></li>
+</ol>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practices/">Best Practices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Logging/">Logging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/07/01/nodejs-error-handling/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Node.js Error Handling Best Practices
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/29/metrics-and-prometheus/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Metrics, OpenTracing, Prometheus and Grafana
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

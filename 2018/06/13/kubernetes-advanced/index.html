@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="SUPERLOG">
 <meta property="og:description" content="Service DiscoveryKubernetes 里服务发现有多种方式：  通过环境变量注入发现服务。当 Pods 在集群的 Node 中运行时，Kubernetes 会为它增加一些列的环境变量。  通过 Kubernetes DNS 服务器。Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并且为每个 Service 记录一个 DNS 的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-29T13:18:00.422Z">
+<meta property="og:updated_time" content="2018-07-12T10:54:18.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes Advanced">
 <meta name="twitter:description" content="Service DiscoveryKubernetes 里服务发现有多种方式：  通过环境变量注入发现服务。当 Pods 在集群的 Node 中运行时，Kubernetes 会为它增加一些列的环境变量。  通过 Kubernetes DNS 服务器。Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并且为每个 Service 记录一个 DNS 的">
@@ -80,7 +80,15 @@
 </li>
 </ol>
 <a id="more"></a>
-<h1 id="Resource-Monitoring"><a href="#Resource-Monitoring" class="headerlink" title="Resource Monitoring"></a>Resource Monitoring</h1><h1 id="Health-Check"><a href="#Health-Check" class="headerlink" title="Health Check"></a>Health Check</h1><h1 id="Horizontal-Auto-Scaling"><a href="#Horizontal-Auto-Scaling" class="headerlink" title="Horizontal Auto Scaling"></a>Horizontal Auto Scaling</h1><h1 id="Networking"><a href="#Networking" class="headerlink" title="Networking"></a>Networking</h1><h1 id="Rolling-Deployment-and-Rollback"><a href="#Rolling-Deployment-and-Rollback" class="headerlink" title="Rolling Deployment and Rollback"></a>Rolling Deployment and Rollback</h1><p>A deployment object holds one or more replica sets to support the rollback mechanism. In other words, it creates a new replica set every time the deployment configuration is changed and keeps the previous version in order to have the option of rollback. Only one replica set will be in active state at a certain time.</p>
+<h1 id="Resource-Monitoring"><a href="#Resource-Monitoring" class="headerlink" title="Resource Monitoring"></a>Resource Monitoring</h1><h1 id="Health-Check"><a href="#Health-Check" class="headerlink" title="Health Check"></a>Health Check</h1><h1 id="Horizontal-Auto-Scaling"><a href="#Horizontal-Auto-Scaling" class="headerlink" title="Horizontal Auto Scaling"></a>Horizontal Auto Scaling</h1><h1 id="Networking"><a href="#Networking" class="headerlink" title="Networking"></a>Networking</h1><ul>
+<li><a href="https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0" target="_blank" rel="noopener">Kubernetes NodePort vs LoadBalancer vs Ingress? When should I use what?</a></li>
+<li><a href="https://hackernoon.com/kubernetes-ingress-controllers-and-traefik-a32648a4ae95" target="_blank" rel="noopener">Kubernetes, Ingress controllers and Traefik</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank" rel="noopener">Ingress doc</a></li>
+<li><a href="https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727" target="_blank" rel="noopener">Understanding kubernetes networking: pods</a></li>
+<li><a href="https://medium.com/google-cloud/understanding-kubernetes-networking-services-f0cb48e4cc82" target="_blank" rel="noopener">Understanding kubernetes networking: services</a></li>
+<li>[Understanding kubernetes networking: ingress] (<a href="https://medium.com/google-cloud/understanding-kubernetes-networking-ingress-1bc341c84078" target="_blank" rel="noopener">https://medium.com/google-cloud/understanding-kubernetes-networking-ingress-1bc341c84078</a>)</li>
+</ul>
+<h1 id="Rolling-Deployment-and-Rollback"><a href="#Rolling-Deployment-and-Rollback" class="headerlink" title="Rolling Deployment and Rollback"></a>Rolling Deployment and Rollback</h1><p>A deployment object holds one or more replica sets to support the rollback mechanism. In other words, it creates a new replica set every time the deployment configuration is changed and keeps the previous version in order to have the option of rollback. Only one replica set will be in active state at a certain time.</p>
 
     
 	</div>
