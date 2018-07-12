@@ -25,6 +25,7 @@ Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并�
 # Horizontal Auto Scaling
 
 # Networking
+* [Kubernetes NodePort vs LoadBalancer vs Ingress? When should I use what?](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)
 * [Kubernetes, Ingress controllers and Traefik](https://hackernoon.com/kubernetes-ingress-controllers-and-traefik-a32648a4ae95)
 * [Ingress doc](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 * [Understanding kubernetes networking: pods](https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727)
