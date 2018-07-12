@@ -113,5 +113,8 @@ alternatively this one should work too:
 
 If you want, instead, to attach to a running TypeScript process spawn from a terminal, it is the exact same script we used for pure JavaScript.
 
+## Debugging Vue.js application with VSC and Chrome
+[Debugging Vue.js in VSC](https://vuejs.org/v2/cookbook/debugging-in-vscode.html)
+
 # References
 1. [Debugging JavaScript/TypeScript Node apps with Chrome DevTools, VS Code and WebStorm](https://hackernoon.com/debugging-javascript-typescript-node-apps-with-chrome-devtools-vs-code-and-webstorm-97b882aee0ad)
