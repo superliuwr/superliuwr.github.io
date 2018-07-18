@@ -22,8 +22,9 @@ tags:
 * code snippets
 * shortcuts
 * vim mode
+    * Fix Key Repeat: `defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false`
 * create case-sensitive workspace
-    * hdiutil create -type SPARSE -fs 'Case-sensitive Journaled HFS+' -size 100g -volname workspace ~/Documents/workspace.dmg.sparseimage
+    * `hdiutil create -type SPARSE -fs 'Case-sensitive Journaled HFS+' -size 100g -volname workspace ~/Documents/workspace.dmg.sparseimage`
 * code snippets
     * ctrl + space
     * User Snippets by language filter
@@ -41,18 +42,18 @@ tags:
 
 ## ZSH
 * 切换默认Shell为Zsh
-    * chsh -s /bin/zsh
+    * `chsh -s /bin/zsh`
 * tips and tricks
     * no needs of ‘cd'
     * d
 
 ## OH MY ZSH
 * Install
-    * sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    * `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 * .zshrc
     * ZSH_THEME
     * Prompt
-        * PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}>'#PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
+        * `PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}>'#PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'`
     * .zshrc
 * fonts
   * [powerline fonts](https://github.com/powerline/fonts)
@@ -61,12 +62,12 @@ tags:
     * `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
     * plugins=(... zsh-syntax-highlighting)
   * zsh-autosuggestions
-    * git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    * `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
     * plugins=(... zsh-autosuggestions)
 
 ## Homebrew
 * Install
-    * ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    * `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 * brew install caskroom/cask/brew-cask
 * brew cask search chrome
 * brew cask install google-chrome
