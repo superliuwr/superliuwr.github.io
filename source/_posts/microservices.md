@@ -10,6 +10,17 @@ tags:
 
 A microservice is an isolated, loosely-coupled unit of development that works on a single concern.
 
+* Decomposable
+* Autonomous
+* Scalable
+* Communicable
+
+As a possible macro strategy, split your application using these three guidelines:
+
+* Split services by capabilities
+* Try to keep subdomains on a single service
+* Prepare for scale, but don't scale while there's no need to
+
 # Benefits
 
 * Freedom to pick the right tool: Is that new library or development platform something you always wanted to use? You can (if it's the right tool for the job).
