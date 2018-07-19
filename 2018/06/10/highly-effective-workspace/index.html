@@ -5,18 +5,18 @@
   
   <title>Highly Effective Workspace with Macbook | SUPERLOG</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="MacOS 将功能键(F1-F12)设置为标准的功能键 设置Trackpad（触摸板）轻触为单击 将Dock停靠在屏幕左边 全键盘控制模式 快速锁定屏幕  VSC sync settings to Github gist code snippets shortcuts vim mode create case-sensitive workspace hdiutil create -type SPA">
+  <meta name="description" content="MacOS 将功能键(F1-F12)设置为标准的功能键 设置Trackpad（触摸板）轻触为单击 将Dock停靠在屏幕左边 全键盘控制模式 快速锁定屏幕  VSC sync settings to Github gist code snippets shortcuts vim mode Fix Key Repeat: defaults write com.microsoft.VSCode Appl">
 <meta name="keywords" content="VSC,Zsh,Vim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Highly Effective Workspace with Macbook">
 <meta property="og:url" content="http://superliuwr.github.io/2018/06/10/highly-effective-workspace/index.html">
 <meta property="og:site_name" content="SUPERLOG">
-<meta property="og:description" content="MacOS 将功能键(F1-F12)设置为标准的功能键 设置Trackpad（触摸板）轻触为单击 将Dock停靠在屏幕左边 全键盘控制模式 快速锁定屏幕  VSC sync settings to Github gist code snippets shortcuts vim mode create case-sensitive workspace hdiutil create -type SPA">
+<meta property="og:description" content="MacOS 将功能键(F1-F12)设置为标准的功能键 设置Trackpad（触摸板）轻触为单击 将Dock停靠在屏幕左边 全键盘控制模式 快速锁定屏幕  VSC sync settings to Github gist code snippets shortcuts vim mode Fix Key Repeat: defaults write com.microsoft.VSCode Appl">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-16T11:50:13.922Z">
+<meta property="og:updated_time" content="2018-07-19T09:58:45.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Highly Effective Workspace with Macbook">
-<meta name="twitter:description" content="MacOS 将功能键(F1-F12)设置为标准的功能键 设置Trackpad（触摸板）轻触为单击 将Dock停靠在屏幕左边 全键盘控制模式 快速锁定屏幕  VSC sync settings to Github gist code snippets shortcuts vim mode create case-sensitive workspace hdiutil create -type SPA">
+<meta name="twitter:description" content="MacOS 将功能键(F1-F12)设置为标准的功能键 设置Trackpad（触摸板）轻触为单击 将Dock停靠在屏幕左边 全键盘控制模式 快速锁定屏幕  VSC sync settings to Github gist code snippets shortcuts vim mode Fix Key Repeat: defaults write com.microsoft.VSCode Appl">
   
     <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
   
@@ -83,9 +83,12 @@
 <li>sync settings to Github gist</li>
 <li>code snippets</li>
 <li>shortcuts</li>
-<li>vim mode</li>
+<li>vim mode<ul>
+<li>Fix Key Repeat: <code>defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false</code></li>
+</ul>
+</li>
 <li>create case-sensitive workspace<ul>
-<li>hdiutil create -type SPARSE -fs ‘Case-sensitive Journaled HFS+’ -size 100g -volname workspace ~/Documents/workspace.dmg.sparseimage</li>
+<li><code>hdiutil create -type SPARSE -fs &#39;Case-sensitive Journaled HFS+&#39; -size 100g -volname workspace ~/Documents/workspace.dmg.sparseimage</code></li>
 </ul>
 </li>
 <li>code snippets<ul>
@@ -104,7 +107,7 @@
 </ul>
 <h2 id="ZSH"><a href="#ZSH" class="headerlink" title="ZSH"></a>ZSH</h2><ul>
 <li>切换默认Shell为Zsh<ul>
-<li>chsh -s /bin/zsh</li>
+<li><code>chsh -s /bin/zsh</code></li>
 </ul>
 </li>
 <li>tips and tricks<ul>
@@ -115,13 +118,13 @@
 </ul>
 <h2 id="OH-MY-ZSH"><a href="#OH-MY-ZSH" class="headerlink" title="OH MY ZSH"></a>OH MY ZSH</h2><ul>
 <li>Install<ul>
-<li>sh -c “$(curl -fsSL <a href="https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;" target="_blank" rel="noopener">https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</a></li>
+<li><code>sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</code></li>
 </ul>
 </li>
 <li>.zshrc<ul>
 <li>ZSH_THEME</li>
 <li>Prompt<ul>
-<li>PROMPT=’%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}&gt;’#PROMPT=’%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}’</li>
+<li><code>PROMPT=&#39;%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p%{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%}% %{$reset_color%}&gt;&#39;#PROMPT=&#39;%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}&#39;</code></li>
 </ul>
 </li>
 <li>.zshrc</li>
@@ -138,7 +141,7 @@
 </ul>
 </li>
 <li>zsh-autosuggestions<ul>
-<li>git clone <a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener">https://github.com/zsh-users/zsh-autosuggestions</a> ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions</li>
+<li><code>git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions</code></li>
 <li>plugins=(… zsh-autosuggestions)</li>
 </ul>
 </li>
@@ -147,7 +150,7 @@
 </ul>
 <h2 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h2><ul>
 <li>Install<ul>
-<li>ruby -e “$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</a></li>
+<li><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></li>
 </ul>
 </li>
 <li>brew install caskroom/cask/brew-cask</li>

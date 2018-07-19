@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>microservices | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="What is MicroservicesA microservice is an isolated, loosely-coupled unit of development that works on a single concern.  Decomposable Autonomous Scalable Communicable  As a possible macro strategy, sp">
+<meta name="keywords" content="Microservices">
+<meta property="og:type" content="article">
+<meta property="og:title" content="microservices">
+<meta property="og:url" content="http://superliuwr.github.io/2018/07/18/microservices/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="What is MicroservicesA microservice is an isolated, loosely-coupled unit of development that works on a single concern.  Decomposable Autonomous Scalable Communicable  As a possible macro strategy, sp">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-19T09:58:45.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="microservices">
+<meta name="twitter:description" content="What is MicroservicesA microservice is an isolated, loosely-coupled unit of development that works on a single concern.  Decomposable Autonomous Scalable Communicable  As a possible macro strategy, sp">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-microservices" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/07/18/microservices/" class="article-date">
+  <time datetime="2018-07-18T11:22:54.000Z" itemprop="datePublished">2018-07-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      microservices
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="What-is-Microservices"><a href="#What-is-Microservices" class="headerlink" title="What is Microservices"></a>What is Microservices</h1><p>A microservice is an isolated, loosely-coupled unit of development that works on a single concern.</p>
+<ul>
+<li>Decomposable</li>
+<li>Autonomous</li>
+<li>Scalable</li>
+<li>Communicable</li>
+</ul>
+<p>As a possible macro strategy, split your application using these three guidelines:</p>
+<ul>
+<li>Split services by capabilities</li>
+<li>Try to keep subdomains on a single service</li>
+<li>Prepare for scale, but don’t scale while there’s no need to</li>
+</ul>
+<h1 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h1><ul>
+<li>Freedom to pick the right tool: Is that new library or development platform something you always wanted to use? You can (if it’s the right tool for the job).</li>
+<li>Quick iteration: Was the first version suboptimal? No problem, version 2 can be out the door in no time. Because microservices tend to be small, changes can be implemented relatively quickly.</li>
+<li>Rewrites are a possibility: In contrast with monolithic solutions, since microservices are small, rewrites are a possibility. Was the technology stack the wrong pick? No problem, switch to the right alternative.</li>
+<li>Code quality and readability: Isolated development units tend to be of higher quality and new developers can get up to speed with the existing code fairly easily.</li>
+</ul>
+<h1 id="Prerequisites-for-Microservices"><a href="#Prerequisites-for-Microservices" class="headerlink" title="Prerequisites for Microservices"></a>Prerequisites for Microservices</h1><ul>
+<li>Domain Maturity: Know enough about your domain to decompose it cleanly</li>
+<li>Organizational Maturity: Small teams with well-defined areas of responsibility</li>
+<li>Process Maturity: Automated Testing and Continuous Delivery</li>
+<li>Operational Maturity: Monitoring, alerting, oncall</li>
+</ul>
+<h1 id="Production-quality-microservices"><a href="#Production-quality-microservices" class="headerlink" title="Production-quality microservices"></a>Production-quality microservices</h1><ul>
+<li>Cross-cutting concerns must be implemented in a way such that microservices need not deal with details regarding problems outside their specific scope. For instance, authentication can be implemented as part of any API gateway or proxy.</li>
+<li>Data sharing is hard. Microservices tend to favor per-service or per-group databases that can be updated directly. When doing data modeling for your application, notice whether this way of doing things fits your application. For sharing data between databases, it may be necessary to implement an internal process that handles internal updates and transactions between databases. It is possible to share a single database between many microservices; just keep in mind that this may limit your options when and if you need to scale in the future.</li>
+<li>Availability: Microservices, by virtue of being isolated and independent, need to be monitored to detect failures as early as possible. In a big software stack, one service that goes down may go unnoticed for some time. Account for this when picking your software stack for managing services.</li>
+<li>Evolution: Microservices tend to evolve fast. When dedicated teams deal with specific concerns, new and better solutions are found quickly. Therefore, it is necessary to account for versioning of services. Old versions are usually available as long as there are clients who need to consume data from them. Newer versions are exposed in an application-specific way. For instance, with an HTTP/REST API, the version of the microservice may be part of a custom header, or be embedded in the returned data. Account for this.</li>
+<li>Automated deployment: The whole reason that microservices are so convenient nowadays is that it is so easy to deploy a new service from a completely clean environment. See Heroku, Amazon Web Services, Webtask.io or other PaaS providers. If you are going for your own in-house approach, keep in mind that the complexity of deploying new services or versions of preexisting services is critical to the success of your solution. If deployment is not handled in a convenient, automated way, you risk eventually reaching a level of complexity that outweighs the benefits originally brought about by the approach.</li>
+<li>Interdependencies: Keep them to a minimum. There are different ways of dealing with dependencies between services. We will explore them further later in this blog post series. For now, just keep in mind that dependencies are one of the biggest problems with this approach, so seek ways to keep them to a minimum.</li>
+<li>Transport and data format: Microservices are fit for any transport and data format; however, they are usually exposed publicly through a RESTful API over HTTP. Any data format fit for your information works. HTTP + JSON is very popular these days, but there is nothing stopping you from using protocol-buffers over AMQP, for instance.</li>
+</ul>
+<h1 id="Techniques-and-Patterns"><a href="#Techniques-and-Patterns" class="headerlink" title="Techniques and Patterns"></a>Techniques and Patterns</h1><h2 id="API-Gateway"><a href="#API-Gateway" class="headerlink" title="API Gateway"></a>API Gateway</h2><p>Microservices are developed almost in isolation. Cross-cutting concerns are dealt with by upper layers in the software stack. The API gateway is one of those layers.</p>
+<h3 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h3><p>Most gateways perform some sort of authentication for each request (or series of requests). According to rules that are specific to each service, the gateway either routes the request to the requested microservice(s) or returns an error code (or less information). Most gateways add authentication information to the request when passing it to the microservice behind them. This allows microservices to implement user specific logic whenever required.</p>
+<h3 id="Transport-security"><a href="#Transport-security" class="headerlink" title="Transport security"></a>Transport security</h3><p>Many gateways function as a single entry point for a public API. In such cases, the gateways handle transport security and then dispatch the requests either by using a different secure channel or by removing security constraints that are not necessary inside the internal network. For instance, for a RESTful HTTP API, a gateway may perform “SSL termination”: a secure SSL connection is established between the clients and the gateway, and proxied requests are then sent over non-SSL connections to internal services.</p>
+<h3 id="Load-balancing"><a href="#Load-balancing" class="headerlink" title="Load-balancing"></a>Load-balancing</h3><p>Under high-load scenarios, gateways can distribute requests among microservice-instances according to custom logic. Each service may have specific scaling limitations. Gateways are designed to balance the load by taking these limitations into account.</p>
+<h3 id="Request-dispatching"><a href="#Request-dispatching" class="headerlink" title="Request-dispatching"></a>Request-dispatching</h3><p>Even under normal-load scenarios, gateways can provide custom logic for dispatching requests. In big architectures, internal endpoints are added and removed as teams work or new microservice instances are spawned (due to topology changes, for instance). Gateways may work in tandem with service registration/discovery processes or databases that describe how to dispatch each request. This provides exceptional flexibility to development teams. Additionally, faulty services can be routed to backup or generic services that allow the request to complete rather than fail completely.</p>
+<h3 id="Dependency-resolution"><a href="#Dependency-resolution" class="headerlink" title="Dependency resolution"></a>Dependency resolution</h3><p>As microservices deal with very specific concerns, some microservice-based architectures tend to become “chatty”: to perform useful work, many requests need to be sent to many different services. For convenience and performance reasons, gateways may provide facades (“virtual” endpoints) that internally are routed to many different microservices.</p>
+<h3 id="Transport-transformations"><a href="#Transport-transformations" class="headerlink" title="Transport transformations"></a>Transport transformations</h3><p>Microservices are usually developed in isolation and development teams have great flexibility in choosing the development platform. This may result in microservices that return data and use transports that are not convenient for clients on the other side of the gateway. The gateway must perform the necessary transformations so that clients can still communicate with the microservices behind it.</p>
+<h2 id="Service-registry"><a href="#Service-registry" class="headerlink" title="Service registry"></a>Service registry</h2><p>The service registry is a database populated with information on how to dispatch requests to microservice instances. Interactions between the registry and other components can be divided into two groups, each with two subgroups:</p>
+<ol>
+<li>Interactions between microservices and the registry (registration)</li>
+</ol>
+<ul>
+<li>Self-registration</li>
+<li>Third-party registration</li>
+</ul>
+<ol start="2">
+<li>Interactions between clients and the registry (discovery)</li>
+</ol>
+<ul>
+<li>Client-side discovery</li>
+<li>Server-side discovery</li>
+</ul>
+<h3 id="Registration"><a href="#Registration" class="headerlink" title="Registration"></a>Registration</h3><p>Most microservice-based architectures are in constant evolution. Services go up and down as development teams split, improve, deprecate and do their work. Whenever a service endpoint changes, the registry needs to know about the change. This is what registration is all about: who publishes or updates the information on how to reach each service.</p>
+<p>Self-registration forces microservices to interact with the registry by themselves. When a service goes up, it notifies the registry. The same thing happens when the service goes down.</p>
+<p>Third-party registration is normally used in the industry. In this case, there is a process or service that manages all other services. This process polls or checks in some way which microservice instances are running and it automatically updates the service registry.</p>
+<h3 id="Discovery"><a href="#Discovery" class="headerlink" title="Discovery"></a>Discovery</h3><p>When a client wants to access a service, it must find out where the service is located (and other relevant information to perform the request).</p>
+<p>Client-side discovery forces clients to query a discovery service before performing the actual requests.</p>
+<p>Server-side discovery makes the API gateway handle the discovery of the right endpoint (or endpoints) for a request. This is normally used in bigger architectures.</p>
+<h2 id="Dependencies-and-Data-Sharing"><a href="#Dependencies-and-Data-Sharing" class="headerlink" title="Dependencies and Data Sharing"></a>Dependencies and Data Sharing</h2><h3 id="Separating-concerns"><a href="#Separating-concerns" class="headerlink" title="Separating concerns"></a>Separating concerns</h3><ul>
+<li>Loose coupling: which means microservices should be able to be modified without requiring changes in other microservices.</li>
+<li>Problem locality: which means related problems should be grouped together (in other words, if a change requires an update in another part of the system, those parts should be close to each other).</li>
+</ul>
+<p>In concrete, loose coupling means microservices should provide clear interfaces that model the data and access patterns related to the data sitting behind them, and they should stick to those interfaces (when changes are necessary, versioning, which we will discuss later, comes into play). Problem locality means concerns and microservices should be grouped according to their problem domain. If an important change is required in a microservice related to billing, it is much more likely other microservices in the same problem domain (billing) will require changes, rather than microservices related to, say, product information. In a sense, developing microservices means drawing clear boundaries between different problem domains, then splitting those problem domains into independent units of work that can be easily managed. It makes much more sense to share data inside a domain boundary if required than share data between unrelated domains.</p>
+<p>microservices inside a problem domain is: are these services talking too much with eachother? If so, consider the impact of making them a single service. Microservices should be small, but no smaller than necessary to be convenient. Bam! Data sharing and dependency problems are gone. Of course, the opposite applies: if you find your services getting bigger and bigger to reduce chattiness, then perhaps you should rethink how your data is modeled, or how your problem domains are split. Trying to keep balance is the key.</p>
+<h3 id="Data-sharing"><a href="#Data-sharing" class="headerlink" title="Data sharing"></a>Data sharing</h3><h4 id="Static-data"><a href="#Static-data" class="headerlink" title="Static data"></a>Static data</h4><p>Static data is data that is usually read but rarely (if ever) modified. </p>
+<ul>
+<li>Keep it in a database</li>
+<li>Embed it in the code or share it as a file</li>
+<li>Make it into a service</li>
+</ul>
+<h4 id="Mutable-data"><a href="#Mutable-data" class="headerlink" title="Mutable data"></a>Mutable data</h4><p>As we have mentioned before, the biggest problem with shared data is what to do when it changes.</p>
+<h5 id="Shared-database"><a href="#Shared-database" class="headerlink" title="Shared database"></a>Shared database</h5><p>When dealing with shared data across databases (or tables within a database) there are essentially two approaches: transactions and eventual consistency.</p>
+<p>Transactions are mechanisms that allow database clients to make sure a series of changes either happen or not. In other words, transactions allow us to guarantee consistency. In the world of distributed systems, there are distributed transactions. There are different ways of implementing distributed transactions, but in general, there is a transaction manager that must be notified when a client wants to start a transaction. Only if the transaction manager (that usually communicates this intention to other clients) allows us to move forward the transaction can be performed. The downside to this approach is that scaling is usually harder. Transactions are useful in the context of small or quick changes.</p>
+<p>Eventual consistency deals with the problem of distributed data by allowing inconsistencies for a time. In other words, systems that rely on eventual consistency assume the data will be in an incosistent state at some point and handle the situation by postponing the operation, using the data as-is, or ignoring certain pieces of data. Eventual consistency systems are easier to reason about but not all data models or operations fit its semantics. Eventual consistency is useful in the context of big volumes of data.</p>
+<h5 id="Another-microservice"><a href="#Another-microservice" class="headerlink" title="Another microservice"></a>Another microservice</h5><p>In this approach rather than allowing microservices to access the database directly, a new microservice is developed. This microservice manages all access to the shared data by the two services.</p>
+<h5 id="Event-subscription-model"><a href="#Event-subscription-model" class="headerlink" title="Event/subscription model"></a>Event/subscription model</h5><p>In this approach, rather than relying on each service fetching the data, services that make changes to data or that generate data allow other services to subscribe to events. When these events take place, subscribed services receive the notification and make use of the information contained in the event.</p>
+<h5 id="Data-pump-model"><a href="#Data-pump-model" class="headerlink" title="Data pump model"></a>Data pump model</h5><p>This is related to the eventual consistency case and the additional microservice case: a microservice handles changes in one part of the system (either by reading from a database, handling events or polling a service) and updates another part of the system with those changes atomically. In esence, data is pumped from one part of the system to the other. A thing to keep in mind: consider the implications of duplicating data across microservices. Remember that duplicated data means changes in one copy of the data create inconsistencies unless updates are performed to each copy. This is useful for cases where big volumes of data need to be analyzed by slow processes (consider the case of data analytics, you need recent copies of the data, but not necessarily the latests changes). For long running pumps, remember that consistency requirements are still important. One way to do this is to read the data from a read-only copy of the database (such as a backup).</p>
+<h3 id="Versioning-and-failures"><a href="#Versioning-and-failures" class="headerlink" title="Versioning and failures"></a>Versioning and failures</h3><p>An important part of managing dependencies has to do with what happens when a service is updated to fit new requirements or solve a design issue. Other microservices may depend on the semantics of the old version or worse: depend on the way data is modeled in the database. As microservices are developed in isolation, this means a team usually cannot wait for another team to make the necessary changes to a dependent service before going live. The way to solve this is through versioning. All microservices should make it clear what version of a different microservice they require and what version they are. A good way of versioning is through semantic versioning, that is, keeping versions as a set of numbers that make it clear when a breaking change happens (for instance, one number can mean that the API has been modified).</p>
+<p>The problem of dependency and changes (versions) rises an interesting question: what if things break when a dependency is modified (in spite of our efforts to use versioning)? Failure. We have discussed this briefly in previous posts in this series and now is good time to remember it: graceful failure is key in a distributed architecture. Things will fail. Services should do whatever is possible to run even when dependencies fail. It is perfectly acceptable to have a fallback service, a local cache or even to return less data than requested. Crashes should be avoided, and all dependencies should be treated as things prone to failure.</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Microservices/">Microservices</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/07/19/terraform-configuration/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Terraform Configuration
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/08/aws-cloudfront/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          aws-cloudfront
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
