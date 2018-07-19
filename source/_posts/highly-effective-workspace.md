@@ -2,7 +2,7 @@
 title: Highly Effective Workspace with Macbook
 date: 2018-06-10 20:09:59
 categories:
-- Other
+- Development Environment
 tags:
 - VSC
 - Zsh
@@ -16,6 +16,8 @@ tags:
 * 全键盘控制模式
 * 快速锁定屏幕
 
+<!-- more -->
+
 # VSC
 
 * sync settings to Github gist
@@ -28,8 +30,6 @@ tags:
 * code snippets
     * ctrl + space
     * User Snippets by language filter
-
-<!-- more -->
 
 # Shell
 

@@ -7,6 +7,9 @@ tags:
 - Ruby
 ---
 # Tools
+
+<!-- more -->
+
 * irb
 * rvm
   * rvm list

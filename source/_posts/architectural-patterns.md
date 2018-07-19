@@ -8,6 +8,8 @@ tags:
 ---
 A collection of architectural patterns.
 
+<!-- more -->
+
 # Front Controller
 
 The Front Controller pattern is when all requests go for a single point in your architecture, called the handler, which then processes and dispatches the requests to other handlers. This is the pattern used by, for example, load balancers and reverses proxies:

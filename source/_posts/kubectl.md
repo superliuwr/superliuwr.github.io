@@ -11,6 +11,8 @@ tags:
 cd ~/workspace/infrastructure-kubernetes-client-config
 ./cluster.sh development
 
+<!-- more -->
+
 k config use-context production
 
 k get namespaces

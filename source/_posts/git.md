@@ -10,6 +10,8 @@ tags:
 
 ![Git concepts](./git concepts.jpg)
 
+<!-- more -->
+
 ## Repositories
 
 Git has two repository types: local and remote.  The local repo is on your computer for only your direct use.  The remote repo is typically elsewhere and for your indirect use.  Git supports multiple remote repositories.

@@ -10,6 +10,8 @@ tags:
 
 # Development
 
+<!-- more -->
+
 ## Design
 
 ### Project Structure

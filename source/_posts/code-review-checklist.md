@@ -8,6 +8,8 @@ tags:
 ---
 # Checklist
 
+<!-- more -->
+
 1. Are all requirements implemented?
 2. Single responsibility of a single PR. No mixed changes.
 2. Is the code change the best way to implement the feature?

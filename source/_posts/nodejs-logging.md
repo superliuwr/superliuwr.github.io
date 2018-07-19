@@ -10,6 +10,8 @@ tags:
 ---
  Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and analyzed to ensure that the desired information (e.g. error rate, following an entire transaction through services and servers, etc) can really be extracted.
 
+<!-- more -->
+
 ## Bunyan
 
 Use [Bunyan](https://github.com/trentm/node-bunyan) to log structured records. Alternatively you can use [pino](https://www.npmjs.com/package/pino).

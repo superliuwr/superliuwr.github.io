@@ -2,14 +2,16 @@
 title: aws-cloudfront
 date: 2018-07-08 21:41:35
 categories:
-- Cloud
 - DevOps
 tags:
 - AWS
+- Cloud
 ---
 # AMAZON CLOUDFRONT
 
 Amazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end users with low latency, high data transfer speeds, and no minimum usage commitments.
+
+<!-- more -->
 
 Amazon CloudFront is AWS CDN. It can be used to deliver your web content using Amazon’s global network of *edge locations*.
 

@@ -8,6 +8,8 @@ tags:
 ---
 Terraform is an declarative system for defining infrastructure, you can find out more from [terraform.io](terraform.io).
 
+<!-- more -->
+
 Terraform uses text files to describe infrastructure and to set variables. These text files are called Terraform configurations and end in .tf.
 
 # Structure we use

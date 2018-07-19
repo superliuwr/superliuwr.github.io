@@ -15,6 +15,8 @@ A microservice is an isolated, loosely-coupled unit of development that works on
 * Scalable
 * Communicable
 
+<!-- more -->
+
 As a possible macro strategy, split your application using these three guidelines:
 
 * Split services by capabilities

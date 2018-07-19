@@ -14,6 +14,8 @@ tags:
 
 In Node, errors occur any of the following ways:
 
+<!-- more -->
+
 * Explicit exceptions (those triggered by the throw keyword)
 * Implicit exceptions (like ReferenceError: foo not defined)
 * The ‘error’ event (which may trigger an exception)

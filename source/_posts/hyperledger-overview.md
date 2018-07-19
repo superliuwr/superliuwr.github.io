@@ -11,6 +11,8 @@ Hyperledger Fabric 是 IBM 贡献给 Linux 基金会的商用分布式账本系�
 
 Hyperledger Fabric 是基于 Golang 实现的可插拔的区块链系统，它主要面向企业之间或者企业多个部门之间提供服务。
 
+<!-- more -->
+
 ![Architecture](architecture.jpg)
 
 * Membership 即成员管理服务，提供身份管理、证书校验。在 Fabric 中每个通讯组件都必须提供身份证明，每个事务的发起者会被永久记录在区块链上，审核人员可以追溯事务。

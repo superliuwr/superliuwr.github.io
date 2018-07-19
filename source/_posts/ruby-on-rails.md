@@ -12,6 +12,8 @@ tags:
 
 Follow [this](https://ruby-china.org/wiki/install_ruby_guide) guide.
 
+<!-- more -->
+
 ## Philosohpy
 ### Don't repeat yourself
 ### Convention over Configuration

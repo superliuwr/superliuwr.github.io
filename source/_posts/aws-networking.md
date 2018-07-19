@@ -2,14 +2,16 @@
 title: aws-networking
 date: 2018-06-21 22:08:26
 categories:
-- Cloud
 - DevOps
 tags:
 - AWS
+- Cloud
 ---
 # Virtual Private Network (VPC)
 
 Within a region, you can create multiple Amazon VPCs, and each Amazon VPC is logically isolated even if it shares its IP address space.
+
+<!-- more -->
 
 When you create an Amazon VPC, you must specify the IPv4 address range by choosing a Classless Inter-Domain Routing (CIDR) block, such as 10.0.0.0/16. The address range of the Amazon VPC cannot be changed after the Amazon VPC is created. An Amazon VPC address range may be as large as /16 (65,536 available addresses) or as small as /28 (16 available addresses) and should not overlap any other network with which they are to be connected.
 

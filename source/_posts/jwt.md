@@ -13,6 +13,8 @@ tags:
 2. Obtain a token
 3. Use the token to access restricted resources for a set time period. Usually put in headers: `Authorization: Bearer <token>`
 
+<!-- more -->
+
 # JWT
 ## What is JWT
 JWT (pronounced 'jot') is a token based authentication system.
@@ -20,8 +22,6 @@ JWT (pronounced 'jot') is a token based authentication system.
 The **claims** in a JWT are encoded as a JSON object that is digitally signed using JSON Web Signature.
 
 The JWT is a self-contained token which has authentication information, expire time information, and other user defined claims digitally signed.
-
-<!-- more -->
 
 ## Old school way authentication with **sessions**
 1. An object stored on the server that remembers if a user is still logged in, a reference to their profile, etc.

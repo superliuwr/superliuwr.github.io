@@ -23,6 +23,8 @@ VSC has built-in support of TypeScript.
 
 [Template Project](https://github.com/superliuwr/api_template_typescript)
 
+<!-- more -->
+
 # Features
 ## Static Typing
 

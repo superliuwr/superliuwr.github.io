@@ -2,14 +2,16 @@
 title: AWS Security
 date: 2018-06-16 12:54:01
 categories:
-- Cloud
 - DevOps
 tags:
 - AWS
+- Cloud
 ---
 # AWS Identity and Access Management (IAM)
 
 IAM is a powerful service that allows you to control how people and programs are allowed to manipulate your AWS infrastructure.
+
+<!-- more -->
 
 IAM is not:
 * an identity store/authorization system for your applications
