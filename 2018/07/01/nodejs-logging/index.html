@@ -6,14 +6,14 @@
   <title>Node.js Logging Best Practices | SUPERLOG</title>
   <meta name="viewport" content="width=device-width">
   <meta name="description" content="Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and an">
-<meta name="keywords" content="Node.js,Best Practices,Logging">
+<meta name="keywords" content="Node.js,Logging,Best Practices">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node.js Logging Best Practices">
 <meta property="og:url" content="http://superliuwr.github.io/2018/07/01/nodejs-logging/index.html">
 <meta property="og:site_name" content="SUPERLOG">
 <meta property="og:description" content="Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and an">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-01T01:51:44.826Z">
+<meta property="og:updated_time" content="2018-07-19T13:35:58.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node.js Logging Best Practices">
 <meta name="twitter:description" content="Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and an">
@@ -73,6 +73,7 @@
 	<div class="entry-content">
 		
     	<p> Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and analyzed to ensure that the desired information (e.g. error rate, following an entire transaction through services and servers, etc) can really be extracted.</p>
+<a id="more"></a>
 <h2 id="Bunyan"><a href="#Bunyan" class="headerlink" title="Bunyan"></a>Bunyan</h2><p>Use <a href="https://github.com/trentm/node-bunyan" target="_blank" rel="noopener">Bunyan</a> to log structured records. Alternatively you can use <a href="https://www.npmjs.com/package/pino" target="_blank" rel="noopener">pino</a>.</p>
 <p>Bunyan log records are JSON. A few fields are added automatically: “pid”, “hostname”, “time” and “v”.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Log with an optional 'fields' object as the first parameter</span></span><br><span class="line">log.info(&#123;<span class="attr">foo</span>: <span class="string">'bar'</span>, <span class="attr">err</span>: err&#125;, <span class="string">'some msg about this error'</span>);</span><br></pre></td></tr></table></figure>

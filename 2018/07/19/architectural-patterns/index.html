@@ -5,22 +5,22 @@
   
   <title>Architectural patterns | SUPERLOG</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="A collection of architectural patterns. Front ControllerThe Front Controller pattern is when all requests go for a single point in your architecture, called the handler, which then processes and dispa">
+  <meta name="description" content="A collection of architectural patterns.">
 <meta name="keywords" content="Architecture">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Architectural patterns">
 <meta property="og:url" content="http://superliuwr.github.io/2018/07/19/architectural-patterns/index.html">
 <meta property="og:site_name" content="SUPERLOG">
-<meta property="og:description" content="A collection of architectural patterns. Front ControllerThe Front Controller pattern is when all requests go for a single point in your architecture, called the handler, which then processes and dispa">
+<meta property="og:description" content="A collection of architectural patterns.">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://superliuwr.github.io/2018/07/19/architectural-patterns/front-controller.png">
 <meta property="og:image" content="http://superliuwr.github.io/2018/07/19/architectural-patterns/layered.png">
 <meta property="og:image" content="http://superliuwr.github.io/2018/07/19/architectural-patterns/observer.png">
 <meta property="og:image" content="http://superliuwr.github.io/2018/07/19/architectural-patterns/pub-sub.png">
-<meta property="og:updated_time" content="2018-07-19T13:09:15.847Z">
+<meta property="og:updated_time" content="2018-07-19T13:32:09.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Architectural patterns">
-<meta name="twitter:description" content="A collection of architectural patterns. Front ControllerThe Front Controller pattern is when all requests go for a single point in your architecture, called the handler, which then processes and dispa">
+<meta name="twitter:description" content="A collection of architectural patterns.">
 <meta name="twitter:image" content="http://superliuwr.github.io/2018/07/19/architectural-patterns/front-controller.png">
   
     <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
@@ -78,6 +78,7 @@
 	<div class="entry-content">
 		
     	<p>A collection of architectural patterns.</p>
+<a id="more"></a>
 <h1 id="Front-Controller"><a href="#Front-Controller" class="headerlink" title="Front Controller"></a>Front Controller</h1><p>The Front Controller pattern is when all requests go for a single point in your architecture, called the handler, which then processes and dispatches the requests to other handlers. This is the pattern used by, for example, load balancers and reverses proxies:</p>
 <p><img src="front-controller.png" alt="Front Controller"></p>
 <p>It’s useful to scale horizontally, especially when the Front Controller is just routing requests, so it can handle a lot more requests than each separate controller, which need, some time to actually process each request.</p>

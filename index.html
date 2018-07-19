@@ -69,27 +69,12 @@
 	</header>
 	<div class="entry-content">
 		
-    	<p>A collection of architectural patterns.</p>
-<h1 id="Front-Controller"><a href="#Front-Controller" class="headerlink" title="Front Controller"></a>Front Controller</h1><p>The Front Controller pattern is when all requests go for a single point in your architecture, called the handler, which then processes and dispatches the requests to other handlers. This is the pattern used by, for example, load balancers and reverses proxies:</p>
-<p><img src="front-controller.png" alt="Front Controller"></p>
-<p>It’s useful to scale horizontally, especially when the Front Controller is just routing requests, so it can handle a lot more requests than each separate controller, which need, some time to actually process each request.</p>
-<p>This pattern is also very useful in helping other services not having to know where the controllers are and choosing the one with the lowest load that should handle the request faster.</p>
-<h1 id="Layered"><a href="#Layered" class="headerlink" title="Layered"></a>Layered</h1><p>The layered pattern is common in filesystems and operative systems (and virtual machines for that matter). This pattern consists of creating different layers that go from the raw data through to the data seen by a user:</p>
-<p><img src="layered.png" alt="Layered"></p>
-<p>The idea is to separate the complexity of the different layers, each one not having to know how the others do their tasks:</p>
-<ul>
-<li>Handling the data structures and storing them in a fast and secure way</li>
-<li>Manipulating the data structures and adding business logic to them</li>
-<li>Handling user requests and showing the data in a localised format</li>
-</ul>
-<h1 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h1><p>The Observer pattern is used every day in Node.js. It consists of a Subject, which maintains a list of dependents, called Observers, which get notified of any state change happening on the Subject:</p>
-<p><img src="observer.png" alt="Observer"></p>
-<p>You can see this happening every time in your web browser when some code (Observer) attaches an event listener to an object or interface element (Subject).</p>
-<h1 id="Publish-Subscribe"><a href="#Publish-Subscribe" class="headerlink" title="Publish-Subscribe"></a>Publish-Subscribe</h1><p>You have Subscribers that, as the name implies, subscribe to a specific event, or topic, or whatever you want to call it, and then you have Publishers that emit those events or send information to those topics:</p>
-<p><img src="pub-sub.png" alt="Pub-Sub"></p>
-<p>The Pub-Sub pattern involves a third-party service and, unlike the Observer pattern, the Publishers have no knowledge of the Subscribers. This removes the need to handle and directly notify the Subscribers, thereby simplifying your code.</p>
-<p>This pattern is quite useful for microservice communication. It involves a third party that abstracts the state change notification. Also, Publishers and Subscribers have no knowledge of each other.</p>
-
+			<p>A collection of architectural patterns.</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/07/19/architectural-patterns/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -141,96 +126,12 @@
 	</header>
 	<div class="entry-content">
 		
-    	<p>Terraform is an declarative system for defining infrastructure, you can find out more from <a href="terraform.io">terraform.io</a>.</p>
-<p>Terraform uses text files to describe infrastructure and to set variables. These text files are called Terraform configurations and end in .tf.</p>
-<h1 id="Structure-we-use"><a href="#Structure-we-use" class="headerlink" title="Structure we use"></a>Structure we use</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;myapp&gt;-infrastructure/</span><br><span class="line"> - infrastructure/</span><br><span class="line">   - envs/</span><br><span class="line">    - &lt;your environment file&gt;.tfvar - overrides of variables.tf</span><br><span class="line">   - common.tf - set up your provider (typically kubernetes) and also set up the requirements for the infrastructure-core components</span><br><span class="line">   - data.tf - backend data store</span><br><span class="line">   - variables.tf - deployment variables like aws_region, environment, etc</span><br><span class="line">   - kubernetes.tf - k8s definitions, mainly for secrets</span><br></pre></td></tr></table></figure>
-<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><h2 id="Load-Order-and-Semantics"><a href="#Load-Order-and-Semantics" class="headerlink" title="Load Order and Semantics"></a>Load Order and Semantics</h2><p>When invoking any command that loads the Terraform configuration, Terraform loads all configuration files within the directory specified in alphabetical order.</p>
-<p>Override files are the exception, as they’re loaded after all non-override files, in alphabetical order.</p>
-<p>The configuration within the loaded files are appended to each other. This is in contrast to being merged. This means that two resources with the same name are not merged, and will instead cause a validation error. This is in contrast to overrides, which do merge.</p>
-<p>The order of variables, resources, etc. defined within the configuration doesn’t matter. Terraform configurations are declarative, so references to other resources and variables do not depend on the order they’re defined.</p>
-<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><p>The syntax of Terraform configurations is called <a href="https://github.com/hashicorp/hcl" target="_blank" rel="noopener">HashiCorp Configuration Language (HCL)</a>. It is meant to strike a balance between human readable and editable as well as being machine-friendly.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># An AMI</span><br><span class="line">variable &quot;ami&quot; &#123;</span><br><span class="line">  description = &quot;the AMI to use&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* A multi</span><br><span class="line">   line comment. */</span><br><span class="line">resource &quot;aws_instance&quot; &quot;web&quot; &#123;</span><br><span class="line">  ami               = &quot;$&#123;var.ami&#125;&quot;</span><br><span class="line">  count             = 2</span><br><span class="line">  source_dest_check = false</span><br><span class="line"></span><br><span class="line">  connection &#123;</span><br><span class="line">    user = &quot;root&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Basic bullet point reference:</p>
-<ul>
-<li>Strings are in double-quotes.</li>
-<li>Strings can interpolate other values using syntax wrapped in ${}, such as ${var.foo}.</li>
-<li>You can perform simple math in interpolations, allowing you to write expressions such as ${count.index + 1}. And you can also use conditionals to determine a value based on some logic.</li>
-<li>You can escape interpolation with double dollar signs: $${foo} will be rendered as a literal ${foo}.</li>
-<li>More about <a href="https://www.terraform.io/docs/configuration/interpolation.html" target="_blank" rel="noopener">Interpolation, Available Variables, Conditionals, Built-in Functions, Templates, Math</a></li>
-<li>Multiline strings can use shell-style “here doc” syntax, with the string starting with a marker like &lt;&lt;EOF and then the string ending with EOF on a line of its own. The lines of the string and the end marker must not be indented.</li>
-<li>Numbers are assumed to be base 10. If you prefix a number with 0x, it is treated as a hexadecimal number.</li>
-<li>Boolean values: true, false.</li>
-<li>Maps can be made with braces ({}) and colons (:): { “foo”: “bar”, “bar”: “baz” }. Quotes may be omitted on keys, unless the key starts with a number, in which case quotes are required. Commas are required between key/value pairs for single line maps. A newline between key/value pairs is sufficient in multi-line maps.</li>
-</ul>
-<h2 id="Overrides"><a href="#Overrides" class="headerlink" title="Overrides"></a>Overrides</h2><p>Overrides have a few use cases:</p>
-<ul>
-<li>Machines (tools) can create overrides to modify Terraform behavior without having to edit the Terraform configuration tailored to human readability.</li>
-<li>Temporary modifications can be made to Terraform configurations without having to modify the configuration itself.</li>
-</ul>
-<p>Overrides names must be override or end in _override, excluding the extension. Examples of valid override files are override.tf, override.tf.json, temp_override.tf.</p>
-<p>Override files are loaded last in alphabetical order.</p>
-<h2 id="Resource-Configuration"><a href="#Resource-Configuration" class="headerlink" title="Resource Configuration"></a>Resource Configuration</h2><p>Resources are a component of your infrastructure. It might be some low level component such as a physical server, virtual machine, or container. Or it can be a higher level component such as an email provider, DNS record, or database provider.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resource &quot;aws_instance&quot; &quot;web&quot; &#123;</span><br><span class="line">  ami           = &quot;ami-408c7f28&quot;</span><br><span class="line">  instance_type = &quot;t1.micro&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>The resource block creates a resource of the given TYPE (first parameter) and NAME (second parameter). The combination of the type and name must be unique.</p>
-<p>Within the block (the { }) is configuration for the resource. The configuration is dependent on the type.</p>
-<h3 id="Meta-parameters"><a href="#Meta-parameters" class="headerlink" title="Meta-parameters"></a>Meta-parameters</h3><h3 id="Timeouts"><a href="#Timeouts" class="headerlink" title="Timeouts"></a>Timeouts</h3><h3 id="Explicit-Dependencies"><a href="#Explicit-Dependencies" class="headerlink" title="Explicit Dependencies"></a>Explicit Dependencies</h3><p>A resource automatically depends on anything it references via interpolations. The automatically determined dependencies are all that is needed most of the time. You can also use the depends_on parameter to explicitly define a list of additional dependencies.</p>
-<h3 id="Connection-block"><a href="#Connection-block" class="headerlink" title="Connection block"></a>Connection block</h3><h3 id="Provisioner"><a href="#Provisioner" class="headerlink" title="Provisioner"></a>Provisioner</h3><h2 id="Data-Source-Configuration"><a href="#Data-Source-Configuration" class="headerlink" title="Data Source Configuration"></a>Data Source Configuration</h2><p>Data sources allow data to be fetched or computed for use elsewhere in Terraform configuration. Use of data sources allows a Terraform configuration to build on information defined outside of Terraform, or defined by another separate Terraform configuration.</p>
-<p>Every data source in Terraform is mapped to a provider based on longest-prefix matching. For example the aws_ami data source would map to the aws provider (if that exists).</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># Find the latest available AMI that is tagged with Component = web</span><br><span class="line">data &quot;aws_ami&quot; &quot;web&quot; &#123;</span><br><span class="line">  filter &#123;</span><br><span class="line">    name   = &quot;state&quot;</span><br><span class="line">    values = [&quot;available&quot;]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  filter &#123;</span><br><span class="line">    name   = &quot;tag:Component&quot;</span><br><span class="line">    values = [&quot;web&quot;]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  most_recent = true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>The data block creates a data instance of the given TYPE (first parameter) and NAME (second parameter). The combination of the type and name must be unique.</p>
-<p>Within the block (the { }) is configuration for the data instance. The configuration is dependent on the type.</p>
-<p>Each data instance will export one or more attributes, which can be interpolated into other resources using variables of the form data.TYPE.NAME.ATTR. For example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resource &quot;aws_instance&quot; &quot;web&quot; &#123;</span><br><span class="line">  ami           = &quot;$&#123;data.aws_ami.web.id&#125;&quot;</span><br><span class="line">  instance_type = &quot;t1.micro&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Provider-Configuration"><a href="#Provider-Configuration" class="headerlink" title="Provider Configuration"></a>Provider Configuration</h2><p>Providers are responsible in Terraform for managing the lifecycle of a resource: create, read, update, delete.</p>
-<p>Most providers require some sort of configuration to provide authentication information, endpoint URLs, etc. Where explicit configuration is required, a provider block is used within the configuration.</p>
-<p>By default, resources are matched with provider configurations by matching the start of the resource name. For example, a resource of type vsphere_virtual_machine is associated with a provider called vsphere.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">provider &quot;aws&quot; &#123;</span><br><span class="line">  access_key = &quot;foo&quot;</span><br><span class="line">  secret_key = &quot;bar&quot;</span><br><span class="line">  region     = &quot;us-east-1&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>A provider block represents a configuration for the provider named in its header. For example, provider “aws” above is a configuration for the aws provider.</p>
-<p>Within the block body (between { }) is configuration for the provider. The configuration is dependent on the type, and is documented for each provider.</p>
-<p>The arguments alias and version, if present, are special arguments handled by Terraform Core for their respective features described above. All other arguments are defined by the provider itself.</p>
-<p>A provider block may be omitted if its body would be empty. Using a resource in configuration implicitly creates an empty provider configuration for it unless a provider block is explicitly provided.</p>
-<p>Each time a new provider is added to configuration – either explicitly via a provider block or by adding a resource from that provider – it’s necessary to initialize that provider before use. Initialization downloads and installs the provider’s plugin and prepares it to be used.</p>
-<p>Providers are released on a separate rhythm from Terraform itself, and thus have their own version numbers. For production use, it is recommended to constrain the acceptable provider versions via configuration, to ensure that new versions with breaking changes will not be automatically installed by terraform init in future.</p>
-<p>You can define multiple configurations for the same provider in order to support multiple regions, multiple hosts, etc. </p>
-<h2 id="Input-Variable-Configuration"><a href="#Input-Variable-Configuration" class="headerlink" title="Input Variable Configuration"></a>Input Variable Configuration</h2><p>Input variables serve as parameters for a Terraform module.</p>
-<p>When used in the root module of a configuration, variables can be set from CLI arguments and environment variables. For child modules, they allow values to pass from parent to child.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">variable &quot;key&quot; &#123;</span><br><span class="line">  type = &quot;string&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">variable &quot;images&quot; &#123;</span><br><span class="line">  type = &quot;map&quot;</span><br><span class="line"></span><br><span class="line">  default = &#123;</span><br><span class="line">    us-east-1 = &quot;image-1234&quot;</span><br><span class="line">    us-west-2 = &quot;image-4567&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">variable &quot;zones&quot; &#123;</span><br><span class="line">  default = [&quot;us-east-1a&quot;, &quot;us-east-1b&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><a href="https://www.terraform.io/intro/getting-started/variables.html" target="_blank" rel="noopener">How to use variables</a></li>
-<li><a href="https://www.terraform.io/docs/configuration/variables.html" target="_blank" rel="noopener">Variable Types</a></li>
-</ul>
-<h2 id="Output-Configuration"><a href="#Output-Configuration" class="headerlink" title="Output Configuration"></a>Output Configuration</h2><p>Outputs define values that will be highlighted to the user when Terraform applies, and can be queried easily using the output command.</p>
-<p>Terraform knows a lot about the infrastructure it manages. Most resources have attributes associated with them, and outputs are a way to easily extract and query that information.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output &quot;address&quot; &#123;</span><br><span class="line">  value = &quot;$&#123;aws_instance.db.public_dns&#125;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>The output block configures a single output variable. Multiple output variables can be configured with multiple output blocks. The NAME given to the output block is the name used to reference the output variable.</p>
-<p><a href="https://www.terraform.io/docs/configuration/outputs.html" target="_blank" rel="noopener">More details</a></p>
-<h2 id="Local-Value-Configuration"><a href="#Local-Value-Configuration" class="headerlink" title="Local Value Configuration"></a>Local Value Configuration</h2><p>Local values assign a name to an expression, that can then be used multiple times within a module.</p>
-<p>Comparing modules to functions in a traditional programming language, if variables are analogous to function arguments and outputs are analogous to function return values then local values are comparable to a function’s local variables.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># Ids for multiple sets of EC2 instances, merged together</span><br><span class="line">locals &#123;</span><br><span class="line">  instance_ids = &quot;$&#123;concat(aws_instance.blue.*.id, aws_instance.green.*.id)&#125;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># A computed default name prefix</span><br><span class="line">locals &#123;</span><br><span class="line">  default_name_prefix = &quot;$&#123;var.project_name&#125;-web&quot;</span><br><span class="line">  name_prefix         = &quot;$&#123;var.name_prefix != &quot;&quot; ? var.name_prefix : local.default_name_prefix&#125;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Local values can be interpolated elsewhere using the &quot;local.&quot; prefix.</span><br><span class="line">resource &quot;aws_s3_bucket&quot; &quot;files&quot; &#123;</span><br><span class="line">  bucket = &quot;$&#123;local.name_prefix&#125;-files&quot;</span><br><span class="line">  # ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Module-Configuration"><a href="#Module-Configuration" class="headerlink" title="Module Configuration"></a>Module Configuration</h2><p>Modules are used in Terraform to modularize and encapsulate groups of resources in your infrastructure.</p>
-<p>Example:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">module &quot;consul&quot; &#123;</span><br><span class="line">  source  = &quot;hashicorp/consul/aws&quot;</span><br><span class="line">  servers = 5</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>A module block instructs Terraform to create an instance of a module, and in turn to instantiate any resources defined within it.</p>
-<p>The name given in the block header is used to reference the particular module instance from expressions within the calling module, and to refer to the module on the command line. It has no meaning outside of a particular Terraform configuration.</p>
-<p>Within the block body is the configuration for the module. All attributes within the block must correspond to variables within the module, with the exception of the following which Terraform treats as special:</p>
-<ul>
-<li>source - (Required) A module source string specifying the location of the child module source code.</li>
-<li>version - (Optional) A version constraint string that specifies which versions of the referenced module are acceptable. The newest version matching the constraint will be used. version is supported only for modules retrieved from module registries.</li>
-<li>providers - (Optional) A map whose keys are provider configuration names that are expected by child module and whose values are corresponding provider names in the calling module. This allows provider configurations to be passed explicitly to child modules. If not specified, the child module inherits all of the default (un-aliased) provider configurations from the calling module.</li>
-</ul>
-<p><a href="https://www.terraform.io/docs/modules/index.html" target="_blank" rel="noopener">More details</a></p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://github.com/segmentio/stack" target="_blank" rel="noopener">Segment Terraform Stack Example Repository</a></li>
-<li><a href="http://www.antonbabenko.com/2016/09/21/how-i-structure-terraform-configurations.html" target="_blank" rel="noopener">Blog Post on Structuring Repository</a></li>
-</ul>
-
+			<p>Terraform is an declarative system for defining infrastructure, you can find out more from <a href="terraform.io">terraform.io</a>.</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/07/19/terraform-configuration/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -282,90 +183,18 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="What-is-Microservices"><a href="#What-is-Microservices" class="headerlink" title="What is Microservices"></a>What is Microservices</h1><p>A microservice is an isolated, loosely-coupled unit of development that works on a single concern.</p>
+			<h1 id="What-is-Microservices"><a href="#What-is-Microservices" class="headerlink" title="What is Microservices"></a>What is Microservices</h1><p>A microservice is an isolated, loosely-coupled unit of development that works on a single concern.</p>
 <ul>
 <li>Decomposable</li>
 <li>Autonomous</li>
 <li>Scalable</li>
 <li>Communicable</li>
 </ul>
-<p>As a possible macro strategy, split your application using these three guidelines:</p>
-<ul>
-<li>Split services by capabilities</li>
-<li>Try to keep subdomains on a single service</li>
-<li>Prepare for scale, but don’t scale while there’s no need to</li>
-</ul>
-<h1 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h1><ul>
-<li>Freedom to pick the right tool: Is that new library or development platform something you always wanted to use? You can (if it’s the right tool for the job).</li>
-<li>Quick iteration: Was the first version suboptimal? No problem, version 2 can be out the door in no time. Because microservices tend to be small, changes can be implemented relatively quickly.</li>
-<li>Rewrites are a possibility: In contrast with monolithic solutions, since microservices are small, rewrites are a possibility. Was the technology stack the wrong pick? No problem, switch to the right alternative.</li>
-<li>Code quality and readability: Isolated development units tend to be of higher quality and new developers can get up to speed with the existing code fairly easily.</li>
-</ul>
-<h1 id="Prerequisites-for-Microservices"><a href="#Prerequisites-for-Microservices" class="headerlink" title="Prerequisites for Microservices"></a>Prerequisites for Microservices</h1><ul>
-<li>Domain Maturity: Know enough about your domain to decompose it cleanly</li>
-<li>Organizational Maturity: Small teams with well-defined areas of responsibility</li>
-<li>Process Maturity: Automated Testing and Continuous Delivery</li>
-<li>Operational Maturity: Monitoring, alerting, oncall</li>
-</ul>
-<h1 id="Production-quality-microservices"><a href="#Production-quality-microservices" class="headerlink" title="Production-quality microservices"></a>Production-quality microservices</h1><ul>
-<li>Cross-cutting concerns must be implemented in a way such that microservices need not deal with details regarding problems outside their specific scope. For instance, authentication can be implemented as part of any API gateway or proxy.</li>
-<li>Data sharing is hard. Microservices tend to favor per-service or per-group databases that can be updated directly. When doing data modeling for your application, notice whether this way of doing things fits your application. For sharing data between databases, it may be necessary to implement an internal process that handles internal updates and transactions between databases. It is possible to share a single database between many microservices; just keep in mind that this may limit your options when and if you need to scale in the future.</li>
-<li>Availability: Microservices, by virtue of being isolated and independent, need to be monitored to detect failures as early as possible. In a big software stack, one service that goes down may go unnoticed for some time. Account for this when picking your software stack for managing services.</li>
-<li>Evolution: Microservices tend to evolve fast. When dedicated teams deal with specific concerns, new and better solutions are found quickly. Therefore, it is necessary to account for versioning of services. Old versions are usually available as long as there are clients who need to consume data from them. Newer versions are exposed in an application-specific way. For instance, with an HTTP/REST API, the version of the microservice may be part of a custom header, or be embedded in the returned data. Account for this.</li>
-<li>Automated deployment: The whole reason that microservices are so convenient nowadays is that it is so easy to deploy a new service from a completely clean environment. See Heroku, Amazon Web Services, Webtask.io or other PaaS providers. If you are going for your own in-house approach, keep in mind that the complexity of deploying new services or versions of preexisting services is critical to the success of your solution. If deployment is not handled in a convenient, automated way, you risk eventually reaching a level of complexity that outweighs the benefits originally brought about by the approach.</li>
-<li>Interdependencies: Keep them to a minimum. There are different ways of dealing with dependencies between services. We will explore them further later in this blog post series. For now, just keep in mind that dependencies are one of the biggest problems with this approach, so seek ways to keep them to a minimum.</li>
-<li>Transport and data format: Microservices are fit for any transport and data format; however, they are usually exposed publicly through a RESTful API over HTTP. Any data format fit for your information works. HTTP + JSON is very popular these days, but there is nothing stopping you from using protocol-buffers over AMQP, for instance.</li>
-</ul>
-<h1 id="Techniques-and-Patterns"><a href="#Techniques-and-Patterns" class="headerlink" title="Techniques and Patterns"></a>Techniques and Patterns</h1><h2 id="API-Gateway"><a href="#API-Gateway" class="headerlink" title="API Gateway"></a>API Gateway</h2><p>Microservices are developed almost in isolation. Cross-cutting concerns are dealt with by upper layers in the software stack. The API gateway is one of those layers.</p>
-<h3 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h3><p>Most gateways perform some sort of authentication for each request (or series of requests). According to rules that are specific to each service, the gateway either routes the request to the requested microservice(s) or returns an error code (or less information). Most gateways add authentication information to the request when passing it to the microservice behind them. This allows microservices to implement user specific logic whenever required.</p>
-<h3 id="Transport-security"><a href="#Transport-security" class="headerlink" title="Transport security"></a>Transport security</h3><p>Many gateways function as a single entry point for a public API. In such cases, the gateways handle transport security and then dispatch the requests either by using a different secure channel or by removing security constraints that are not necessary inside the internal network. For instance, for a RESTful HTTP API, a gateway may perform “SSL termination”: a secure SSL connection is established between the clients and the gateway, and proxied requests are then sent over non-SSL connections to internal services.</p>
-<h3 id="Load-balancing"><a href="#Load-balancing" class="headerlink" title="Load-balancing"></a>Load-balancing</h3><p>Under high-load scenarios, gateways can distribute requests among microservice-instances according to custom logic. Each service may have specific scaling limitations. Gateways are designed to balance the load by taking these limitations into account.</p>
-<h3 id="Request-dispatching"><a href="#Request-dispatching" class="headerlink" title="Request-dispatching"></a>Request-dispatching</h3><p>Even under normal-load scenarios, gateways can provide custom logic for dispatching requests. In big architectures, internal endpoints are added and removed as teams work or new microservice instances are spawned (due to topology changes, for instance). Gateways may work in tandem with service registration/discovery processes or databases that describe how to dispatch each request. This provides exceptional flexibility to development teams. Additionally, faulty services can be routed to backup or generic services that allow the request to complete rather than fail completely.</p>
-<h3 id="Dependency-resolution"><a href="#Dependency-resolution" class="headerlink" title="Dependency resolution"></a>Dependency resolution</h3><p>As microservices deal with very specific concerns, some microservice-based architectures tend to become “chatty”: to perform useful work, many requests need to be sent to many different services. For convenience and performance reasons, gateways may provide facades (“virtual” endpoints) that internally are routed to many different microservices.</p>
-<h3 id="Transport-transformations"><a href="#Transport-transformations" class="headerlink" title="Transport transformations"></a>Transport transformations</h3><p>Microservices are usually developed in isolation and development teams have great flexibility in choosing the development platform. This may result in microservices that return data and use transports that are not convenient for clients on the other side of the gateway. The gateway must perform the necessary transformations so that clients can still communicate with the microservices behind it.</p>
-<h2 id="Service-registry"><a href="#Service-registry" class="headerlink" title="Service registry"></a>Service registry</h2><p>The service registry is a database populated with information on how to dispatch requests to microservice instances. Interactions between the registry and other components can be divided into two groups, each with two subgroups:</p>
-<ol>
-<li>Interactions between microservices and the registry (registration)</li>
-</ol>
-<ul>
-<li>Self-registration</li>
-<li>Third-party registration</li>
-</ul>
-<ol start="2">
-<li>Interactions between clients and the registry (discovery)</li>
-</ol>
-<ul>
-<li>Client-side discovery</li>
-<li>Server-side discovery</li>
-</ul>
-<h3 id="Registration"><a href="#Registration" class="headerlink" title="Registration"></a>Registration</h3><p>Most microservice-based architectures are in constant evolution. Services go up and down as development teams split, improve, deprecate and do their work. Whenever a service endpoint changes, the registry needs to know about the change. This is what registration is all about: who publishes or updates the information on how to reach each service.</p>
-<p>Self-registration forces microservices to interact with the registry by themselves. When a service goes up, it notifies the registry. The same thing happens when the service goes down.</p>
-<p>Third-party registration is normally used in the industry. In this case, there is a process or service that manages all other services. This process polls or checks in some way which microservice instances are running and it automatically updates the service registry.</p>
-<h3 id="Discovery"><a href="#Discovery" class="headerlink" title="Discovery"></a>Discovery</h3><p>When a client wants to access a service, it must find out where the service is located (and other relevant information to perform the request).</p>
-<p>Client-side discovery forces clients to query a discovery service before performing the actual requests.</p>
-<p>Server-side discovery makes the API gateway handle the discovery of the right endpoint (or endpoints) for a request. This is normally used in bigger architectures.</p>
-<h2 id="Dependencies-and-Data-Sharing"><a href="#Dependencies-and-Data-Sharing" class="headerlink" title="Dependencies and Data Sharing"></a>Dependencies and Data Sharing</h2><h3 id="Separating-concerns"><a href="#Separating-concerns" class="headerlink" title="Separating concerns"></a>Separating concerns</h3><ul>
-<li>Loose coupling: which means microservices should be able to be modified without requiring changes in other microservices.</li>
-<li>Problem locality: which means related problems should be grouped together (in other words, if a change requires an update in another part of the system, those parts should be close to each other).</li>
-</ul>
-<p>In concrete, loose coupling means microservices should provide clear interfaces that model the data and access patterns related to the data sitting behind them, and they should stick to those interfaces (when changes are necessary, versioning, which we will discuss later, comes into play). Problem locality means concerns and microservices should be grouped according to their problem domain. If an important change is required in a microservice related to billing, it is much more likely other microservices in the same problem domain (billing) will require changes, rather than microservices related to, say, product information. In a sense, developing microservices means drawing clear boundaries between different problem domains, then splitting those problem domains into independent units of work that can be easily managed. It makes much more sense to share data inside a domain boundary if required than share data between unrelated domains.</p>
-<p>microservices inside a problem domain is: are these services talking too much with eachother? If so, consider the impact of making them a single service. Microservices should be small, but no smaller than necessary to be convenient. Bam! Data sharing and dependency problems are gone. Of course, the opposite applies: if you find your services getting bigger and bigger to reduce chattiness, then perhaps you should rethink how your data is modeled, or how your problem domains are split. Trying to keep balance is the key.</p>
-<h3 id="Data-sharing"><a href="#Data-sharing" class="headerlink" title="Data sharing"></a>Data sharing</h3><h4 id="Static-data"><a href="#Static-data" class="headerlink" title="Static data"></a>Static data</h4><p>Static data is data that is usually read but rarely (if ever) modified. </p>
-<ul>
-<li>Keep it in a database</li>
-<li>Embed it in the code or share it as a file</li>
-<li>Make it into a service</li>
-</ul>
-<h4 id="Mutable-data"><a href="#Mutable-data" class="headerlink" title="Mutable data"></a>Mutable data</h4><p>As we have mentioned before, the biggest problem with shared data is what to do when it changes.</p>
-<h5 id="Shared-database"><a href="#Shared-database" class="headerlink" title="Shared database"></a>Shared database</h5><p>When dealing with shared data across databases (or tables within a database) there are essentially two approaches: transactions and eventual consistency.</p>
-<p>Transactions are mechanisms that allow database clients to make sure a series of changes either happen or not. In other words, transactions allow us to guarantee consistency. In the world of distributed systems, there are distributed transactions. There are different ways of implementing distributed transactions, but in general, there is a transaction manager that must be notified when a client wants to start a transaction. Only if the transaction manager (that usually communicates this intention to other clients) allows us to move forward the transaction can be performed. The downside to this approach is that scaling is usually harder. Transactions are useful in the context of small or quick changes.</p>
-<p>Eventual consistency deals with the problem of distributed data by allowing inconsistencies for a time. In other words, systems that rely on eventual consistency assume the data will be in an incosistent state at some point and handle the situation by postponing the operation, using the data as-is, or ignoring certain pieces of data. Eventual consistency systems are easier to reason about but not all data models or operations fit its semantics. Eventual consistency is useful in the context of big volumes of data.</p>
-<h5 id="Another-microservice"><a href="#Another-microservice" class="headerlink" title="Another microservice"></a>Another microservice</h5><p>In this approach rather than allowing microservices to access the database directly, a new microservice is developed. This microservice manages all access to the shared data by the two services.</p>
-<h5 id="Event-subscription-model"><a href="#Event-subscription-model" class="headerlink" title="Event/subscription model"></a>Event/subscription model</h5><p>In this approach, rather than relying on each service fetching the data, services that make changes to data or that generate data allow other services to subscribe to events. When these events take place, subscribed services receive the notification and make use of the information contained in the event.</p>
-<h5 id="Data-pump-model"><a href="#Data-pump-model" class="headerlink" title="Data pump model"></a>Data pump model</h5><p>This is related to the eventual consistency case and the additional microservice case: a microservice handles changes in one part of the system (either by reading from a database, handling events or polling a service) and updates another part of the system with those changes atomically. In esence, data is pumped from one part of the system to the other. A thing to keep in mind: consider the implications of duplicating data across microservices. Remember that duplicated data means changes in one copy of the data create inconsistencies unless updates are performed to each copy. This is useful for cases where big volumes of data need to be analyzed by slow processes (consider the case of data analytics, you need recent copies of the data, but not necessarily the latests changes). For long running pumps, remember that consistency requirements are still important. One way to do this is to read the data from a read-only copy of the database (such as a backup).</p>
-<h3 id="Versioning-and-failures"><a href="#Versioning-and-failures" class="headerlink" title="Versioning and failures"></a>Versioning and failures</h3><p>An important part of managing dependencies has to do with what happens when a service is updated to fit new requirements or solve a design issue. Other microservices may depend on the semantics of the old version or worse: depend on the way data is modeled in the database. As microservices are developed in isolation, this means a team usually cannot wait for another team to make the necessary changes to a dependent service before going live. The way to solve this is through versioning. All microservices should make it clear what version of a different microservice they require and what version they are. A good way of versioning is through semantic versioning, that is, keeping versions as a set of numbers that make it clear when a breaking change happens (for instance, one number can mean that the API has been modified).</p>
-<p>The problem of dependency and changes (versions) rises an interesting question: what if things break when a dependency is modified (in spite of our efforts to use versioning)? Failure. We have discussed this briefly in previous posts in this series and now is good time to remember it: graceful failure is key in a distributed architecture. Things will fail. Services should do whatever is possible to run even when dependencies fail. It is perfectly acceptable to have a fallback service, a local cache or even to return less data than requested. Crashes should be avoided, and all dependencies should be treated as things prone to failure.</p>
-
+			
+				<p class="article-more-link">
+					<a href="/2018/07/18/microservices/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -417,49 +246,12 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="AMAZON-CLOUDFRONT"><a href="#AMAZON-CLOUDFRONT" class="headerlink" title="AMAZON CLOUDFRONT"></a>AMAZON CLOUDFRONT</h1><p>Amazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end users with low latency, high data transfer speeds, and no minimum usage commitments.</p>
-<p>Amazon CloudFront is AWS CDN. It can be used to deliver your web content using Amazon’s global network of <em>edge locations</em>.</p>
-<p>Amazon CloudFront is optimized to work with other AWS cloud services as the origin server, including Amazon S3 buckets, Amazon S3 static websites, Amazon Elastic Compute Cloud (Amazon EC2), and Elastic Load Balancing. Amazon CloudFront also works seamlessly with any non-AWS origin server, such as an existing on-premises web server. Amazon CloudFront also integrates with Amazon Route 53.</p>
-<p>Amazon CloudFront supports all content that can be served over HTTP or HTTPS. This includes any popular static files that are a part of your web application, such as HTML files, images, JavaScript, and CSS files, and also audio, video, media files, or software downloads. Amazon CloudFront also supports serving dynamic web pages, so it can actually be used to deliver your entire website. Finally, Amazon CloudFront supports media streaming, using both HTTP and RTMP.</p>
-<h2 id="Distributions"><a href="#Distributions" class="headerlink" title="Distributions"></a>Distributions</h2><p>To use Amazon CloudFront, you start by creating a distribution, which is identified by a DNS domain name such as d111111abcdef8.cloudfront.net.</p>
-<p>You can use the Amazon CloudFront distribution domain name as-is, or you can create a user-friendly DNS name in your own domain by creating a CNAME record in Amazon Route 53 or another DNS service. The CNAME is automatically redirected to your Amazon CloudFront distribution domain name.</p>
-<h2 id="Origins"><a href="#Origins" class="headerlink" title="Origins"></a>Origins</h2><p>When you create a distribution, you must specify the DNS domain name of the origin—the Amazon S3 bucket or HTTP server—from which you want Amazon CloudFront to get the definitive version of your objects (web files).</p>
-<p>For example:</p>
-<ul>
-<li>Amazon S3 bucket: myawsbucket.s3.amazonaws.com</li>
-<li>Amazon EC2 instance: ec2–203–0–113–25.compute-1.amazonaws.com</li>
-<li>Elastic Load Balancing load balancer: my-load-balancer-1234567890.us-west-2.elb.amazonaws.com</li>
-<li>Website URL: mywebserver.mycompanydomain.com</li>
-</ul>
-<h2 id="cache-control"><a href="#cache-control" class="headerlink" title="cache control"></a>cache control</h2><p>Once requested and served from an edge location, objects stay in the cache until they expire or are evicted to make room for more frequently requested content. By default, objects expire from the cache after 24 hours.</p>
-<p>Optionally, you can control how long objects stay in an Amazon CloudFront cache before expiring. To do this, you can choose to use Cache-Control headers set by your origin server or you can set the minimum, maximum, and default Time to Live (TTL) for objects in your Amazon CloudFront distribution.</p>
-<p>You can also remove copies of an object from all Amazon CloudFront edge locations at any time by calling the invalidation Application Program Interface (API).</p>
-<p>Instead of invalidating objects manually or programmatically, it is a best practice to use a version identifier as part of the object (file) path name. For example:</p>
-<ul>
-<li>Old file: assets/v1/css/narrow.css</li>
-<li>New file: assets/v2/css/narrow.css</li>
-</ul>
-<h2 id="Dynamic-Content-Multiple-Origins-and-Cache-Behaviors"><a href="#Dynamic-Content-Multiple-Origins-and-Cache-Behaviors" class="headerlink" title="Dynamic Content, Multiple Origins, and Cache Behaviors"></a>Dynamic Content, Multiple Origins, and Cache Behaviors</h2><p>Serving static assets, such as described previously, is a common way to use a CDN. An Amazon CloudFront distribution, however, can easily be set up to serve dynamic content in addition to static content and to use more than one origin server. You control which requests are served by which origin and how requests are cached using a feature called cache behaviors.</p>
-<p>A cache behavior lets you configure a variety of Amazon CloudFront functionalities for a given URL path pattern for files on your website.</p>
-<p>The functionality you can configure for each cache behavior includes the following:</p>
-<ul>
-<li>The path pattern</li>
-<li>Which origin to forward your requests to</li>
-<li>Whether to forward query strings to your origin</li>
-<li>Whether accessing the specified files requires signed URLs</li>
-<li>Whether to require HTTPS access</li>
-<li>The amount of time that those files stay in the Amazon CloudFront cache (regardless of the value of any Cache-Control headers that your origin adds to the files)</li>
-</ul>
-<h2 id="Private-Content"><a href="#Private-Content" class="headerlink" title="Private Content"></a>Private Content</h2><p>In many cases, you may want to restrict access to content in Amazon CloudFront to only selected requestors, such as paid subscribers or to applications or users in your company network. Amazon CloudFront provides several mechanisms to allow you to serve private content. These include:</p>
-<ul>
-<li><p>Signed URLs Use URLs that are valid only between certain times and optionally from certain IP addresses.</p>
-</li>
-<li><p>Signed Cookies Require authentication via public and private key pairs.</p>
-</li>
-<li><p>Origin Access Identities (OAI) Restrict access to an Amazon S3 bucket only to a special Amazon CloudFront user associated with your distribution. This is the easiest way to ensure that content in a bucket is only accessed by Amazon CloudFront.</p>
-</li>
-</ul>
-
+			<h1 id="AMAZON-CLOUDFRONT"><a href="#AMAZON-CLOUDFRONT" class="headerlink" title="AMAZON CLOUDFRONT"></a>AMAZON CLOUDFRONT</h1><p>Amazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end users with low latency, high data transfer speeds, and no minimum usage commitments.</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/07/08/aws-cloudfront/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -467,13 +259,13 @@
 			<span class="category">
 				
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>»<a class="article-category-link" href="/categories/Cloud/DevOps/">DevOps</a>
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
   </div>
 
 			</span>
 			<span class="tags">
 				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cloud/">Cloud</a></li></ul>
 
 			</span>
 		</div>
@@ -511,105 +303,12 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Error-hanlding"><a href="#Error-hanlding" class="headerlink" title="Error hanlding"></a>Error hanlding</h1><h2 id="Error-types"><a href="#Error-types" class="headerlink" title="Error types"></a>Error types</h2><p>In Node, errors occur any of the following ways:</p>
-<ul>
-<li>Explicit exceptions (those triggered by the throw keyword)</li>
-<li>Implicit exceptions (like ReferenceError: foo not defined)</li>
-<li>The ‘error’ event (which may trigger an exception)</li>
-<li>The error callback argument (no exceptions): pass the error to a callback, a function provided specifically for handling errors and the results of asynchronous operations</li>
-<li>pass the error to a reject Promise function</li>
-</ul>
-<p>在 Node.js 中错误处理主要有一下几种方法:</p>
-<ul>
-<li>callback(err, data) 回调约定</li>
-<li>throw / try / catch</li>
-<li>EventEmitter 的 error 事件</li>
-</ul>
-<p>callback(err, data) 这种形式的错误处理起来繁琐, 并不具备强制性, 目前已经处于仅需要了解, 不推荐使用的情况. 而 domain 模块则是半只脚踏进棺材了.</p>
-<p>感谢 co 的先河, 现在的你已经简单的使用 try/catch 保护关键的位置, 以 koa 为例, 可以通过中间件的形式来进行错误处理, 详见 Koa error handling. 之后的 async/await 均属于这种模式.</p>
-<p>通过 EventEmitter 的错误监听形式为各大关键的对象加上错误监听的回调. 例如监听 http server, tcp server 等对象的 error 事件以及 process 对象提供的 uncaughtException 和 unhandledRejection 等等.</p>
-<p>使用 Promise 来封装异步, 并通过 Promise 的错误处理来 handle 错误.</p>
-<p>如果上述办法不能起到良好的作用, 那么你需要学习如何优雅的 Let It Crash</p>
-<h4 id="The-uncaught-exception"><a href="#The-uncaught-exception" class="headerlink" title="The uncaught exception"></a>The uncaught exception</h4><p>A Node process will terminate on any uncaught exception (explicit or implicit).</p>
-<p>However, you can override this behavior by adding an uncaughtException handler on the process object. The following illustrates programmatically what Node does on your behalf when an uncaught exception occurs:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">process.on(<span class="string">'uncaughtException'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">er</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(er.stack)</span><br><span class="line">  process.exit(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>An uncaughtException handler should be treated as a last opportunity to say your goodbyes before calling process.exit. It is not advised to keep the process running.</p>
-<h3 id="The-unhandled-rejection"><a href="#The-unhandled-rejection" class="headerlink" title="The unhandled rejection"></a>The unhandled rejection</h3><p>Promises are ubiquitous in Node.js code and sometimes chained to a very long list of functions that return promises and so on. Not using a proper .catch(…) rejection handler will cause an unhandledRejection event to be emitted, and if not properly caught and inspected, you may rob yourself of your only chance to detect and possibly fix the problem. Here is how you can set up a listener:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">process.on(<span class="string">'unhandledRejection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">reason, promise</span>) </span>&#123;</span><br><span class="line">    logger.error(<span class="string">'Unhandled rejection'</span>, &#123;<span class="attr">reason</span>: reason, <span class="attr">promise</span>: promise&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>It is a good practice to set up a listener for an unhandledRejection event and log or even count the number of occurrences just to know what happened in your system and inspect possible instabilities due to improper rejection handling.</p>
-<h3 id="The-infamous-‘error’-event"><a href="#The-infamous-‘error’-event" class="headerlink" title="The infamous ‘error’ event"></a>The infamous ‘error’ event</h3><p>Any EventEmitter can potentially emit an ‘error’ event and there are multiple objects that inherit from EventEmitters in Node (core and 3rd-party modules). The ‘error’ events emitted in Node core come from objects such as:</p>
-<ul>
-<li>Streams</li>
-<li>Servers</li>
-<li>Requests/Responses</li>
-<li>Child processes</li>
-</ul>
-<p>Node treats this as a special event. If left unhandled, it will throw an exception (instead of silently ignoring the error).</p>
-<p>Many 3rd-party modules will bubble up ‘error’ events or other errors from Node core modules as well as emit their own.</p>
-<h3 id="Catching-implicit-exceptions"><a href="#Catching-implicit-exceptions" class="headerlink" title="Catching implicit exceptions"></a>Catching implicit exceptions</h3><p>We can’t forget about common implicit exceptions. A great example of this is the SyntaxError thrown when using JSON.parse: <code>JSON.parse(&#39;undefined&#39;)</code></p>
-<p>These errors are avoided by a simple try/catch block:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">  JSON.parse(maybeJSON)</span><br><span class="line">&#125; catch (er) &#123;</span><br><span class="line">  console.error(&apos;Invalid JSON&apos;, er)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Operational-errors-vs-programmer-errors"><a href="#Operational-errors-vs-programmer-errors" class="headerlink" title="Operational errors vs. programmer errors"></a>Operational errors vs. programmer errors</h2><p>Operational errors represent run-time problems experienced by correctly-written programs. These are not bugs in the program. In fact, these are usually problems with something else: the system itself (e.g., out of memory or too many open files), the system’s configuration (e.g., no route to a remote host), the network (e.g., socket hang-up), or a remote service (e.g., a 500 error, failure to connect, or the like). </p>
-<p>Programmer errors are bugs in the program. These are things that can always be avoided by changing the code. They can never be handled properly (since by definition the code in question is broken).</p>
-<p>Operational errors are error conditions that all correct programs must deal with, and as long as they’re dealt with, they don’t necessarily indicate a bug or even a serious problem.</p>
-<p>By contrast, programmer errors are bugs. They’re cases where you made a mistake, maybe by forgetting to validate user input, mistyping a variable name, or something like that. By definition there’s no way to handle those.</p>
-<p>This distinction is very important: operational errors are part of the normal operation of a program. Programmer errors are bugs.</p>
-<h3 id="Handling-operational-errors"><a href="#Handling-operational-errors" class="headerlink" title="Handling operational errors"></a>Handling operational errors</h3><p>You may end up handling the same error at several levels of the stack. This happens when lower levels can’t do anything useful except propagate the error to their caller, which propagates the error to its caller, and so on. Often, only the top-level caller knows what the appropriate response is, whether that’s to retry the operation, report an error to the user, or something else. But that doesn’t mean you should try to report all errors to a single top-level callback, because that callback itself can’t know in what context the error occurred, what pieces of an operation have successfully completed, and which ones actually failed.</p>
-<p>Let’s make this concrete. For any given error, there are a few things you might do:</p>
-<ul>
-<li>Deal with the failure directly</li>
-<li>Propagate the failure to your client</li>
-<li>Retry the operation</li>
-<li>Blow up</li>
-<li>Log the error — and do nothing else</li>
-</ul>
-<h3 id="Not-handling-programmer-errors"><a href="#Not-handling-programmer-errors" class="headerlink" title="(Not) handling programmer errors"></a>(Not) handling programmer errors</h3><p>Some people advocate attempting to recover from programmer errors — that is, allow the current operation to fail, but keep handling requests. This is not recommended. Consider that a programmer error is a case that you didn’t think about when you wrote the original code. How can you be sure that the problem won’t affect other requests? If other requests share any common state (a server, a socket, a pool of database connections, etc.), it’s very possible that the other requests will do the wrong thing.</p>
-<p>The best way to recover from programmer errors is to crash immediately. You should run your programs using a restarter that will automatically restart the program in the event of a crash. With a restarter in place, crashing is the fastest way to restore reliable service in the face of a transient programmer error.</p>
-<p>The best way to debug these problems is to configure Node to dump core on an uncaught exception.</p>
-<p>Finally, remember that a programmer error on a server just becomes an operational error on a client. Clients have to deal with servers crashing and network blips. That’s not just theoretical — both really do happen in production systems.</p>
-<h3 id="Patterns-for-writing-functions"><a href="#Patterns-for-writing-functions" class="headerlink" title="Patterns for writing functions"></a>Patterns for writing functions</h3><p>The single most important thing to do is document what your function does, including what arguments it takes (including their types and any other constraints), what it returns, what errors can happen, and what those errors mean. If you don’t know what errors can happen or don’t know what they mean, then your program cannot be correct except by accident. So if you’re writing a new function, you have to tell your callers what errors can happen and what they mean.</p>
-<p>The general rule is that a function may deliver operational errors synchronously (e.g., by throwing) or asynchronously (by passing them to a callback or emitting error on an EventEmitter), but it should not do both.</p>
-<h4 id="Bad-input-programmer-error-or-operational-error"><a href="#Bad-input-programmer-error-or-operational-error" class="headerlink" title="Bad input: programmer error or operational error?"></a>Bad input: programmer error or operational error?</h4><p>How do you know what’s a programmer error vs. an operational error? Quite simply: it’s up to you to define and document what types your function will allow and how you’ll try to interpret them. If you get something other than what you’ve documented to accept, that’s a programmer error. If the input is something you’ve documented to accept but you can’t process right now, that’s an operational error.</p>
-<p>You have to use your judgment to decide how strict you want to be, but we can make some suggestions. To get specific, imagine a function called “connect” that takes an IP address and a callback and invokes the callback asynchronously after either succeeding or failing. Suppose the user passes something that’s obviously not a valid IP address, like ‘bob’. In this case, you have a few options:</p>
-<p>Document that the function only accepts strings representing valid IPv4 addresses, and throw an exception immediately if the user passes ‘bob’. This is strongly recommended.<br>Document that the function accepts any string. If the user passes ‘bob’, emit an asynchronous error indicating that you couldn’t connect to IP address ‘bob’.</p>
-<h4 id="Specific-recommendations-for-writing-new-functions"><a href="#Specific-recommendations-for-writing-new-functions" class="headerlink" title="Specific recommendations for writing new functions"></a>Specific recommendations for writing new functions</h4><ul>
-<li>Be clear about what your function does.</li>
-<li>Use Error objects (or subclasses) for all errors, and implement the Error contract.</li>
-<li>Use the Error’s name property to distinguish errors programmatically.</li>
-<li>Augment the Error object with properties that explain details<ul>
-<li>通过使用 verror 这样的方式, 让 Error 一层层封装, 并在每一层将错误的信息一层层的包上, 最后拿到的 Error 直接可以从 message 中获取用于定位问题的关键信息.</li>
-</ul>
-</li>
-<li>If you pass a lower-level error to your caller, consider wrapping it instead.</li>
-</ul>
-<p>An example:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Make a TCP connection to the given IPv4 address.  Arguments:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *    ip4addr        a string representing a valid IPv4 address</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *    tcpPort        a positive integer representing a valid TCP port</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *    timeout        a positive integer denoting the number of milliseconds</span></span><br><span class="line"><span class="comment"> *                   to wait for a response from the remote server before</span></span><br><span class="line"><span class="comment"> *                   considering the connection to have failed.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *    callback       invoked when the connection succeeds or fails.  Upon</span></span><br><span class="line"><span class="comment"> *                   success, callback is invoked as callback(null, socket),</span></span><br><span class="line"><span class="comment"> *                   where `socket` is a Node net.Socket object.  Upon failure,</span></span><br><span class="line"><span class="comment"> *                   callback is invoked as callback(err) instead.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This function may fail for several reasons:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *    SystemError    For "connection refused" and "host unreachable" and other</span></span><br><span class="line"><span class="comment"> *                   errors returned by the connect(2) system call.  For these</span></span><br><span class="line"><span class="comment"> *                   errors, err.errno will be set to the actual errno symbolic</span></span><br><span class="line"><span class="comment"> *                   name.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *    TimeoutError   Emitted if "timeout" milliseconds elapse without</span></span><br><span class="line"><span class="comment"> *                   successfully completing the connection.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * All errors will have the conventional "remoteIp" and "remotePort" properties.</span></span><br><span class="line"><span class="comment"> * After any error, any socket that was created will be closed.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params">ip4addr, tcpPort, timeout, callback</span>) </span>&#123;</span><br><span class="line">  assert.equal(<span class="keyword">typeof</span> (ip4addr), <span class="string">'string'</span>,</span><br><span class="line">      <span class="string">"argument 'ip4addr' must be a string"</span>);</span><br><span class="line">  assert.ok(net.isIPv4(ip4addr),</span><br><span class="line">      <span class="string">"argument 'ip4addr' must be a valid IPv4 address"</span>);</span><br><span class="line">  assert.equal(<span class="keyword">typeof</span> (tcpPort), <span class="string">'number'</span>,</span><br><span class="line">      <span class="string">"argument 'tcpPort' must be a number"</span>);</span><br><span class="line">  assert.ok(!<span class="built_in">isNaN</span>(tcpPort) &amp;&amp; tcpPort &gt; <span class="number">0</span> &amp;&amp; tcpPort &lt; <span class="number">65536</span>,</span><br><span class="line">      <span class="string">"argument 'tcpPort' must be a positive integer between 1 and 65535"</span>);</span><br><span class="line">  assert.equal(<span class="keyword">typeof</span> (timeout), <span class="string">'number'</span>,</span><br><span class="line">      <span class="string">"argument 'timeout' must be a number"</span>);</span><br><span class="line">  assert.ok(!<span class="built_in">isNaN</span>(timeout) &amp;&amp; timeout &gt; <span class="number">0</span>,</span><br><span class="line">      <span class="string">"argument 'timeout' must be a positive integer"</span>);</span><br><span class="line">  assert.equal(<span class="keyword">typeof</span> (callback), <span class="string">'function'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* do work */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你应该总是抛出一个继承自 JavaScript 内建的 Error 类型的对象，而不要抛出 String 或普通的 Object, 因为只有语言内建的 Error 对象上才会有调用栈，抛出其他类型的对象将可能会导致调用栈无法正确地被记录。同时也要慎重地使用自定义的异常类型，因为目前 JavaScript 中和调用栈有关的 API（如 Error.captureStackTrace）还不在标准中，各个引擎的实现也不同，你很难写出一个在所有引擎都可用的自定义异常类型。因此如果你的代码可能会同时运行在 Node.js 和浏览器中，或者你在编写一个开源项目，那么建议你不要使用自定义的异常类型；如果你的代码不是开源的，运行环境也非常确定，则可以考虑使用引擎提供的私有 API 来自定义异常类型。</p>
-<p>传递异常的过程中的一些最佳实践：</p>
-<ul>
-<li>注意 Promise / callback chain 不要从中间断开</li>
-<li>只处理已知的、必须在这里处理的异常，其他异常继续向外抛出</li>
-<li>不要轻易地丢弃一个异常</li>
-<li>传递的过程中可以向 err 对象上添加属性，补充上下文</li>
-</ul>
-<h2 id="Error-handling-with-Express"><a href="#Error-handling-with-Express" class="headerlink" title="Error handling with Express"></a>Error handling with Express</h2><p>Read this <a href="https://thecodebarbarian.com/80-20-guide-to-express-error-handling" target="_blank" rel="noopener">article</a>.</p>
-<h2 id="Other-fun-stuff"><a href="#Other-fun-stuff" class="headerlink" title="Other fun stuff"></a>Other fun stuff</h2><ul>
-<li><a href="https://medium.com/front-end-hacking/error-handling-in-node-javascript-suck-unless-you-know-this-2018-aa0a14cfdd9d" target="_blank" rel="noopener">Go style error handling</a></li>
-</ul>
-<h2 id="A-checklist"><a href="#A-checklist" class="headerlink" title="A checklist"></a>A checklist</h2><p>Errors happen; its important to build structures to handle them. Use this checklist to buff up your code:</p>
-<ul>
-<li>Where am I using throw? Am I prepared to handle these explicit exceptions when they occur?</li>
-<li>Am I safeguarding against common sources for implicit exceptions (like JSON.parse, undefined data values in a nodeback)?</li>
-<li>Am I handling ‘error’ events on all EventEmitters?</li>
-<li>Am I handling all error arguments in nodebacks?</li>
-<li>Am I notified of uncaught exceptions?</li>
-</ul>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
-<li><a href="https://www.joyent.com/node-js/production/design/errors" target="_blank" rel="noopener">Error handling in Node.js</a></li>
-<li><a href="https://goldbergyoni.com/checklist-best-practices-of-node-js-error-handling/" target="_blank" rel="noopener">Checklist: Best Practices of Node.JS Error Handling (2018)</a></li>
-<li><a href="https://github.com/ElemeFE/node-interview/blob/master/sections/zh-cn/error.md" target="_blank" rel="noopener">ElemeFE/node-interview</a></li>
-</ul>
-
+			<h1 id="Error-hanlding"><a href="#Error-hanlding" class="headerlink" title="Error hanlding"></a>Error hanlding</h1><h2 id="Error-types"><a href="#Error-types" class="headerlink" title="Error types"></a>Error types</h2><p>In Node, errors occur any of the following ways:</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/07/01/nodejs-error-handling/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -661,35 +360,12 @@
 	</header>
 	<div class="entry-content">
 		
-    	<p> Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and analyzed to ensure that the desired information (e.g. error rate, following an entire transaction through services and servers, etc) can really be extracted.</p>
-<h2 id="Bunyan"><a href="#Bunyan" class="headerlink" title="Bunyan"></a>Bunyan</h2><p>Use <a href="https://github.com/trentm/node-bunyan" target="_blank" rel="noopener">Bunyan</a> to log structured records. Alternatively you can use <a href="https://www.npmjs.com/package/pino" target="_blank" rel="noopener">pino</a>.</p>
-<p>Bunyan log records are JSON. A few fields are added automatically: “pid”, “hostname”, “time” and “v”.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Log with an optional 'fields' object as the first parameter</span></span><br><span class="line">log.info(&#123;<span class="attr">foo</span>: <span class="string">'bar'</span>, <span class="attr">err</span>: err&#125;, <span class="string">'some msg about this error'</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="Child-Logger"><a href="#Child-Logger" class="headerlink" title="Child Logger"></a>Child Logger</h3><p>Bunyan has a concept of a child logger to specialize a logger for a sub-component of your application, i.e. to create a new logger with additional bound fields that will be included in its log records. A child logger is created with <code>log.child(...)</code>.</p>
-<p>Bunyan has a concept of “serializer” functions to produce a JSON-able object from a JavaScript object, so you can easily do the following:</p>
-<p><code>log.info({req: &lt;request object&gt;}, &#39;something about handling this request&#39;);</code></p>
-<p>and have the req entry in the log record be just a reasonable subset of <request object=""> fields (or computed data about those fields).</request></p>
-<h2 id="收集渠道"><a href="#收集渠道" class="headerlink" title="收集渠道"></a>收集渠道</h2><ol>
-<li><p>系统未捕获错误:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">process.on(<span class="string">'uncaughtException'</span>, processErrorHandler);  </span><br><span class="line">process.on(<span class="string">'unhandledRejection'</span>, processErrorHandler);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>程序内 byLog 的输出</p>
-</li>
-<li>console.error</li>
-</ol>
-<p>针对 Express 可做如下埋点:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在所有路由最后，添加错误处理，必须同时含有四个参数</span></span><br><span class="line"><span class="comment">// http://expressjs.com/en/guide/error-handling.html</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">err, req, res, next</span>) </span>&#123;  </span><br><span class="line">    res.send(&#123;</span><br><span class="line">        code: <span class="number">500</span>,</span><br><span class="line">        message: <span class="string">`System Error! Please send serial number <span class="subst">$&#123;req.x_request_id&#125;</span> to administer`</span></span><br><span class="line">    &#125;);</span><br><span class="line">    byLog.error(err, <span class="literal">null</span>, &#123;</span><br><span class="line">        req_id: req.x_request_id</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="Logging-in-Distributed-Systems"><a href="#Logging-in-Distributed-Systems" class="headerlink" title="Logging in Distributed Systems"></a>Logging in Distributed Systems</h2><h3 id="Have-an-Application-Instance-Identifier"><a href="#Have-an-Application-Instance-Identifier" class="headerlink" title="Have an Application Instance Identifier"></a>Have an Application Instance Identifier</h3><p>Use the <code>name</code> field in bunyan.</p>
-<h3 id="Always-Use-UTC-Time"><a href="#Always-Use-UTC-Time" class="headerlink" title="Always Use UTC Time"></a>Always Use UTC Time</h3><h3 id="Adding-correlation-IDs"><a href="#Adding-correlation-IDs" class="headerlink" title="Adding correlation IDs"></a>Adding correlation IDs</h3><p>This ID has to be passed around in function calls, and it has to be sent to downstream services too.</p>
-<h3 id="Using-Trace"><a href="#Using-Trace" class="headerlink" title="Using Trace"></a>Using Trace</h3><p><a href="https://trace.risingstack.com/" target="_blank" rel="noopener">https://trace.risingstack.com/</a></p>
-<h2 id="Never-ever-log-credentials-passwords-or-any-sensitive-information"><a href="#Never-ever-log-credentials-passwords-or-any-sensitive-information" class="headerlink" title="Never, ever log credentials, passwords or any sensitive information."></a>Never, ever log credentials, passwords or any sensitive information.</h2><h2 id="Logging-in-NPM-modules"><a href="#Logging-in-NPM-modules" class="headerlink" title="Logging in NPM modules"></a>Logging in NPM modules</h2><p>Use the <a href="https://www.npmjs.com/package/debug" target="_blank" rel="noopener">debug</a> module.</p>
-<p>By default, it will not produce any output. To enable this logger, you have run your application with a special environment variable, called DEBUG.</p>
-<p><code>DEBUG=my-namespace,express* node app.js</code></p>
-<p>Once you do that, the debug module will come to life and will start producing log events for stdout.</p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li><a href="https://blog.risingstack.com/node-js-logging-tutorial/" target="_blank" rel="noopener">How to Get Node.js Logging Right</a></li>
-</ol>
-
+			<p> Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and analyzed to ensure that the desired information (e.g. error rate, following an entire transaction through services and servers, etc) can really be extracted.</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/07/01/nodejs-logging/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -741,8 +417,12 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Calling-chain"><a href="#Calling-chain" class="headerlink" title="Calling chain"></a>Calling chain</h1><p>一个完整的微服务系统包含多个微服务单元，各个微服务子系统存在互相调用的情况，形成一个 调用链。一个客户端请求从发出到被响应 经历了哪些组件、哪些微服务、请求总时长、每个组件所花时长 等信息我们有必要了解和收集，以帮助我们定位性能瓶颈、进行性能调优，因此监控整个微服务架构的调用链十分有必要。</p>
-<h2 id="Zipkin"><a href="#Zipkin" class="headerlink" title="Zipkin"></a>Zipkin</h2>
+			<h1 id="Calling-chain"><a href="#Calling-chain" class="headerlink" title="Calling chain"></a>Calling chain</h1><p>一个完整的微服务系统包含多个微服务单元，各个微服务子系统存在互相调用的情况，形成一个 调用链。一个客户端请求从发出到被响应 经历了哪些组件、哪些微服务、请求总时长、每个组件所花时长 等信息我们有必要了解和收集，以帮助我们定位性能瓶颈、进行性能调优，因此监控整个微服务架构的调用链十分有必要。</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/06/29/metrics-and-prometheus/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -794,24 +474,17 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><h2 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h2><ul>
+			<h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><h2 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h2><ul>
 <li>Express</li>
 <li>Micro</li>
 <li>Seneca</li>
 <li>Hydra</li>
 </ul>
-<h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><h2 id="Service-Gateway"><a href="#Service-Gateway" class="headerlink" title="Service Gateway"></a>Service Gateway</h2><h2 id="Middlewares"><a href="#Middlewares" class="headerlink" title="Middlewares"></a>Middlewares</h2><h3 id="Pub-Sub"><a href="#Pub-Sub" class="headerlink" title="Pub/Sub"></a>Pub/Sub</h3><h3 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h3><h2 id="Authentication-and-Authorisation"><a href="#Authentication-and-Authorisation" class="headerlink" title="Authentication and Authorisation"></a>Authentication and Authorisation</h2><h2 id="Reliability"><a href="#Reliability" class="headerlink" title="Reliability"></a>Reliability</h2><h2 id="Health-Check"><a href="#Health-Check" class="headerlink" title="Health Check"></a>Health Check</h2><h2 id="Service-Registry-And-Discovery"><a href="#Service-Registry-And-Discovery" class="headerlink" title="Service Registry And Discovery"></a>Service Registry And Discovery</h2><h2 id="Load-Balancing"><a href="#Load-Balancing" class="headerlink" title="Load Balancing"></a>Load Balancing</h2><h2 id="Configuration-centre"><a href="#Configuration-centre" class="headerlink" title="Configuration centre"></a>Configuration centre</h2><h2 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h2><h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h2><h2 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h2><h2 id="Circuit-Breaker"><a href="#Circuit-Breaker" class="headerlink" title="Circuit Breaker"></a>Circuit Breaker</h2><h2 id="Distributed-Tracing"><a href="#Distributed-Tracing" class="headerlink" title="Distributed Tracing"></a>Distributed Tracing</h2><h1 id="Key-Points-to-validate"><a href="#Key-Points-to-validate" class="headerlink" title="Key Points to validate"></a>Key Points to validate</h1><ul>
-<li>How many Microservices should I divide the business capabilities into thinking in terms of domain driven design.</li>
-<li>Partitioning the data into different services with their own database solution with the understanding of which segment of data needs to be kept redundant locally for each of these services.</li>
-<li>How data is synchronized between Microservices for redundant data.</li>
-<li>Consistency requirements of data. (Whether its transactional requiring strong consistency vs possibility of implementing eventual consistency).</li>
-<li>Selection of right interfaces, channels, and middleware for communications and interaction between services.</li>
-<li>Required level of Security, Reliability, Performance, and Efficiency thinking the costs in mind.</li>
-<li>Tools and technologies to be used for individual Microservices. (Serverless, Containers, Web Technologies &amp; etc.)</li>
-<li>How to version and share code (If required) in the form of libraries using repositories like NPM.</li>
-<li>How the teams and processes (Development, DevOps, Change Management &amp; etc.) are structured around Microservices.</li>
-</ul>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1>
+			
+				<p class="article-more-link">
+					<a href="/2018/06/28/microservices-with-nodejs/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -863,21 +536,12 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="What-are-CI-and-CD"><a href="#What-are-CI-and-CD" class="headerlink" title="What are CI and CD"></a>What are CI and CD</h1><p>Continuous Integration (CI) is a development practice that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early.</p>
-<p>Continuous Delivery (CD) is the natural extension of Continuous Integration: an approach in which teams ensure that every change to the system is releasable, and that we can release any version at the push of a button. Continuous Delivery aims to make releases boring, so we can deliver frequently and get fast feedback on what users care about.</p>
-<h1 id="持续集成应有的标准规范"><a href="#持续集成应有的标准规范" class="headerlink" title="持续集成应有的标准规范"></a>持续集成应有的标准规范</h1><ol>
-<li>频繁提交</li>
-<li>自动化测试</li>
-<li>较短的构建和测试过程</li>
-<li>本地开发环境与持续集成环境、测试环境、生产环境一致</li>
-</ol>
-<h1 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h1><ul>
-<li>Github/Gitlab/Bitbucket</li>
-<li>Buildkite/Jenkins/Codefresh/Codeship</li>
-<li>Docker</li>
-</ul>
-<h1 id="发布策略"><a href="#发布策略" class="headerlink" title="发布策略"></a>发布策略</h1><p>Canary</p>
-<h1 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h1>
+			<h1 id="What-are-CI-and-CD"><a href="#What-are-CI-and-CD" class="headerlink" title="What are CI and CD"></a>What are CI and CD</h1><p>Continuous Integration (CI) is a development practice that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early.</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/06/28/ci-cd-pipeline/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">
@@ -929,195 +593,12 @@
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Important-concepts"><a href="#Important-concepts" class="headerlink" title="Important concepts"></a>Important concepts</h1><p><img src="./git concepts.jpg" alt="Git concepts"></p>
-<h2 id="Repositories"><a href="#Repositories" class="headerlink" title="Repositories"></a>Repositories</h2><p>Git has two repository types: local and remote.  The local repo is on your computer for only your direct use.  The remote repo is typically elsewhere and for your indirect use.  Git supports multiple remote repositories.</p>
-<h2 id="Committing-is-a-Multi-Step-Process"><a href="#Committing-is-a-Multi-Step-Process" class="headerlink" title="Committing is a Multi-Step Process"></a>Committing is a Multi-Step Process</h2><p>Git is a three step process to share your files with the team:</p>
-<ol>
-<li>Add. This copies new or updated files to the “stage” or “index” (you will see doc and info that use both terms).</li>
-<li>Commit. This copies your staged files to the local repo.</li>
-<li>Push. This copies your files from the local repo to the remote repo (only the changes the remote repos does not have).</li>
-</ol>
-<h2 id="File-Diffs-in-Workspace-Stage-and-Repo"><a href="#File-Diffs-in-Workspace-Stage-and-Repo" class="headerlink" title="File Diffs in Workspace, Stage, and Repo"></a>File Diffs in Workspace, Stage, and Repo</h2><p>Files can exist in three locations with Git.  The same file can have different content in each location:</p>
-<ol>
-<li>Committed in the repo: the HEAD version, the contents as the file was last committed.</li>
-<li>Staged in the index: edits made or the file removed, added to the index, ready to commit.</li>
-<li>Workspace: Work in progress (usually most files are unchanged, having the same content as the committed version).</li>
-</ol>
-<p>The Git diff command options allow comparing between the three locations (and more).</p>
-<ul>
-<li>Specifying no option compares the workspace to the staged/index version.</li>
-<li>Specifying –cached or –staged compares the staged/index version with a committed version.</li>
-<li>Additional diff options include comparing with any two files on disk, comparing two commits, and any file with any commit.</li>
-</ul>
-<h2 id="Scenario-based-Commands"><a href="#Scenario-based-Commands" class="headerlink" title="Scenario-based Commands"></a>Scenario-based Commands</h2><h3 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h3><h4 id="从远程主机克隆一个版本库"><a href="#从远程主机克隆一个版本库" class="headerlink" title="从远程主机克隆一个版本库"></a>从远程主机克隆一个版本库</h4><ul>
-<li>git clone &lt;版本库的网址&gt;</li>
-<li>git clone &lt;版本库的网址&gt; &lt;本地目录名&gt;</li>
-<li>git clone –recursive git://github.com/foo/bar.git</li>
-</ul>
-<h4 id="管理主机名"><a href="#管理主机名" class="headerlink" title="管理主机名"></a>管理主机名</h4><ul>
-<li>git remote</li>
-<li>git remote -v</li>
-<li>git remote show &lt;主机名&gt;</li>
-<li>git remote add &lt;主机名&gt; &lt;网址&gt;</li>
-</ul>
-<h4 id="将远程主机的版本库更新取回本地"><a href="#将远程主机的版本库更新取回本地" class="headerlink" title="将远程主机的版本库更新取回本地"></a>将远程主机的版本库更新取回本地</h4><ul>
-<li>git fetch &lt;远程主机名&gt;</li>
-<li>git fetch &lt;远程主机名&gt; &lt;分支名&gt;</li>
-</ul>
-<p>git fetch命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。</p>
-<p>所取回的更新，在本地主机上要用”远程主机名/分支名”的形式读取。比如origin主机的master，就要用origin/master读取。</p>
-<h4 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h4><ul>
-<li>git branch -r</li>
-<li>git branch -a</li>
-</ul>
-<p>取回远程主机的更新以后，可以在它的基础上，使用git checkout命令创建一个新的分支:</p>
-<ul>
-<li>git checkout -b newBrach origin/master</li>
-</ul>
-<p>也可以使用git merge命令或者git rebase命令，在本地分支上合并远程分支:</p>
-<ul>
-<li>git merge origin/master</li>
-<li>git rebase origin/master</li>
-</ul>
-<p>取回远程主机某个分支的更新，再与本地的指定分支合并:</p>
-<ul>
-<li>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</li>
-<li>git pull origin next 远程分支是与当前分支合并, 等同于先做git fetch，再做git merge</li>
-</ul>
-<p>在某些场合，Git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动”追踪”origin/master分支。</p>
-<p>Git也允许手动建立追踪关系:</p>
-<ul>
-<li>git branch –set-upstream master origin/next</li>
-</ul>
-<p>如果当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名:</p>
-<ul>
-<li>git pull origin</li>
-</ul>
-<p>如果当前分支只有一个追踪分支，连远程主机名都可以省略:</p>
-<ul>
-<li>git pull</li>
-</ul>
-<p>如果合并需要采用rebase模式，可以使用–rebase选项:</p>
-<ul>
-<li>git pull –rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</li>
-</ul>
-<p>加上参数 -p 就会在本地删除远程已经删除的分支:</p>
-<ul>
-<li>git pull -p</li>
-</ul>
-<p>将本地分支的更新，推送到远程主机:</p>
-<ul>
-<li>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</li>
-</ul>
-<p>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支（通常两者同名），如果该远程分支不存在，则会被新建:</p>
-<ul>
-<li>git push origin master</li>
-</ul>
-<p>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支:</p>
-<ul>
-<li>git push origin :master</li>
-</ul>
-<p>如果当前分支与远程分支之间存在追踪关系，则本地分支和远程分支都可以省略:</p>
-<ul>
-<li>git push origin</li>
-</ul>
-<p>如果当前分支只有一个追踪分支，那么主机名都可以省略:</p>
-<ul>
-<li>git push</li>
-</ul>
-<p>如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push:</p>
-<ul>
-<li>git push -u origin master</li>
-</ul>
-<p>将本地的所有分支都推送到远程主机:</p>
-<ul>
-<li>git push –all origin</li>
-</ul>
-<p>git push不会推送标签（tag），除非使用–tags选项:</p>
-<ul>
-<li>git push origin –tags</li>
-</ul>
-<h3 id="Frequently-used"><a href="#Frequently-used" class="headerlink" title="Frequently used"></a>Frequently used</h3><p>check last commit</p>
-<ul>
-<li>git show</li>
-<li>git log -n1 -p</li>
-</ul>
-<p>check commit history for the feature branch</p>
-<ul>
-<li>git log develop..feature/REF-123</li>
-</ul>
-<p>This will show you all not pushed commits from all branches</p>
-<ul>
-<li>git log –branches –not –remotes</li>
-</ul>
-<p>and this must show you all your local commits</p>
-<ul>
-<li>git log origin/master..HEAD</li>
-</ul>
-<p>view the changes in a commit</p>
-<ul>
-<li>git show 877897e8a64043cc9277a859c616ec2e4ff57634</li>
-</ul>
-<p>To get the exact copy of remote develop branch, all local changes not pushed will be lost</p>
-<ul>
-<li>git fetch –all</li>
-<li>git reset –hard origin/master</li>
-</ul>
-<p>To rename a branch</p>
-<ul>
-<li>git branch -m <oldname> <newname></newname></oldname></li>
-<li>git branch -m <newname></newname></li>
-</ul>
-<p>stash</p>
-<ul>
-<li>git stash</li>
-<li>git stash list</li>
-<li>git stash apply</li>
-<li>git stash apply stash@{2}</li>
-<li>git stash drop stash@{2}</li>
-<li>git stash show stash@{2}</li>
-</ul>
-<p>remove everything from the index/staging<br>– dry run</p>
-<ul>
-<li>git clean -n<br>– actually do the job</li>
-<li>git clean -f<br>– do the job with both files and folders</li>
-<li>git clean -xf</li>
-</ul>
-<p>remove all staged changes</p>
-<ul>
-<li>git reset HEAD – .</li>
-</ul>
-<p>remove all unstaged changes</p>
-<ul>
-<li>git checkout – .</li>
-</ul>
-<p>remove all untracked changes</p>
-<ul>
-<li>git clean -df</li>
-</ul>
-<p>garbage collection</p>
-<ul>
-<li>git gc</li>
-</ul>
-<p>Use the following command while being on “master”, to list merged branches:</p>
-<ul>
-<li>git branch –merged | grep -v “*“</li>
-</ul>
-<p>To get the commit into current branch</p>
-<ul>
-<li>git cherry-pick COMMIT_HASH</li>
-</ul>
-<h2 id="Best-Practice"><a href="#Best-Practice" class="headerlink" title="Best Practice"></a>Best Practice</h2><p>Each commit should be a single logical change. Don’t make several logical changes in one commit.<br>Don’t split a single logical change into several commits.</p>
-<p>git commit –amend</p>
-<h4 id="Git-commit-message-format"><a href="#Git-commit-message-format" class="headerlink" title="Git commit message format"></a>Git commit message format</h4><p><a href="https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html" target="_blank" rel="noopener">guide</a></p>
-<h2 id="Use-different-SSH-keys-for-multiple-Bitbucket-accounts"><a href="#Use-different-SSH-keys-for-multiple-Bitbucket-accounts" class="headerlink" title="Use different SSH keys for multiple Bitbucket accounts"></a>Use different SSH keys for multiple Bitbucket accounts</h2><p><a href="https://developer.atlassian.com/blog/2016/04/different-ssh-keys-multiple-bitbucket-accounts/" target="_blank" rel="noopener">guide</a></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
-<li><a href="https://blog.coding.net/blog/principle-of-Git" target="_blank" rel="noopener">使用原理视角看 Git</a></li>
-<li><a href="https://github.com/k88hudson/git-flight-rules" target="_blank" rel="noopener">git flight rules</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="noopener">Git远程操作详解</a></li>
-<li><a href="https://www.atlassian.com/git/tutorials" target="_blank" rel="noopener">Atlassian Git Tutorials</a></li>
-</ol>
-
+			<h1 id="Important-concepts"><a href="#Important-concepts" class="headerlink" title="Important concepts"></a>Important concepts</h1><p><img src="./git concepts.jpg" alt="Git concepts"></p>
+			
+				<p class="article-more-link">
+					<a href="/2018/06/25/git/#more">Read More</a>
+				</p>
+      
     
 	</div>
 	<footer class="entry-footer">

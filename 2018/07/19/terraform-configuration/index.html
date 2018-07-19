@@ -5,18 +5,18 @@
   
   <title>Terraform Configuration | SUPERLOG</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="Terraform is an declarative system for defining infrastructure, you can find out more from terraform.io. Terraform uses text files to describe infrastructure and to set variables. These text files are">
+  <meta name="description" content="Terraform is an declarative system for defining infrastructure, you can find out more from terraform.io.">
 <meta name="keywords" content="Terraform">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Terraform Configuration">
 <meta property="og:url" content="http://superliuwr.github.io/2018/07/19/terraform-configuration/index.html">
 <meta property="og:site_name" content="SUPERLOG">
-<meta property="og:description" content="Terraform is an declarative system for defining infrastructure, you can find out more from terraform.io. Terraform uses text files to describe infrastructure and to set variables. These text files are">
+<meta property="og:description" content="Terraform is an declarative system for defining infrastructure, you can find out more from terraform.io.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-19T09:58:45.025Z">
+<meta property="og:updated_time" content="2018-07-19T13:36:48.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Terraform Configuration">
-<meta name="twitter:description" content="Terraform is an declarative system for defining infrastructure, you can find out more from terraform.io. Terraform uses text files to describe infrastructure and to set variables. These text files are">
+<meta name="twitter:description" content="Terraform is an declarative system for defining infrastructure, you can find out more from terraform.io.">
   
     <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
   
@@ -73,6 +73,7 @@
 	<div class="entry-content">
 		
     	<p>Terraform is an declarative system for defining infrastructure, you can find out more from <a href="terraform.io">terraform.io</a>.</p>
+<a id="more"></a>
 <p>Terraform uses text files to describe infrastructure and to set variables. These text files are called Terraform configurations and end in .tf.</p>
 <h1 id="Structure-we-use"><a href="#Structure-we-use" class="headerlink" title="Structure we use"></a>Structure we use</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;myapp&gt;-infrastructure/</span><br><span class="line"> - infrastructure/</span><br><span class="line">   - envs/</span><br><span class="line">    - &lt;your environment file&gt;.tfvar - overrides of variables.tf</span><br><span class="line">   - common.tf - set up your provider (typically kubernetes) and also set up the requirements for the infrastructure-core components</span><br><span class="line">   - data.tf - backend data store</span><br><span class="line">   - variables.tf - deployment variables like aws_region, environment, etc</span><br><span class="line">   - kubernetes.tf - k8s definitions, mainly for secrets</span><br></pre></td></tr></table></figure>
 <h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><h2 id="Load-Order-and-Semantics"><a href="#Load-Order-and-Semantics" class="headerlink" title="Load Order and Semantics"></a>Load Order and Semantics</h2><p>When invoking any command that loads the Terraform configuration, Terraform loads all configuration files within the directory specified in alphabetical order.</p>

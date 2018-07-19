@@ -5,18 +5,18 @@
   
   <title>Helm | SUPERLOG</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="IntroductionHelm is a package manager for Kubernetes applications. Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hoste">
+  <meta name="description" content="IntroductionHelm is a package manager for Kubernetes applications.">
 <meta name="keywords" content="Helm,Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Helm">
 <meta property="og:url" content="http://superliuwr.github.io/2018/06/11/helm/index.html">
 <meta property="og:site_name" content="SUPERLOG">
-<meta property="og:description" content="IntroductionHelm is a package manager for Kubernetes applications. Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hoste">
+<meta property="og:description" content="IntroductionHelm is a package manager for Kubernetes applications.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-29T13:18:21.028Z">
+<meta property="og:updated_time" content="2018-07-19T13:34:00.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Helm">
-<meta name="twitter:description" content="IntroductionHelm is a package manager for Kubernetes applications. Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hoste">
+<meta name="twitter:description" content="IntroductionHelm is a package manager for Kubernetes applications.">
   
     <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
   
@@ -73,11 +73,12 @@
 	<div class="entry-content">
 		
     	<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Helm is a package manager for Kubernetes applications.</p>
+<a id="more"></a>
 <p>Helm packages all of the different Kubernetes resources (such as deployments, services, and ingress) into a chart, which may be hosted in a repository.</p>
 <p>Users can pull down charts and install them on any number of Kubernetes clusters.</p>
 <p>Helm’s approach scales from monoliths to complex micro service applications. </p>
 <p>Helm itself uses a client-server model. The helm command (the client) talks to the tiller  (the server). The Helm client may interact with any number of different tiller services. In practice, there is a single tiller service running one Kubernetes cluster. This helps teams collaborate. It also means that Helm may run anywhere, such as on your CI servers or on your own computer. Tiller does the work to coordinate with Kubernetes and get the chart installed.</p>
-<a id="more"></a>
+<!-- more -->
 <h1 id="Install-Helm"><a href="#Install-Helm" class="headerlink" title="Install Helm"></a>Install Helm</h1><p>Run following to create a service account for Tiller in GCE as Kubernetes enables RBAC since version 1.8:</p>
 <ul>
 <li>kubectl create serviceaccount –namespace kube-system tiller</li>

@@ -5,18 +5,18 @@
   
   <title>Kubernetes Overview | SUPERLOG</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="WhyDocker -&amp;gt; Docker Compose -&amp;gt; Kubernetes 光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？  Docker 的作用是计算资源和环境的描述和调度，Kubernetes 的作用是以应用为中心的生命周期的管理。 Kubern">
+  <meta name="description" content="WhyDocker -&amp;gt; Docker Compose -&amp;gt; Kubernetes 光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？">
 <meta name="keywords" content="Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubernetes Overview">
 <meta property="og:url" content="http://superliuwr.github.io/2018/06/12/kubernetes-overview/index.html">
 <meta property="og:site_name" content="SUPERLOG">
-<meta property="og:description" content="WhyDocker -&amp;gt; Docker Compose -&amp;gt; Kubernetes 光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？  Docker 的作用是计算资源和环境的描述和调度，Kubernetes 的作用是以应用为中心的生命周期的管理。 Kubern">
+<meta property="og:description" content="WhyDocker -&amp;gt; Docker Compose -&amp;gt; Kubernetes 光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-29T13:18:04.809Z">
+<meta property="og:updated_time" content="2018-07-19T13:35:05.958Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes Overview">
-<meta name="twitter:description" content="WhyDocker -&amp;gt; Docker Compose -&amp;gt; Kubernetes 光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？  Docker 的作用是计算资源和环境的描述和调度，Kubernetes 的作用是以应用为中心的生命周期的管理。 Kubern">
+<meta name="twitter:description" content="WhyDocker -&amp;gt; Docker Compose -&amp;gt; Kubernetes 光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？">
   
     <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
   
@@ -73,7 +73,8 @@
 	<div class="entry-content">
 		
     	<h1 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h1><p>Docker -&gt; Docker Compose -&gt; Kubernetes</p>
-<p>光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？ </p>
+<p>光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？</p>
+<a id="more"></a>
 <p>Docker 的作用是计算资源和环境的描述和调度，Kubernetes 的作用是以应用为中心的生命周期的管理。</p>
 <p>Kubernetes provides mechanisms for application deployment, scheduling, updating, maintenance, and scaling. A key feature of Kubernetes is that it actively manages the containers to ensure the state of the cluster continually matches the user’s intentions.</p>
 <p>To provide reliable and scalable distributed system.</p>
@@ -88,7 +89,7 @@
 <li>rollouts</li>
 </ul>
 <p>Managed KaaS services</p>
-<a id="more"></a>
+<!-- more -->
 <h1 id="Configuration-files"><a href="#Configuration-files" class="headerlink" title="Configuration files"></a>Configuration files</h1><p>Kubernetes defines its constructs through configuration files (called manifests) which can be either YAML or JSON.</p>
 <h1 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h1><h2 id="Namespace"><a href="#Namespace" class="headerlink" title="Namespace"></a>Namespace</h2><p>A namespace is like a prefix to the name of a resource.</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">"Namespace"</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">"v1"</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">"development"</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">"development"</span></span><br></pre></td></tr></table></figure>
