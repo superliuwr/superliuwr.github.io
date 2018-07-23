@@ -116,10 +116,12 @@ alternatively this one should work too:
 If you want, instead, to attach to a running TypeScript process spawn from a terminal, it is the exact same script we used for pure JavaScript.
 
 ## Debug Vue.js application with VSC and Chrome
-[Debugging Vue.js in VSC](https://vuejs.org/v2/cookbook/debugging-in-vscode.html)
+* [Debugging Vue.js in VSC](https://vuejs.org/v2/cookbook/debugging-in-vscode.html)
+* [Vue.js debugging in Chrome and VS Code](https://github.com/Microsoft/vscode-recipes/tree/master/vuejs-cli)
 
 ## Debug Jest test cases with VSC and Chrome
-[Troubleshooting Jest](https://jestjs.io/docs/en/troubleshooting)
+* [Troubleshooting Jest](https://jestjs.io/docs/en/troubleshooting)
+* [Debugging Jest Tests](https://github.com/Microsoft/vscode-recipes/tree/master/debugging-jest-tests)
 
 A working example of VSC launch.json:
 
