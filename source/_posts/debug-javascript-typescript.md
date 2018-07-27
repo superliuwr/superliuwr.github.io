@@ -157,5 +157,32 @@ A working example of VSC launch.json:
 }
 ```
 
+Another working example with ENV variables:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Jest Tests",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": [
+                 "--config",
+                "${workspaceRoot}/test/unit/jest.conf.js",
+                "--runInBand",
+                "--watch"
+            ],
+            "env": {
+                "DOTENV": ".env.playpen"
+            },
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}
+```
+
 # References
 1. [Debugging JavaScript/TypeScript Node apps with Chrome DevTools, VS Code and WebStorm](https://hackernoon.com/debugging-javascript-typescript-node-apps-with-chrome-devtools-vs-code-and-webstorm-97b882aee0ad)
