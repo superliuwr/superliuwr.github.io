@@ -181,4 +181,5 @@ Pre-defined values: .Values, Chart, Release, etc.
 To be added
 
 # References
-1. https://www.influxdata.com/blog/packaged-kubernetes-deployments-writing-helm-chart/
+1. [Writing Helm Chart](https://www.influxdata.com/blog/packaged-kubernetes-deployments-writing-helm-chart/)
+2. [Helm Glossary](https://github.com/helm/helm/blob/master/docs/glossary.md)
