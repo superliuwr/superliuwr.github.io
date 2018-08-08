@@ -45,6 +45,149 @@
     <div id="main">
       
   
+    <article id="post-functional-programming-with-javascript" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/08/07/functional-programming-with-javascript/" class="article-date">
+  <time datetime="2018-08-07T11:20:07.000Z" itemprop="datePublished">2018-08-07</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/08/07/functional-programming-with-javascript/">Functional programming with Javascript</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects. Functional programming is declarative rather than imperative, and application state flows through pure functions.</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/08/07/functional-programming-with-javascript/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Programming-Paradigm/">Programming Paradigm</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Functional-Programming/">Functional Programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-graphql-auth-and-error-handling" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/07/25/graphql-auth-and-error-handling/" class="article-date">
+  <time datetime="2018-07-25T12:17:12.000Z" itemprop="datePublished">2018-07-25</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/07/25/graphql-auth-and-error-handling/">GraphQL Authentication/Authorisation And Error Handling With Apollo</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Authentication-Authorisation"><a href="#Authentication-Authorisation" class="headerlink" title="Authentication/Authorisation"></a>Authentication/Authorisation</h1><p>Where could we do access controll?</p>
+<ul>
+<li>on Express router not on apollo itself when running on HTTP<ul>
+<li>get <code>user/token</code> with an <code>auth</code> middleware before reaching <code>/graphql</code> endpoint</li>
+<li><code>user/token</code> will be put in the graphql context for later use(fine-grained authorisation etc.)</li>
+</ul>
+</li>
+<li>on model layer<ul>
+<li>recommended by Facebook</li>
+<li>good if you have a separate model layer API, for example a set of Restful APIs</li>
+</ul>
+</li>
+<li>wrapper queries<ul>
+<li>access control and last-ditch error handling handled at resolver layer through chaining, similar to afterware and middleware</li>
+<li><a href="https://github.com/thebigredgeek/apollo-resolvers" target="_blank" rel="noopener">https://github.com/thebigredgeek/apollo-resolvers</a></li>
+</ul>
+</li>
+<li>custom directives<ul>
+<li>good for limiting access to specific fields</li>
+<li><a href="https://www.youtube.com/watch?v=4_Bcw7BULC8" target="_blank" rel="noopener">https://www.youtube.com/watch?v=4_Bcw7BULC8</a></li>
+<li><a href="http://github.com/chenkie/graphql-auth" target="_blank" rel="noopener">http://github.com/chenkie/graphql-auth</a></li>
+<li>examples<ul>
+<li>directive @isAuthenticated on QUERY | FIELD</li>
+<li>directive @hasScope(scope: [string]) on QUERY | FIELD</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a>Error Handling</h1><p>How do we handle errors?</p>
+<ul>
+<li>errors handled in the standard errors array on the response body with a consistent machine-readable structure</li>
+<li>use error types defined by apollo-server, with custom names</li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/API/">API</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GraphQL/">GraphQL</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
     <article id="post-architectural-patterns" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -512,123 +655,9 @@
 
 
   
-    <article id="post-ci-cd-pipeline" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/28/ci-cd-pipeline/" class="article-date">
-  <time datetime="2018-06-28T12:49:17.000Z" itemprop="datePublished">2018-06-28</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/28/ci-cd-pipeline/">CI, CD and Pipelines</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="What-are-CI-and-CD"><a href="#What-are-CI-and-CD" class="headerlink" title="What are CI and CD"></a>What are CI and CD</h1><p>Continuous Integration (CI) is a development practice that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early.</p>
-			
-				<p class="article-more-link">
-					<a href="/2018/06/28/ci-cd-pipeline/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CD/">CD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CI/">CI</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-git" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/25/git/" class="article-date">
-  <time datetime="2018-06-25T10:12:34.000Z" itemprop="datePublished">2018-06-25</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/25/git/">Advanced Git</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="Important-concepts"><a href="#Important-concepts" class="headerlink" title="Important concepts"></a>Important concepts</h1><p><img src="./git concepts.jpg" alt="Git concepts"></p>
-			
-				<p class="article-more-link">
-					<a href="/2018/06/25/git/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Development-Environment/">Development Environment</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 

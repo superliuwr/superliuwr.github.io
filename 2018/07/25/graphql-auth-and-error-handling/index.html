@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>GraphQL Authentication/Authorisation And Error Handling With Apollo | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Authentication/AuthorisationWhere could we do access controll?  on Express router not on apollo itself when running on HTTP get user/token with an auth middleware before reaching /graphql endpoint use">
+<meta name="keywords" content="GraphQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GraphQL Authentication&#x2F;Authorisation And Error Handling With Apollo">
+<meta property="og:url" content="http://superliuwr.github.io/2018/07/25/graphql-auth-and-error-handling/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Authentication/AuthorisationWhere could we do access controll?  on Express router not on apollo itself when running on HTTP get user/token with an auth middleware before reaching /graphql endpoint use">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-01T13:47:20.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GraphQL Authentication&#x2F;Authorisation And Error Handling With Apollo">
+<meta name="twitter:description" content="Authentication/AuthorisationWhere could we do access controll?  on Express router not on apollo itself when running on HTTP get user/token with an auth middleware before reaching /graphql endpoint use">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-graphql-auth-and-error-handling" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/07/25/graphql-auth-and-error-handling/" class="article-date">
+  <time datetime="2018-07-25T12:17:12.000Z" itemprop="datePublished">2018-07-25</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      GraphQL Authentication/Authorisation And Error Handling With Apollo
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Authentication-Authorisation"><a href="#Authentication-Authorisation" class="headerlink" title="Authentication/Authorisation"></a>Authentication/Authorisation</h1><p>Where could we do access controll?</p>
+<ul>
+<li>on Express router not on apollo itself when running on HTTP<ul>
+<li>get <code>user/token</code> with an <code>auth</code> middleware before reaching <code>/graphql</code> endpoint</li>
+<li><code>user/token</code> will be put in the graphql context for later use(fine-grained authorisation etc.)</li>
+</ul>
+</li>
+<li>on model layer<ul>
+<li>recommended by Facebook</li>
+<li>good if you have a separate model layer API, for example a set of Restful APIs</li>
+</ul>
+</li>
+<li>wrapper queries<ul>
+<li>access control and last-ditch error handling handled at resolver layer through chaining, similar to afterware and middleware</li>
+<li><a href="https://github.com/thebigredgeek/apollo-resolvers" target="_blank" rel="noopener">https://github.com/thebigredgeek/apollo-resolvers</a></li>
+</ul>
+</li>
+<li>custom directives<ul>
+<li>good for limiting access to specific fields</li>
+<li><a href="https://www.youtube.com/watch?v=4_Bcw7BULC8" target="_blank" rel="noopener">https://www.youtube.com/watch?v=4_Bcw7BULC8</a></li>
+<li><a href="http://github.com/chenkie/graphql-auth" target="_blank" rel="noopener">http://github.com/chenkie/graphql-auth</a></li>
+<li>examples<ul>
+<li>directive @isAuthenticated on QUERY | FIELD</li>
+<li>directive @hasScope(scope: [string]) on QUERY | FIELD</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a>Error Handling</h1><p>How do we handle errors?</p>
+<ul>
+<li>errors handled in the standard errors array on the response body with a consistent machine-readable structure</li>
+<li>use error types defined by apollo-server, with custom names</li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/API/">API</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GraphQL/">GraphQL</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/07/functional-programming-with-javascript/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Functional programming with Javascript
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/19/architectural-patterns/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Architectural patterns
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

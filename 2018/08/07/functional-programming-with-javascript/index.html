@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Functional programming with Javascript | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects. Functional programming is declarat">
+<meta name="keywords" content="Functional Programming,Node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Functional programming with Javascript">
+<meta property="og:url" content="http://superliuwr.github.io/2018/08/07/functional-programming-with-javascript/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects. Functional programming is declarat">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-08T13:42:19.501Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Functional programming with Javascript">
+<meta name="twitter:description" content="Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects. Functional programming is declarat">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-functional-programming-with-javascript" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/08/07/functional-programming-with-javascript/" class="article-date">
+  <time datetime="2018-08-07T11:20:07.000Z" itemprop="datePublished">2018-08-07</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      Functional programming with Javascript
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>Functional programming (often abbreviated FP) is the process of building software by composing pure functions, avoiding shared state, mutable data, and side-effects. Functional programming is declarative rather than imperative, and application state flows through pure functions.</p>
+<a id="more"></a>
+<h2 id="WHY函数式编程这两年又火了"><a href="#WHY函数式编程这两年又火了" class="headerlink" title="WHY函数式编程这两年又火了"></a>WHY函数式编程这两年又火了</h2><blockquote>
+<p>根本的原因是摩尔定律不适用。cpu的性能提升将体现在核数增加，这样并行的程序运行速度会越来越快。并行的程序的写法就是找出不能并行的地方，其他地方都尽量并行。如果要这样写，最需要避免的事情就是赋值。函数式编程的本质就是，规避掉“赋值”。</p>
+</blockquote>
+<h2 id="Important-concepts"><a href="#Important-concepts" class="headerlink" title="Important concepts"></a>Important concepts</h2><p>A <strong>pure function</strong> is a function which:</p>
+<ul>
+<li>Given the same inputs, always returns the same output, and</li>
+<li>Has no side-effects</li>
+</ul>
+<p><strong>Function composition</strong> is the process of combining two or more functions in order to produce a new function or perform some computation.</p>
+<p><strong>Shared state</strong> is any variable, object, or memory space that exists in a shared scope, or as the property of an object being passed between scopes. A shared scope can include global scope or closure scopes.</p>
+<p>The problem with shared state is that in order to understand the effects of a function, you have to know the entire history of every shared variable that the function uses or affects.</p>
+<p>An <strong>immutable object</strong> is an object that can’t be modified after it’s created. Conversely, a mutable object is any object which can be modified after it’s created.</p>
+<p>A <strong>side effect</strong> is any application state change that is observable outside the called function other than its return value.</p>
+<p>A <strong>higher order function</strong> is any function which takes a function as an argument, returns a function, or both.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://github.com/hemanth/functional-programming-jargon" target="_blank" rel="noopener">Functional programming jargon</a></li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Programming-Paradigm/">Programming Paradigm</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Functional-Programming/">Functional Programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/25/graphql-auth-and-error-handling/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          GraphQL Authentication/Authorisation And Error Handling With Apollo
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
