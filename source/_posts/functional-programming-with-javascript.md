@@ -12,7 +12,11 @@ Functional programming (often abbreviated FP) is the process of building softwar
 
 <!-- more -->
 
-### Important concepts
+## WHY函数式编程这两年又火了
+
+> 根本的原因是摩尔定律不适用。cpu的性能提升将体现在核数增加，这样并行的程序运行速度会越来越快。并行的程序的写法就是找出不能并行的地方，其他地方都尽量并行。如果要这样写，最需要避免的事情就是赋值。函数式编程的本质就是，规避掉“赋值”。
+
+## Important concepts
 
 A **pure function** is a function which:
 * Given the same inputs, always returns the same output, and
@@ -31,3 +35,4 @@ A **side effect** is any application state change that is observable outside the
 A **higher order function** is any function which takes a function as an argument, returns a function, or both.
 
 ## References
+* [Functional programming jargon](https://github.com/hemanth/functional-programming-jargon)
