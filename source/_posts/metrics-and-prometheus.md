@@ -40,6 +40,8 @@ The list you can find below collects the most crucial problems you'll run into w
 
 Prometheus is an open-source solution for monitoring and alerting. It provides powerful data compressions and fast data querying for time series data.
 
+![Architecture overview](prometheus-architecture.png)
+
 > The core concept of @PrometheusIO is that it stores all data in a time series format.
 
 > Time series is a stream of immutable timestamped values that belong to the same metric and the same labels. The labels cause the metrics to be multi-dimensional.
@@ -134,3 +136,4 @@ Grafana is an open-source, pluggable visualization platform. It can process metr
 
 * [Node.js Performance Monitoring with Prometheus](https://blog.risingstack.com/node-js-performance-monitoring-with-prometheus/)
 * [Example Prometheus Monitoring](https://github.com/RisingStack/example-prometheus-nodejs)
+* [Prometheus Best Practices](https://prometheus.io/docs/practices/naming/)
