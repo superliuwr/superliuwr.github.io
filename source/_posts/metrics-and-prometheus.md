@@ -19,12 +19,22 @@ tags:
 
 To analyze the data, first, you need to extract metrics from your system - like the Memory usage of a particular application instance. We call this extraction **instrumentation**.
 
-## The four signals to know
+## What should be monitored?
 
+There are different layers where an APM tool should collect data from. The more of them covered, the more insights you'll get about your system's behavior.
+
+* Service level
+* Host level
+* Instance (or process) level
+
+The list you can find below collects the most crucial problems you'll run into while you maintain a Node.js application in production.
+
+* Service Downtimes
 * Error Rate: Because errors are user facing and immediately affect your customers.
 * Response time: Because the latency directly affects your customers and business.
 * Throughput: The traffic helps you to understand the context of increased error rates and the latency too.
 * Saturation: It tells how "full" your service is. If the CPU usage is 90%, can your system handle more traffic?
+* Memory Usage: It can be used to recognize a leak.
 
 # Prometheus
 
@@ -120,6 +130,7 @@ As Prometheus has an API to run queries and get data, you can use many external 
 
 Grafana is an open-source, pluggable visualization platform. It can process metrics from many types of systems, and it has built-in Prometheus data source support.
 
-## References
+# References
 
+* [Node.js Performance Monitoring with Prometheus](https://blog.risingstack.com/node-js-performance-monitoring-with-prometheus/)
 * [Example Prometheus Monitoring](https://github.com/RisingStack/example-prometheus-nodejs)
