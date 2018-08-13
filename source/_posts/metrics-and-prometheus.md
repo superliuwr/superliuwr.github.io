@@ -170,3 +170,4 @@ Grafana is an open-source, pluggable visualization platform. It can process metr
 * [Node.js Performance Monitoring with Prometheus](https://blog.risingstack.com/node-js-performance-monitoring-with-prometheus/)
 * [Example Prometheus Monitoring](https://github.com/RisingStack/example-prometheus-nodejs)
 * [Prometheus Best Practices](https://prometheus.io/docs/practices/naming/)
+* [Metrics, tracing, and logging](https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html)
