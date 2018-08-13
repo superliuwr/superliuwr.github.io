@@ -9,7 +9,7 @@ tags:
 - DevOps
 - Prometheus
 ---
-# Monitoring in general
+# Monitoring/Metrics in general
 
 ## What is Monitoring?
 
@@ -17,9 +17,17 @@ tags:
 
 <!-- more -->
 
-To analyze the data, first, you need to extract metrics from your system - like the Memory usage of a particular application instance. We call this extraction **instrumentation**.
+## Why they are important?
+
+* Identify trends
+* Compare with previous value
+* Predict future value
+* Investigate an incident
+* Verify expectations
 
 ## What should be monitored?
+
+To analyze the data, first, you need to extract metrics from your system - like the Memory usage of a particular application instance. We call this extraction **instrumentation**.
 
 There are different layers where an APM tool should collect data from. The more of them covered, the more insights you'll get about your system's behavior.
 
@@ -35,6 +43,18 @@ The list you can find below collects the most crucial problems you'll run into w
 * Throughput: The traffic helps you to understand the context of increased error rates and the latency too.
 * Saturation: It tells how "full" your service is. If the CPU usage is 90%, can your system handle more traffic?
 * Memory Usage: It can be used to recognize a leak.
+
+### The difference among logs, traces and metrics
+
+* Logs
+  * Should be actionable -- only log errors that can be acted upon
+* Traces
+  * For investigating what happened in a single request end to end
+* Metrics
+  * For everything else
+
+> If something is worth logging, then it’s worth collecting metrics for. Not the case vice versa.
+> Measure the tasks: how often, how long, payload size, number of task in flight, etc.
 
 # Prometheus
 
@@ -53,9 +73,22 @@ Prometheus uses the HTTP **pull** model, which means that every application need
 Prometheus has four metrics types:
 
 * Counter: cumulative metric that represents a single numerical value that only ever goes up
+  * Reqs/sec
+  * Errors/sec
+  * Uploads/min
 * Gauge: represents a single numerical value that can arbitrarily go up and down
+  * Temperature
+  * Active users
+  * Speed
 * Histogram: samples observations and counts them in configurable buckets
+  * Durations
+  * Delays
+  * Payload Size
 * Summary: similar to a histogram, samples observations, it calculates configurable quantiles over a sliding time window
+
+### Metrics dimensions
+
+Multiple dimensions are supported in Prometheus with the **labels**.
 
 ### Pushgateway
 
