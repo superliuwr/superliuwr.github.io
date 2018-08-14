@@ -1,5 +1,5 @@
 ---
-title: Kubernetes System
+title: Kubernetes Internals
 date: 2018-06-13 19:29:09
 categories:
 - DevOps
