@@ -257,19 +257,3 @@ spec:
 * kubectl create configmap language --from-literal=LANGUAGE=English
 * kubectl get secret
 * kubectl get configmap
-
-## ClusterIP & Ingress
-
-### ClusterIP
-
-ClusterIP服务是Kuberntets的默认服务。它在集群内部生成一个服务，供集群内的其他应用访问。外部无法访问。
-
-Use **Kubernetes Proxy** to access cluster internal:
-
-`kubectl proxy --port=8080`
-
-`http://localhost:8080/api/v1/proxy/namespaces/<NAMESPACE>/services/<SERVICE-NAME>:<PORT-NAME>/`
-
-### Ingress
-
-Ingress实际上不是一种服务。相反，它在多个服务前面充当“智能路由”的角色，或者是集群的入口。

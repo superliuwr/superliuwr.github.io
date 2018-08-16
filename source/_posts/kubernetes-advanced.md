@@ -24,14 +24,6 @@ Kubernetes DNS 服务器会订阅 Kubernetes API创建 Service 的事件，并�
 
 # Horizontal Auto Scaling
 
-# Networking
-* [Kubernetes NodePort vs LoadBalancer vs Ingress? When should I use what?](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)
-* [Kubernetes, Ingress controllers and Traefik](https://hackernoon.com/kubernetes-ingress-controllers-and-traefik-a32648a4ae95)
-* [Ingress doc](https://kubernetes.io/docs/concepts/services-networking/ingress/)
-* [Understanding kubernetes networking: pods](https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727)
-* [Understanding kubernetes networking: services](https://medium.com/google-cloud/understanding-kubernetes-networking-services-f0cb48e4cc82)
-* [Understanding kubernetes networking: ingress] (https://medium.com/google-cloud/understanding-kubernetes-networking-ingress-1bc341c84078)
-
 # Rolling Deployment and Rollback
 
 A deployment object holds one or more replica sets to support the rollback mechanism. In other words, it creates a new replica set every time the deployment configuration is changed and keeps the previous version in order to have the option of rollback. Only one replica set will be in active state at a certain time.
