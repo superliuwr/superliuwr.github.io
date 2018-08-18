@@ -94,6 +94,10 @@ spec:
 * kubectl get rc
 * kubectl scale --replicas=3 rc my-nginx
 
+## ReplicaSet
+
+## Deployment
+
 ## Service
 
 Service 是一组 Pods 的逻辑集合。在 Service 内部，Kubernetes 会创建负载均衡来将流量代理到可用的 Pods 上。Service 有一个固定的虚拟 IP（ VIP）对外提供服务。
@@ -127,6 +131,8 @@ spec:
 Labels are used to organize and select groups of objects based on key-value pairs.
 
 They are used by every Kubernetes component. For example: the replication controller uses them for service discovery.
+
+## StatefulSets
 
 ## Volumes
 
