@@ -187,7 +187,7 @@ Træfik listens to your service registry/orchestrator API and instantly generate
 
 Example of using Traefik as K8S ingress provider and take advantage of the Path-Based Routing:
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
