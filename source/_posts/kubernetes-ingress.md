@@ -185,6 +185,35 @@ Traditional reverse-proxies require that you configure each route that will conn
 
 Træfik listens to your service registry/orchestrator API and instantly generates the routes so your microservices are connected to the outside world -- without further intervention from your part.
 
+Example of using Traefik as K8S ingress provider and take advantage of the Path-Based Routing:
+
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cheeses
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: cheeses.minikube
+    http:
+      paths:
+      - path: /stilton
+        backend:
+          serviceName: stilton
+          servicePort: http
+      - path: /cheddar
+        backend:
+          serviceName: cheddar
+          servicePort: http
+      - path: /wensleydale
+        backend:
+          serviceName: wensleydale
+          servicePort: http
+```
+
 ## Reference
 * [Kubernetes NodePort vs LoadBalancer vs Ingress? When should I use what?](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)
 * [浅析从外部访问 Kubernetes 集群中应用的几种方式
