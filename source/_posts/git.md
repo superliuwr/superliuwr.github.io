@@ -37,6 +37,50 @@ The Git diff command options allow comparing between the three locations (and mo
 
 ## Scenario-based Commands
 
+## Tagging
+
+Tags are ref's that point to specific points in Git history. Tagging is generally used to capture a point in history that is used for a marked version release (i.e. v1.0.1). A tag is like a branch that doesn’t change. Unlike branches, tags, after being created, have no further history of commits.
+
+Git supports two different types of tags, **annotated and lightweight tags**. The previous example created a lightweight tag. 
+
+Lightweight tags and Annotated tags differ in the amount of accompanying meta data they store. 
+
+A best practice is to consider Annotated tags as public, and Lightweight tags as private. 
+
+### Annotated tags
+
+Annotated tags store extra meta data such as: the tagger name, email, and date. This is important data for a public release. 
+
+They store extra meta data such as: the tagger name, email, and date. Similar to commits and commit messages Annotated tags have a tagging message. Additionally, for security, annotated tags can be signed and verified with GNU Privacy Guard (GPG). Suggested best practices for git tagging is to prefer annotated tags over lightweight so you can have all the associated meta-data.
+
+* `git tag -a v1.4`
+* `git tag -a v1.4 -m "my version 1.4"`
+
+### Lightweight tags
+
+Lightweight tags are essentially 'bookmarks' to a commit, they are just a name and a pointer to a commit, useful for creating quick links to relevant commits.
+
+`git tag v1.4-lw`
+
+Lightweight tags create a new tag checksum and store it in the .git/ directory of the project's repo.
+
+### Listing tags
+
+* `git tag`
+* `git tag -l *-rc*`
+
+### Push Tags to Remote
+
+Sharing tags is similar to pushing branches. By default, git push will not push tags. Tags have to be explicitly passed to git push: `git push origin v1.4`
+
+### Check out a tag
+
+`git checkout v1.4`
+
+### Delete a tag
+
+`git tag -d v1`
+
 ### 远程操作
 
 #### 从远程主机克隆一个版本库
