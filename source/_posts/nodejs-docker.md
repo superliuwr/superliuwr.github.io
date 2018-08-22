@@ -21,6 +21,7 @@ Consider to use Alpine images.
 * Check the attributes of the files you are adding. If you need execution permission, there is no need to add a new layer on your image (`RUN chmod +x`). Just fix the original attributes on your code repository.
 
 ## Define which user will (or can) run your container
+* Without any other option provided, processes in containers will execute as root (unless a different uid was supplied in the Dockerfile).
 * You only need to run your container with a specific (fixed ID) user if your application need access to the user or group tables (`/etc/passwd` or `/etc/group`).
 * Avoid running your container as root as much as possible.
 * Note some applications require you to run them with specific ids (e.g. Elastic Search with uid:gid = 1000:1000).
@@ -111,5 +112,12 @@ CMD npm run start
 
 # Docker Compose for NodeJS Development
 
+An important concept to understand is that Docker Compose spans “buildtime” and “runtime”. Up until now, we have been building images using docker build ., which is “buildtime.” This is when our containers are actually built. We can think of “runtime” as what happens once our containers are built and being used.
+
+Compose triggers “buildtime” — instructing our images and containers to build — but it also populates data used at “runtime,” such as env vars and volumes. This is important to be clear on. For instance, when we add things like volumes and command, they will override the same things that may have been set up via the Dockerfile at “buildtime.”
+
+# How to debug a Node.js application in a Docker container
+
 # References
 * [How to dockerize any application](https://hackernoon.com/how-to-dockerize-any-application-b60ad00e76da)
+* [理解Docker的多阶段镜像构建](https://tonybai.com/2017/11/11/multi-stage-image-build-in-docker/)

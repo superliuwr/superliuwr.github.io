@@ -8,6 +8,8 @@ tags:
 ---
 ## Concepts
 
+![Docker Commands](docker-commands.webp)
+
 ### Images
 * 一个只读模板，可以用来创建容器，一个镜像可以创建多个容器
 * Docker 提供了一个很简单的机制来创建和更新现有的镜像，甚至可以直接从其他人那里获取做好的镜像直接使用
@@ -193,3 +195,5 @@ bridge 模式是 Docker 默认的网络设置，此模式会为每一个容器�
 ## References
 
 * [Docker 学习笔记](https://blog.opskumu.com/docker.html)
+* [10张图带你深入理解Docker容器和镜像](http://dockone.io/article/783)
+* [Docker常用命令原理图](https://www.huweihuang.com/article/docker/docker-commands-principle/)
