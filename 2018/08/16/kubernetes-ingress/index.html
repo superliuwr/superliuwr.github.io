@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kubernetes Ingress and Traefik | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="WhyKubernetes 为每个 Pod 分配了唯一的 IP（即：Pod IP），Pod 里的多个容器共享这个 IP。Pod 内的容器除了 IP，还共享相同的网络命名空间、端口、存储卷等，也就是说这些容器之间能通过 Localhost 来通信。Pod 包含的容器都会运行在同一个节点上，也可以同时启动多个相同的 Pod 用于 Failover 或者 Load balance。 Pod 的生命周期是">
+<meta name="keywords" content="Kubernetes,Traefik">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes Ingress and Traefik">
+<meta property="og:url" content="http://superliuwr.github.io/2018/08/16/kubernetes-ingress/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="WhyKubernetes 为每个 Pod 分配了唯一的 IP（即：Pod IP），Pod 里的多个容器共享这个 IP。Pod 内的容器除了 IP，还共享相同的网络命名空间、端口、存储卷等，也就是说这些容器之间能通过 Localhost 来通信。Pod 包含的容器都会运行在同一个节点上，也可以同时启动多个相同的 Pod 用于 Failover 或者 Load balance。 Pod 的生命周期是">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://superliuwr.github.io/2018/08/16/kubernetes-ingress/k8s_ingress.webp">
+<meta property="og:image" content="http://superliuwr.github.io/2018/08/16/kubernetes-ingress/k8s_cluster_with_edge_node.png">
+<meta property="og:updated_time" content="2018-08-21T11:40:54.168Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes Ingress and Traefik">
+<meta name="twitter:description" content="WhyKubernetes 为每个 Pod 分配了唯一的 IP（即：Pod IP），Pod 里的多个容器共享这个 IP。Pod 内的容器除了 IP，还共享相同的网络命名空间、端口、存储卷等，也就是说这些容器之间能通过 Localhost 来通信。Pod 包含的容器都会运行在同一个节点上，也可以同时启动多个相同的 Pod 用于 Failover 或者 Load balance。 Pod 的生命周期是">
+<meta name="twitter:image" content="http://superliuwr.github.io/2018/08/16/kubernetes-ingress/k8s_ingress.webp">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-kubernetes-ingress" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/08/16/kubernetes-ingress/" class="article-date">
+  <time datetime="2018-08-16T11:53:15.000Z" itemprop="datePublished">2018-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      Kubernetes Ingress and Traefik
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>Kubernetes 为每个 Pod 分配了唯一的 IP（即：Pod IP），Pod 里的多个容器共享这个 IP。Pod 内的容器除了 IP，还共享相同的网络命名空间、端口、存储卷等，也就是说这些容器之间能通过 Localhost 来通信。Pod 包含的容器都会运行在同一个节点上，也可以同时启动多个相同的 Pod 用于 Failover 或者 Load balance。</p>
+<p>Pod 的生命周期是短暂的，Kubernetes 会根据应用的配置对 Pod 进行创建、销毁并根据监控指标进行伸缩扩容。Kubernetes 在创建 Pod 时可以选择集群中的任何一台空闲的节点上进行，因此其网络地址是不固定的。由于 Pod 的这一特点，一般不建议直接通过 Pod 的地址去访问应用。</p>
+<p>为了解决访问 Pod 不方便直接访问的问题，Kubernetes 采用了 Service 对 Pod 进行封装。Service 是对后端提供服务的一组 Pod 的抽象，Service 会绑定到一个固定的虚拟 IP上。该虚拟 IP 只在 Kubernetes Cluster 中可见，但其实该虚拟 IP 并不对应一个虚拟或者物理设备，而只是 IPtables 中的规则，然后再通过 IPtables 将服务请求路由到后端的 Pod 中。通过这种方式，可以确保服务消费者可以稳定地访问 Pod 提供的服务，而不用关心 Pod 的创建、删除、迁移等变化以及如何用一组 Pod 来进行负载均衡。</p>
+<p>实现 Service 这一功能的关键是由 Kubernetes 中的 Kube-Proxy 来完成的。Kube-Proxy 运行在每个节点上，监听 API Server 中服务对象的变化，再通过管理 IPtables 来实现网络的转发。</p>
+<a id="more"></a>
+<h2 id="Traditional-ways-of-exposing-a-service-to-the-external-world"><a href="#Traditional-ways-of-exposing-a-service-to-the-external-world" class="headerlink" title="Traditional ways of exposing a service to the external world"></a>Traditional ways of exposing a service to the external world</h2><h3 id="ClusterIP"><a href="#ClusterIP" class="headerlink" title="ClusterIP"></a>ClusterIP</h3><p>This is the default. Choosing this value means that you want this service to be reachable only from inside of the cluster.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span>  </span><br><span class="line"><span class="attr">  name:</span> <span class="string">my-internal-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  selector:</span>    </span><br><span class="line"><span class="attr">    app:</span> <span class="string">my-app</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">ClusterIP</span></span><br><span class="line"><span class="attr">  ports:</span>  </span><br><span class="line"><span class="attr">  - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></table></figure>
+<p>Use <strong>Kubernetes Proxy</strong> to access cluster internal:<br><code>kubectl proxy --port=8080</code></p>
+<p>Then visit <code>http://localhost:8080/api/v1/proxy/namespaces/&lt;NAMESPACE&gt;/services/&lt;SERVICE-NAME&gt;:&lt;PORT-NAME&gt;/</code></p>
+<h3 id="NodePort"><a href="#NodePort" class="headerlink" title="NodePort"></a>NodePort</h3><p>A NodePort service is the most primitive way to get external traffic directly to your service. NodePort, as the name implies, opens a specific port on all the Nodes (the VMs), and any traffic that is sent to this port is forwarded to the service.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span>  </span><br><span class="line"><span class="attr">  name:</span> <span class="string">my-nodeport-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  selector:</span>    </span><br><span class="line"><span class="attr">    app:</span> <span class="string">my-app</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  ports:</span>  </span><br><span class="line"><span class="attr">  - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    nodePort:</span> <span class="number">30036</span></span><br><span class="line"><span class="attr">    protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></table></figure>
+<h3 id="LoadBalancer"><a href="#LoadBalancer" class="headerlink" title="LoadBalancer"></a>LoadBalancer</h3><p>On top of having a cluster-internal IP and exposing service on a NodePort, also ask the cloud provider for a load balancer which forwards requests to the Service exposed as a :NodePort for each Node. If the cloud provider does not support the feature, the field will be ignored.</p>
+<h2 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h2><p>Since Kubernetes v1.2.0 you can use Kubernetes ingress which includes support for TLS and L7 http-based traffic routing.</p>
+<p>Ingress is actually NOT a type of service. Instead, it sits in front of multiple services and act as a “smart router” or entrypoint into your cluster.</p>
+<p>An Ingress is a collection of rules that allow inbound connections to reach the cluster services. It can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.</p>
+<p>In order for the Ingress resource to work, the cluster must have an Ingress controller running. The Ingress controller is responsible for fulfilling the Ingress dynamically by watching the ApiServer’s /ingresses endpoint.</p>
+<p>Ingress 是自 Kubernetes 1.1 版本后引入的资源类型。Ingress 支持将 Service 暴露到 Kubernetes 集群外，同时可以自定义 Service 的访问策略。Ingress 能够把 Service 配置成外网能够访问的 URL，也支持提供按域名访问的虚拟主机功能。例如，通过负载均衡器实现不同的二级域名到不同 Service 的访问。</p>
+<p>使用 Ingress 前必须要先部署 Ingress Controller，Ingress Controller 是以一种插件的形式提供。Ingress Controller 通常是部署在 Kubernetes 之上的 Docker 容器，Ingress Controller 的 Docker 镜像里包含一个像 Nginx 或 HAProxy 的负载均衡器和一个 Ingress Controller。Ingress Controller 会从 Kubernetes 接收所需的 Ingress 配置，然后动态生成一个 Nginx 或 HAProxy 配置文件，并重新启动负载均衡器进程以使更改生效。换句话说，Ingress Controller 是由 Kubernetes 管理的负载均衡器。</p>
+<blockquote>
+<p>无论使用何种负载均衡软件（ 比如：Nginx、HAProxy、Traefik等）来实现 Ingress Controller，官方都将其统称为 Ingress Controller。</p>
+</blockquote>
+<p>Kubernetes Ingress 提供了负载均衡器的典型特性：HTTP 路由、粘性会话、SSL 终止、SSL直通、TCP 和 UDP 负载平衡等。</p>
+<p><img src="k8s_ingress.webp" alt="K8S Ingress"></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">my-ingress</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  backend:</span></span><br><span class="line"><span class="attr">    serviceName:</span> <span class="string">other</span></span><br><span class="line"><span class="attr">    servicePort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">foo.mydomain.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">foo</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">mydomain.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/bar/*</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">bar</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<p>You could go even further, isolate at the infra level where your ingress controller runs and think of it as an “edge router” that enforces the firewall policy for your cluster. This is where Traefik comes to play.</p>
+<p><img src="k8s_cluster_with_edge_node.png" alt="HA Kubernetes Cluster"></p>
+<h2 id="Traefik"><a href="#Traefik" class="headerlink" title="Traefik"></a>Traefik</h2><p>Traefik is a modern HTTP reverse proxy and load balancer made to deploy microservices with ease. It supports several backends among Mesos/Marathon and Kubernetes to manage its configuration automatically and dynamically.</p>
+<p>We can deploy a Kubernetes cluster similar to the picture above and will run Traefik as DaemonSet.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">DaemonSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">traefik-ingress-controller-v1</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    k8s-app:</span> <span class="string">traefik-ingress-lb</span></span><br><span class="line">    <span class="string">kubernetes.io/cluster-service:</span> <span class="string">"true"</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        k8s-app:</span> <span class="string">traefik-ingress-lb</span></span><br><span class="line"><span class="attr">        name:</span> <span class="string">traefik-ingress-lb</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      terminationGracePeriodSeconds:</span> <span class="number">60</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - image:</span> <span class="string">containous/traefik</span></span><br><span class="line"><span class="attr">        name:</span> <span class="string">traefik-ingress-lb</span></span><br><span class="line"><span class="attr">        imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">          - containerPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">            hostPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">          - containerPort:</span> <span class="number">443</span></span><br><span class="line"><span class="attr">            hostPort:</span> <span class="number">443</span></span><br><span class="line"><span class="attr">          - containerPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">            hostPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">        volumeMounts:</span></span><br><span class="line"><span class="attr">          - mountPath:</span> <span class="string">/etc/traefik</span></span><br><span class="line"><span class="attr">            name:</span> <span class="string">traefik-volume</span></span><br><span class="line"><span class="attr">            readOnly:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">        args:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="bullet">--web</span></span><br><span class="line"><span class="bullet">        -</span> <span class="bullet">--kubernetes</span></span><br><span class="line"><span class="bullet">        -</span> <span class="bullet">--configFile=/etc/traefik/traefik.toml</span></span><br><span class="line"><span class="bullet">        -</span> <span class="bullet">--logLevel=DEBUG</span></span><br><span class="line"><span class="attr">      volumes:</span></span><br><span class="line"><span class="attr">        - hostPath:</span></span><br><span class="line"><span class="attr">            path:</span> <span class="string">/etc/traefik</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">traefik-volume</span></span><br><span class="line"><span class="attr">      nodeSelector:</span></span><br><span class="line"><span class="attr">        role:</span> <span class="string">edge-router</span></span><br></pre></td></tr></table></figure>
+<p>Our edge-router will be just another Kubernetes <strong>node</strong> with some restrictions.</p>
+<p>We don’t want any other pod to be scheduled to this node so we set <strong>–register-schedulable=false</strong> when running the kubelet as well as giving it a convenient label: <strong>–node-labels=edge-router</strong>.</p>
+<p>Kubernetes will run DaemonSets on every node of the cluster even if they are non-schedulable. We only want this DaemonSet to run on the edge-router node so we use “nodeSelector” to match the label we previously added.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nodeSelector:</span></span><br><span class="line"><span class="attr">  role:</span> <span class="string">edge-router</span></span><br></pre></td></tr></table></figure>
+<h3 id="configuration"><a href="#configuration" class="headerlink" title="configuration"></a>configuration</h3><p>All those rules can be set in .toml file. Rules can also be defined in labels on docker containers and Traefik will pick them up dynamically.</p>
+<p>Traditional reverse-proxies require that you configure each route that will connect paths and subdomains to each microservice. In an environment where you add, remove, kill, upgrade, or scale your services many times a day, the task of keeping the routes up to date becomes tedious.</p>
+<p>Træfik listens to your service registry/orchestrator API and instantly generates the routes so your microservices are connected to the outside world – without further intervention from your part.</p>
+<p>Example of using Traefik as K8S ingress provider and take advantage of the Path-Based Routing:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">cheeses</span></span><br><span class="line"><span class="attr">  annotations:</span></span><br><span class="line">    <span class="string">kubernetes.io/ingress.class:</span> <span class="string">traefik</span></span><br><span class="line">    <span class="string">traefik.frontend.rule.type:</span> <span class="string">PathPrefixStrip</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">cheeses.minikube</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/stilton</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">stilton</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/cheddar</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">cheddar</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/wensleydale</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">wensleydale</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="string">http</span></span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0" target="_blank" rel="noopener">Kubernetes NodePort vs LoadBalancer vs Ingress? When should I use what?</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzI3MTI2NzkxMA==&amp;mid=2247486130&amp;idx=1&amp;sn=41ee30f02113dac86398653f542a3c70&amp;chksm=eac52b9bddb2a28d6472d23eb764b6af0c8c290782e11c792dffde1a8f63c60ed7430445e0a3&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">浅析从外部访问 Kubernetes 集群中应用的几种方式
+</a></li>
+<li><a href="https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727" target="_blank" rel="noopener">Understanding kubernetes networking: pods</a></li>
+<li><a href="https://medium.com/google-cloud/understanding-kubernetes-networking-services-f0cb48e4cc82" target="_blank" rel="noopener">Understanding kubernetes networking: services</a></li>
+<li>[Understanding kubernetes networking: ingress] (<a href="https://medium.com/google-cloud/understanding-kubernetes-networking-ingress-1bc341c84078" target="_blank" rel="noopener">https://medium.com/google-cloud/understanding-kubernetes-networking-ingress-1bc341c84078</a>)</li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Traefik/">Traefik</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/18/docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Docker
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/12/microservices-data-architecture/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Microservices Data Architecture
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

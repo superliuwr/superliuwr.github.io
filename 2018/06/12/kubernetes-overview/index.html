@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="SUPERLOG">
 <meta property="og:description" content="WhyDocker -&amp;gt; Docker Compose -&amp;gt; Kubernetes 光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-19T13:35:05.958Z">
+<meta property="og:updated_time" content="2018-08-18T12:48:19.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kubernetes Overview">
 <meta name="twitter:description" content="WhyDocker -&amp;gt; Docker Compose -&amp;gt; Kubernetes 光靠 Compose 肯定不够，因为 Compose 仅仅解决了应用的描述，运行的问题，但应用的编排，服务注册，服务发现，服务监控，故障恢复，DNS，负载均衡等等功能如何实现？">
@@ -111,7 +111,7 @@
 <li>kubectl get rc</li>
 <li>kubectl scale –replicas=3 rc my-nginx</li>
 </ul>
-<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p>Service 是一组 Pods 的逻辑集合。在 Service 内部，Kubernetes 会创建负载均衡来将流量代理到可用的 Pods 上。Service 有一个固定的虚拟 IP（ VIP）对外提供服务。<br>Service 的应用场景在于：假设后端有3个容器实例在运行，并且这3个实例是随时有可能坏掉的（Design for failure），前端的实例无需关注这三个实例各自的状态，而只需要声明它依赖的是后端某一个 Service 即可，让 Replication Controller 自动保证这个后端 Service 的可用性。</p>
+<h2 id="ReplicaSet"><a href="#ReplicaSet" class="headerlink" title="ReplicaSet"></a>ReplicaSet</h2><h2 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h2><h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p>Service 是一组 Pods 的逻辑集合。在 Service 内部，Kubernetes 会创建负载均衡来将流量代理到可用的 Pods 上。Service 有一个固定的虚拟 IP（ VIP）对外提供服务。<br>Service 的应用场景在于：假设后端有3个容器实例在运行，并且这3个实例是随时有可能坏掉的（Design for failure），前端的实例无需关注这三个实例各自的状态，而只需要声明它依赖的是后端某一个 Service 即可，让 Replication Controller 自动保证这个后端 Service 的可用性。</p>
 <p>Services provide a single stable name and address for a set of pods. They act as basic load balancers.</p>
 <p>A service is attached to a replication controller. Each service gets assigned a virtual IP address, which remains constant. As long as we know the service IP address, the service itself will keep track of the pods created by the replication controller, and will distribute requests to them.</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nginxsvc</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure>
@@ -121,7 +121,7 @@
 <h2 id="Label"><a href="#Label" class="headerlink" title="Label"></a>Label</h2><p>和名字和 UID 不同，Labels 不提供唯一性，通常，我们期望多个对象使用相同的 Label(s)。通过 Label 的设置和消费，可以轻松的过滤出需要找到的对象</p>
 <p>Labels are used to organize and select groups of objects based on key-value pairs.</p>
 <p>They are used by every Kubernetes component. For example: the replication controller uses them for service discovery.</p>
-<h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>A volume is a directory, possibly with some data in it, accessible to a container as part of its filesystem. Volumes are used used, for example, to store stateful app data.</p>
+<h2 id="StatefulSets"><a href="#StatefulSets" class="headerlink" title="StatefulSets"></a>StatefulSets</h2><h2 id="Volumes"><a href="#Volumes" class="headerlink" title="Volumes"></a>Volumes</h2><p>A volume is a directory, possibly with some data in it, accessible to a container as part of its filesystem. Volumes are used used, for example, to store stateful app data.</p>
 <p>Kubernetes supports several types of volumes:</p>
 <ul>
 <li>emptyDir</li>
@@ -173,11 +173,6 @@
 <li>kubectl get secret</li>
 <li>kubectl get configmap</li>
 </ul>
-<h2 id="ClusterIP-amp-Ingress"><a href="#ClusterIP-amp-Ingress" class="headerlink" title="ClusterIP &amp; Ingress"></a>ClusterIP &amp; Ingress</h2><h3 id="ClusterIP"><a href="#ClusterIP" class="headerlink" title="ClusterIP"></a>ClusterIP</h3><p>ClusterIP服务是Kuberntets的默认服务。它在集群内部生成一个服务，供集群内的其他应用访问。外部无法访问。</p>
-<p>Use <strong>Kubernetes Proxy</strong> to access cluster internal:</p>
-<p><code>kubectl proxy --port=8080</code></p>
-<p><code>http://localhost:8080/api/v1/proxy/namespaces/&lt;NAMESPACE&gt;/services/&lt;SERVICE-NAME&gt;:&lt;PORT-NAME&gt;/</code></p>
-<h3 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h3><p>Ingress实际上不是一种服务。相反，它在多个服务前面充当“智能路由”的角色，或者是集群的入口。</p>
 
     
 	</div>

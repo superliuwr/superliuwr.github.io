@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Kubernetes Internals | SUPERLOG</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="ClusterA cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications. kubectl cluster-info">
+<meta name="keywords" content="Kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes Internals">
+<meta property="og:url" content="http://superliuwr.github.io/2018/06/13/kubernetes-internals/index.html">
+<meta property="og:site_name" content="SUPERLOG">
+<meta property="og:description" content="ClusterA cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications. kubectl cluster-info">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/13/kubernetes-internals/kubernetes%20architectural%20overview.png">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/13/kubernetes-internals/kubernetes%20architecture.png">
+<meta property="og:updated_time" content="2018-08-16T11:51:21.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes Internals">
+<meta name="twitter:description" content="ClusterA cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications. kubectl cluster-info">
+<meta name="twitter:image" content="http://superliuwr.github.io/2018/06/13/kubernetes-internals/kubernetes%20architectural%20overview.png">
+  
+    <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/categories/">Categories</a></li><li><a href="/tags/">Tags</a></li><li><a href="/archives">Archives</a></li><li><a href="/about">About</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="/atom.xml" id="nav-rss-link" class="nav-icon" title="RSS Feed"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://superliuwr.github.io"></form>
+	</div>
+</header>
+    <div id="main">
+      <article id="post-kubernetes-internals" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/06/13/kubernetes-internals/" class="article-date">
+  <time datetime="2018-06-13T09:29:09.000Z" itemprop="datePublished">2018-06-13</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      Kubernetes Internals
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h1><p>A cluster is a set of physical or virtual machines (or both) combined with other infrastructure resources used by Kubernetes to run your applications.</p>
+<p><code>kubectl cluster-info</code></p>
+<p><img src="kubernetes architectural overview.png" alt="Kubernetes Architectural Overview"><br><img src="kubernetes architecture.png" alt="Kubernetes Architecture"></p>
+<a id="more"></a>
+<h1 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h1><h2 id="ETCD"><a href="#ETCD" class="headerlink" title="ETCD"></a>ETCD</h2><p>All persistent state data is stored an etcd cluster. This provides a distributed way to store configuration data reliably.</p>
+<h2 id="API-server"><a href="#API-server" class="headerlink" title="API server"></a>API server</h2><p>The API server is the central management point of the entire cluster, and allows the admin to configure Kubernetes workloads and organizational units. The API server is also responsible for making sure etcd and the service details of deployed containers are in agreement.</p>
+<p>In other words, the API server validates and configures (on command) the data for pods, services, and replication controllers. It also assigns pods to nodes and synchronizes pod information with service configuration.</p>
+<h2 id="Controller-manager"><a href="#Controller-manager" class="headerlink" title="Controller manager"></a>Controller manager</h2><p>The controller manager service handles the replication processes defined by individual replication tasks. The details of these operations are written to etcd, which the controller manager watches for changes. When a change is seen, the controller manager reads the information and implements the replication procedure that fulfills the desired state, e.g. scaling the application group up or down.</p>
+<p>In other words, the controller manager watches etcd for replication tasks and uses the API to enforce the desired state.</p>
+<h2 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h2><p>The scheduler assigns workloads to specific nodes in the cluster. It does this by reading in the workload operating requirements, analyzing the current environment (i.e. the health and operational details of the individual nodes in the cluster), and then placing the workload on a suitable node, or nodes.</p>
+<h1 id="Nodes"><a href="#Nodes" class="headerlink" title="Nodes"></a>Nodes</h1><p>A node (sometimes called a worker node) is a physical or virtual machine running Kubernetes services, onto which pods can be scheduled.</p>
+<p><code>kubectl get nodes</code></p>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>A Docker Daemon is running in each node.</p>
+<h2 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h2><p>The kubelet daemon is the primary agent that runs on each node. The kubelet daemon watches the master API server and ensures the appropriate local containers are started, remain healthy, and continue to run.</p>
+<h2 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h2><p>The kube-proxy daemon runs on each node as a simple network proxy and load balancer for the services on that node.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ol>
+<li><a href="https://github.com/jasonGeng88/blog/blob/master/201707/k8s-architecture.md" target="_blank" rel="noopener">带着问题学 Kubernetes 架构</a></li>
+<li><a href="https://github.com/jasonGeng88/blog/blob/master/201707/k8s-pod.md" target="_blank" rel="noopener">带着问题学 Kubernetes 基本单元 Pod</a></li>
+<li><a href="https://github.com/jasonGeng88/blog/blob/master/201707/k8s-service.md" target="_blank" rel="noopener">带着问题学 Kubernetes 抽象对象 Service</a></li>
+</ol>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/13/kubectl/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          kubectl
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/13/kubernetes-advanced/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          Kubernetes Advanced
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:superliuwr.github.io">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">SUPERLOG</a>
+	</h1>
+	<span class="copyright">
+		&copy; 2018 Marvin Liu<br>
+		Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	</span>
+</footer>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

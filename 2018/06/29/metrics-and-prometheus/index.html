@@ -3,20 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Metrics, OpenTracing, Prometheus and Grafana | SUPERLOG</title>
+  <title>Metrics and Performance Monitoring with Prometheus | SUPERLOG</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="Calling chain一个完整的微服务系统包含多个微服务单元，各个微服务子系统存在互相调用的情况，形成一个 调用链。一个客户端请求从发出到被响应 经历了哪些组件、哪些微服务、请求总时长、每个组件所花时长 等信息我们有必要了解和收集，以帮助我们定位性能瓶颈、进行性能调优，因此监控整个微服务架构的调用链十分有必要。">
-<meta name="keywords" content="DevOps,Microservices,Metrics,Prometheus,Grafana,OpenTracing">
+  <meta name="description" content="Monitoring/Metrics in generalWhat is Monitoring? The term “service monitoring”, means tasks of collecting, processing, aggregating, and displaying real-time quantitative data about a system.">
+<meta name="keywords" content="DevOps,Microservices,Metrics,Prometheus">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Metrics, OpenTracing, Prometheus and Grafana">
+<meta property="og:title" content="Metrics and Performance Monitoring with Prometheus">
 <meta property="og:url" content="http://superliuwr.github.io/2018/06/29/metrics-and-prometheus/index.html">
 <meta property="og:site_name" content="SUPERLOG">
-<meta property="og:description" content="Calling chain一个完整的微服务系统包含多个微服务单元，各个微服务子系统存在互相调用的情况，形成一个 调用链。一个客户端请求从发出到被响应 经历了哪些组件、哪些微服务、请求总时长、每个组件所花时长 等信息我们有必要了解和收集，以帮助我们定位性能瓶颈、进行性能调优，因此监控整个微服务架构的调用链十分有必要。">
+<meta property="og:description" content="Monitoring/Metrics in generalWhat is Monitoring? The term “service monitoring”, means tasks of collecting, processing, aggregating, and displaying real-time quantitative data about a system.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-19T13:35:19.920Z">
+<meta property="og:image" content="http://superliuwr.github.io/2018/06/29/metrics-and-prometheus/prometheus-architecture.png">
+<meta property="og:updated_time" content="2018-08-13T10:44:26.609Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Metrics, OpenTracing, Prometheus and Grafana">
-<meta name="twitter:description" content="Calling chain一个完整的微服务系统包含多个微服务单元，各个微服务子系统存在互相调用的情况，形成一个 调用链。一个客户端请求从发出到被响应 经历了哪些组件、哪些微服务、请求总时长、每个组件所花时长 等信息我们有必要了解和收集，以帮助我们定位性能瓶颈、进行性能调优，因此监控整个微服务架构的调用链十分有必要。">
+<meta name="twitter:title" content="Metrics and Performance Monitoring with Prometheus">
+<meta name="twitter:description" content="Monitoring/Metrics in generalWhat is Monitoring? The term “service monitoring”, means tasks of collecting, processing, aggregating, and displaying real-time quantitative data about a system.">
+<meta name="twitter:image" content="http://superliuwr.github.io/2018/06/29/metrics-and-prometheus/prometheus-architecture.png">
   
     <link rel="alternative" href="/atom.xml" title="SUPERLOG" type="application/atom+xml">
   
@@ -65,16 +67,121 @@
 		
   
     <h1 class="article-title entry-title" itemprop="name">
-      Metrics, OpenTracing, Prometheus and Grafana
+      Metrics and Performance Monitoring with Prometheus
     </h1>
   
 
 	</header>
 	<div class="entry-content">
 		
-    	<h1 id="Calling-chain"><a href="#Calling-chain" class="headerlink" title="Calling chain"></a>Calling chain</h1><p>一个完整的微服务系统包含多个微服务单元，各个微服务子系统存在互相调用的情况，形成一个 调用链。一个客户端请求从发出到被响应 经历了哪些组件、哪些微服务、请求总时长、每个组件所花时长 等信息我们有必要了解和收集，以帮助我们定位性能瓶颈、进行性能调优，因此监控整个微服务架构的调用链十分有必要。</p>
+    	<h1 id="Monitoring-Metrics-in-general"><a href="#Monitoring-Metrics-in-general" class="headerlink" title="Monitoring/Metrics in general"></a>Monitoring/Metrics in general</h1><h2 id="What-is-Monitoring"><a href="#What-is-Monitoring" class="headerlink" title="What is Monitoring?"></a>What is Monitoring?</h2><blockquote>
+<p>The term “service monitoring”, means tasks of collecting, processing, aggregating, and displaying real-time quantitative data about a system.</p>
+</blockquote>
 <a id="more"></a>
-<h2 id="Zipkin"><a href="#Zipkin" class="headerlink" title="Zipkin"></a>Zipkin</h2>
+<h2 id="Why-they-are-important"><a href="#Why-they-are-important" class="headerlink" title="Why they are important?"></a>Why they are important?</h2><ul>
+<li>Identify trends</li>
+<li>Compare with previous value</li>
+<li>Predict future value</li>
+<li>Investigate an incident</li>
+<li>Verify expectations</li>
+</ul>
+<h2 id="What-should-be-monitored"><a href="#What-should-be-monitored" class="headerlink" title="What should be monitored?"></a>What should be monitored?</h2><p>To analyze the data, first, you need to extract metrics from your system - like the Memory usage of a particular application instance. We call this extraction <strong>instrumentation</strong>.</p>
+<p>There are different layers where an APM tool should collect data from. The more of them covered, the more insights you’ll get about your system’s behavior.</p>
+<ul>
+<li>Service level</li>
+<li>Host level</li>
+<li>Instance (or process) level</li>
+</ul>
+<p>The list you can find below collects the most crucial problems you’ll run into while you maintain a Node.js application in production.</p>
+<ul>
+<li>Service Downtimes</li>
+<li>Error Rate: Because errors are user facing and immediately affect your customers.</li>
+<li>Response time: Because the latency directly affects your customers and business.</li>
+<li>Throughput: The traffic helps you to understand the context of increased error rates and the latency too.</li>
+<li>Saturation: It tells how “full” your service is. If the CPU usage is 90%, can your system handle more traffic?</li>
+<li>Memory Usage: It can be used to recognize a leak.</li>
+</ul>
+<h3 id="The-difference-among-logs-traces-and-metrics"><a href="#The-difference-among-logs-traces-and-metrics" class="headerlink" title="The difference among logs, traces and metrics"></a>The difference among logs, traces and metrics</h3><ul>
+<li>Logs<ul>
+<li>Should be actionable – only log errors that can be acted upon</li>
+</ul>
+</li>
+<li>Traces<ul>
+<li>For investigating what happened in a single request end to end</li>
+</ul>
+</li>
+<li>Metrics<ul>
+<li>For everything else</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>If something is worth logging, then it’s worth collecting metrics for. Not the case vice versa.<br>Measure the tasks: how often, how long, payload size, number of task in flight, etc.</p>
+</blockquote>
+<h1 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h1><p>Prometheus is an open-source solution for monitoring and alerting. It provides powerful data compressions and fast data querying for time series data.</p>
+<p><img src="prometheus-architecture.png" alt="Architecture overview"></p>
+<blockquote>
+<p>The core concept of @PrometheusIO is that it stores all data in a time series format.</p>
+</blockquote>
+<blockquote>
+<p>Time series is a stream of immutable timestamped values that belong to the same metric and the same labels. The labels cause the metrics to be multi-dimensional.</p>
+</blockquote>
+<h2 id="Data-collection-and-metrics-types"><a href="#Data-collection-and-metrics-types" class="headerlink" title="Data collection and metrics types"></a>Data collection and metrics types</h2><p>Prometheus uses the HTTP <strong>pull</strong> model, which means that every application needs to expose a <strong>GET /metrics</strong> endpoint that can be periodically fetched by the Prometheus instance.</p>
+<p>Prometheus has four metrics types:</p>
+<ul>
+<li>Counter: cumulative metric that represents a single numerical value that only ever goes up<ul>
+<li>Reqs/sec</li>
+<li>Errors/sec</li>
+<li>Uploads/min</li>
+</ul>
+</li>
+<li>Gauge: represents a single numerical value that can arbitrarily go up and down<ul>
+<li>Temperature</li>
+<li>Active users</li>
+<li>Speed</li>
+</ul>
+</li>
+<li>Histogram: samples observations and counts them in configurable buckets<ul>
+<li>Durations</li>
+<li>Delays</li>
+<li>Payload Size</li>
+</ul>
+</li>
+<li>Summary: similar to a histogram, samples observations, it calculates configurable quantiles over a sliding time window</li>
+</ul>
+<h3 id="Metrics-dimensions"><a href="#Metrics-dimensions" class="headerlink" title="Metrics dimensions"></a>Metrics dimensions</h3><p>Multiple dimensions are supported in Prometheus with the <strong>labels</strong>.</p>
+<h3 id="Pushgateway"><a href="#Pushgateway" class="headerlink" title="Pushgateway"></a>Pushgateway</h3><p>Prometheus offers an alternative, called the Pushgateway to monitor components that cannot be scrapped because they live behind a firewall or are short-lived jobs.</p>
+<p>Before a job gets terminated, it can push metrics to this gateway, and Prometheus can scrape the metrics from this gateway later on.</p>
+<h2 id="Monitoring-an-application"><a href="#Monitoring-an-application" class="headerlink" title="Monitoring an application"></a>Monitoring an application</h2><p>When we want to monitor our application with Prometheus, we need to solve the following challenges:</p>
+<ul>
+<li>Instrumentation: Safely instrumenting our code with minimal performance overhead</li>
+<li>Metrics exposition: Exposing our metrics for Prometheus with an HTTP endpoint</li>
+<li>Hosting Prometheus: Having a well configured Prometheus running</li>
+<li>Extracting value: Writing queries that are statistically correct</li>
+<li>Visualizing: Building dashboards and visualizing our queries</li>
+<li>Alerting: Setting up efficient alerts</li>
+<li>Paging: Get notified about alerts with applying escalation policies for paging</li>
+</ul>
+<h2 id="Node-js-Metrics-Exporter"><a href="#Node-js-Metrics-Exporter" class="headerlink" title="Node.js Metrics Exporter"></a>Node.js Metrics Exporter</h2><p>To collect metrics from our Node.js application and expose it to Prometheus we can use the <a href="https://github.com/siimon/prom-client" target="_blank" rel="noopener">prom-client</a> npm library.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Init</span></span><br><span class="line"><span class="keyword">const</span> Prometheus = <span class="built_in">require</span>(<span class="string">'prom-client'</span>)</span><br><span class="line"><span class="keyword">const</span> httpRequestDurationMicroseconds = <span class="keyword">new</span> Prometheus.Histogram(&#123;</span><br><span class="line">  name: <span class="string">'http_request_duration_ms'</span>,</span><br><span class="line">  help: <span class="string">'Duration of HTTP requests in ms'</span>,</span><br><span class="line">  labelNames: [<span class="string">'route'</span>],</span><br><span class="line">  <span class="comment">// buckets for response time from 0.1ms to 500ms</span></span><br><span class="line">  buckets: [<span class="number">0.10</span>, <span class="number">5</span>, <span class="number">15</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// After each response</span></span><br><span class="line">httpRequestDurationMicroseconds</span><br><span class="line">  .labels(req.route.path)</span><br><span class="line">  .observe(responseTimeInMs)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Metrics endpoint</span></span><br><span class="line">app.get(<span class="string">'/metrics'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.set(<span class="string">'Content-Type'</span>, Prometheus.register.contentType)</span><br><span class="line">  res.end(Prometheus.register.metrics())</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Queries"><a href="#Queries" class="headerlink" title="Queries"></a>Queries</h2><p>Prometheus provides a functional expression language that lets the user select and aggregate time series data in real time.</p>
+<p>The Prometheus dashboard has a built-in query and visualization tool.</p>
+<h2 id="Alerting"><a href="#Alerting" class="headerlink" title="Alerting"></a>Alerting</h2><p>Prometheus comes with a built-in alerting feature where you can use your queries to define your expectations, however, Prometheus alerting doesn’t come with a notification system. To set up one, you need to use the <strong>Alert manager</strong> or an other external process.</p>
+<h2 id="Kubernetes-integration"><a href="#Kubernetes-integration" class="headerlink" title="Kubernetes integration"></a>Kubernetes integration</h2><p>Prometheus offers a built-in Kubernetes integration. It’s capable of discovering Kubernetes resources like Nodes, Services, and Pods while <strong>scraping</strong> metrics from them.</p>
+<p>It’s an extremely powerful feature in a containerized system, where instances born and die all the time. With a use-case like this, HTTP endpoint based scraping would be hard to achieve through manual configuration.</p>
+<p>You can also provision Prometheus easily with Kubernetes and <a href="https://github.com/helm/charts/tree/master/stable/prometheus" target="_blank" rel="noopener">Helm</a>.</p>
+<h2 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h2><p>As you can see, the built-in visualization method of Prometheus is great to inspect our queries output, but it’s not configurable enough to use it for dashboards.</p>
+<p>As Prometheus has an API to run queries and get data, you can use many external solutions to build dashboards. One of my favorite is <strong>Grafana</strong>.</p>
+<p>Grafana is an open-source, pluggable visualization platform. It can process metrics from many types of systems, and it has built-in Prometheus data source support.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://blog.risingstack.com/node-js-performance-monitoring-with-prometheus/" target="_blank" rel="noopener">Node.js Performance Monitoring with Prometheus</a></li>
+<li><a href="https://github.com/RisingStack/example-prometheus-nodejs" target="_blank" rel="noopener">Example Prometheus Monitoring</a></li>
+<li><a href="https://prometheus.io/docs/practices/naming/" target="_blank" rel="noopener">Prometheus Best Practices</a></li>
+<li><a href="https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html" target="_blank" rel="noopener">Metrics, tracing, and logging</a></li>
+</ul>
+
     
 	</div>
 	<footer class="entry-footer">
@@ -88,7 +195,7 @@
 			</span>
 			<span class="tags">
 				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Grafana/">Grafana</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Metrics/">Metrics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenTracing/">OpenTracing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prometheus/">Prometheus</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Metrics/">Metrics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prometheus/">Prometheus</a></li></ul>
 
 			</span>
 		</div>

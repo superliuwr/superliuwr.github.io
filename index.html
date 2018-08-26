@@ -45,6 +45,509 @@
     <div id="main">
       
   
+    <article id="post-nodejs-docker" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/08/21/nodejs-docker/" class="article-date">
+  <time datetime="2018-08-21T12:08:55.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/08/21/nodejs-docker/">Running Node.js Apps with Docker/Docker Compose</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Checklist-of-dockerizing-an-application"><a href="#Checklist-of-dockerizing-an-application" class="headerlink" title="Checklist of dockerizing an application"></a>Checklist of dockerizing an application</h1><h2 id="Choose-a-base-image"><a href="#Choose-a-base-image" class="headerlink" title="Choose a base image"></a>Choose a base image</h2><p>Consider to use Alpine images.</p>
+<h2 id="Install-the-necessary-packages"><a href="#Install-the-necessary-packages" class="headerlink" title="Install the necessary packages"></a>Install the necessary packages</h2><ul>
+<li>You need to write <code>apt-get update</code> and <code>apt-get install</code> on the same line (same if you are using apk on Alpine).</li>
+<li>Double check if you are installing ONLY what you really need (assuming you will run the container on production).</li>
+</ul>
+<h2 id="Add-your-custom-files"><a href="#Add-your-custom-files" class="headerlink" title="Add your custom files"></a>Add your custom files</h2><ul>
+<li>Understand the different between COPY and ADD</li>
+<li>Follow File System conventions on where to place your files</li>
+<li>Check the attributes of the files you are adding. If you need execution permission, there is no need to add a new layer on your image (<code>RUN chmod +x</code>). Just fix the original attributes on your code repository.</li>
+</ul>
+<h2 id="Define-which-user-will-or-can-run-your-container"><a href="#Define-which-user-will-or-can-run-your-container" class="headerlink" title="Define which user will (or can) run your container"></a>Define which user will (or can) run your container</h2><ul>
+<li>Without any other option provided, processes in containers will execute as root (unless a different uid was supplied in the Dockerfile).</li>
+<li>You only need to run your container with a specific (fixed ID) user if your application need access to the user or group tables (<code>/etc/passwd</code> or <code>/etc/group</code>).</li>
+<li>Avoid running your container as root as much as possible.</li>
+<li>Note some applications require you to run them with specific ids (e.g. Elastic Search with uid:gid = 1000:1000).</li>
+</ul>
+<h2 id="Define-the-exposed-ports"><a href="#Define-the-exposed-ports" class="headerlink" title="Define the exposed ports"></a>Define the exposed ports</h2><h2 id="Define-the-entrypoint"><a href="#Define-the-entrypoint" class="headerlink" title="Define the entrypoint"></a>Define the entrypoint</h2><p>Create a <code>docker-entrypoint.sh</code> script where you can hook things like configuration using environment variables.</p>
+<p>Examples</p>
+<ul>
+<li><a href="https://github.com/elastic/elasticsearch-docker/tree/master/build/elasticsearch/bin" target="_blank" rel="noopener">elasticsearch</a></li>
+<li><a href="https://github.com/docker-library/postgres/tree/de8ba87d50de466a1e05e111927d2bc30c2db36d/10" target="_blank" rel="noopener">postgres</a></li>
+</ul>
+<h2 id="Define-a-Configuration-method"><a href="#Define-a-Configuration-method" class="headerlink" title="Define a Configuration method"></a>Define a Configuration method</h2><p>Every application requires some kind of parametrization. There are basically two paths you can follow:</p>
+<ul>
+<li>Use an application specific configuration file: them you will need to document the format, fields, location and so on (not good if you have a complex environment, with applications spanning different technologies).</li>
+<li>Use (operating system) Environment variables: Simple and efficient.</li>
+</ul>
+<h2 id="Externalize-your-data"><a href="#Externalize-your-data" class="headerlink" title="Externalize your data"></a>Externalize your data</h2><p>The golden rule is: do not save any persistent data inside the container.</p>
+<p>The container file system is supposed and intended to be temporary, ephemeral. So any user generated content, data files, process output should be saved either on a mounted volume or on a bind mounts (that is, on a folder on the Base OS linked inside the container).</p>
+<h2 id="Make-sure-you-handle-the-logs-as-well"><a href="#Make-sure-you-handle-the-logs-as-well" class="headerlink" title="Make sure you handle the logs as well"></a>Make sure you handle the logs as well</h2><p>If you are creating a new app and want it to stick to docker conventions, no logs files should be written at all. The application should use stdout and stderr as an event stream.</p>
+<p>Docker will automatically capture everything you are sending to stdout and make it available through “docker logs” command.</p>
+<h2 id="Rotate-logs-and-other-append-only-files"><a href="#Rotate-logs-and-other-append-only-files" class="headerlink" title="Rotate logs and other append only files"></a>Rotate logs and other append only files</h2><p>If your application is writing log files or appending any files that can grow indefinitely, you need to worry about file rotation.</p>
+<p>This is critical for you to prevent the server running out of space, apply data retention policies (which is critical when it comes to GDPR and other data regulations).</p>
+<p><a href="https://www.aerospike.com/docs/operations/configure/log/logrotate.html" target="_blank" rel="noopener">Example of log rotation using logrotate</a></p>
+<h1 id="Lean-image-with-Docker-multi-stage-build"><a href="#Lean-image-with-Docker-multi-stage-build" class="headerlink" title="Lean image with Docker multi-stage build"></a>Lean image with Docker multi-stage build</h1><p>Docker 17.05 extends Dockerfile syntax to support new multi-stage build, by extending two commands: FROM and COPY.</p>
+<p>The multi-stage build allows using multiple FROM commands in the same Dockerfile. The last FROM command produces the final Docker image, all other images are intermediate images (no final Docker image is produced, but all layers are cached).</p>
+<p>The FROM syntax also supports AS keyword. Use AS keyword to give the current image a logical name and reference to it later by this name.</p>
+<p>To copy files from intermediate images use <code>COPY --from=&lt;image_AS_name|image_number&gt;</code>, where number starts from 0 (but better to use logical name through AS keyword).</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># ---- Base Node ----</span></span><br><span class="line"><span class="keyword">FROM</span> alpine:<span class="number">3.5</span> AS base</span><br><span class="line"><span class="comment"># install node</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache nodejs-current tini</span></span><br><span class="line"><span class="bash"><span class="comment"># set working directory</span></span></span><br><span class="line"><span class="bash">WORKDIR /root/chat</span></span><br><span class="line"><span class="bash"><span class="comment"># Set tini as entrypoint</span></span></span><br><span class="line"><span class="bash">ENTRYPOINT [<span class="string">"/sbin/tini"</span>, <span class="string">"--"</span>]</span></span><br><span class="line"><span class="bash"><span class="comment"># copy project file</span></span></span><br><span class="line"><span class="bash">COPY package.json .</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#</span></span></span><br><span class="line"><span class="bash"><span class="comment"># ---- Dependencies ----</span></span></span><br><span class="line"><span class="bash">FROM base AS dependencies</span></span><br><span class="line"><span class="bash"><span class="comment"># install node packages</span></span></span><br><span class="line"><span class="bash">RUN npm <span class="built_in">set</span> progress=<span class="literal">false</span> &amp;&amp; npm config <span class="built_in">set</span> depth 0</span></span><br><span class="line"><span class="bash">RUN npm install --only=production </span></span><br><span class="line"><span class="bash"><span class="comment"># copy production node_modules aside</span></span></span><br><span class="line"><span class="bash">RUN cp -R node_modules prod_node_modules</span></span><br><span class="line"><span class="bash"><span class="comment"># install ALL node_modules, including 'devDependencies'</span></span></span><br><span class="line"><span class="bash">RUN npm install</span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#</span></span></span><br><span class="line"><span class="bash"><span class="comment"># ---- Test ----</span></span></span><br><span class="line"><span class="bash"><span class="comment"># run linters, setup and tests</span></span></span><br><span class="line"><span class="bash">FROM dependencies AS <span class="built_in">test</span></span></span><br><span class="line"><span class="bash">COPY . .</span></span><br><span class="line"><span class="bash">RUN  npm run lint &amp;&amp; npm run setup &amp;&amp; npm run <span class="built_in">test</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment">#</span></span></span><br><span class="line"><span class="bash"><span class="comment"># ---- Release ----</span></span></span><br><span class="line"><span class="bash">FROM base AS release</span></span><br><span class="line"><span class="bash"><span class="comment"># copy production node_modules</span></span></span><br><span class="line"><span class="bash">COPY --from=dependencies /root/chat/prod_node_modules ./node_modules</span></span><br><span class="line"><span class="bash"><span class="comment"># copy app sources</span></span></span><br><span class="line"><span class="bash">COPY . .</span></span><br><span class="line"><span class="bash"><span class="comment"># expose port and define CMD</span></span></span><br><span class="line"><span class="bash">EXPOSE 5000</span></span><br><span class="line"><span class="bash">CMD npm run start</span></span><br></pre></td></tr></table></figure>
+<h1 id="Docker-Compose-for-NodeJS-Development"><a href="#Docker-Compose-for-NodeJS-Development" class="headerlink" title="Docker Compose for NodeJS Development"></a>Docker Compose for NodeJS Development</h1><p>An important concept to understand is that Docker Compose spans “buildtime” and “runtime”. Up until now, we have been building images using docker build ., which is “buildtime.” This is when our containers are actually built. We can think of “runtime” as what happens once our containers are built and being used.</p>
+<p>Compose triggers “buildtime” — instructing our images and containers to build — but it also populates data used at “runtime,” such as env vars and volumes. This is important to be clear on. For instance, when we add things like volumes and command, they will override the same things that may have been set up via the Dockerfile at “buildtime.”</p>
+<h1 id="How-to-debug-a-Node-js-application-in-a-Docker-container"><a href="#How-to-debug-a-Node-js-application-in-a-Docker-container" class="headerlink" title="How to debug a Node.js application in a Docker container"></a>How to debug a Node.js application in a Docker container</h1><h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://hackernoon.com/how-to-dockerize-any-application-b60ad00e76da" target="_blank" rel="noopener">How to dockerize any application</a></li>
+<li><a href="https://tonybai.com/2017/11/11/multi-stage-image-build-in-docker/" target="_blank" rel="noopener">理解Docker的多阶段镜像构建</a></li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nodejs/">Nodejs</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-dockerfile" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/08/20/dockerfile/" class="article-date">
+  <time datetime="2018-08-20T13:13:56.000Z" itemprop="datePublished">2018-08-20</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/08/20/dockerfile/">Dockerfile</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>Docker 可以通过 Dockerfile 的内容来自动构建镜像。Dockerfile 是一个包含创建镜像所有命令的文本文件，通过 docker build 命令可以根据 Dockerfile 的内容构建镜像。</p>
+<h1 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h1><h2 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h2><ul>
+<li>FROM 必须是 Dockerfile 中非注释行的第一个指令，即一个 Dockerfile 从 FROM 语句开始。</li>
+<li>FROM 可以在一个 Dockerfile 中出现多次，如果有需求在一个 Dockerfile 中创建多个镜像。</li>
+</ul>
+<h2 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h2><p>有两种使用方式</p>
+<ul>
+<li>RUN (the command is run in a shell - /bin/sh -c - shell form)</li>
+<li>RUN [“executable”, “param1”, “param2”] (exec form)</li>
+</ul>
+<p>每条 RUN 指令将在当前镜像基础上执行指定命令，并提交为新的镜像，后续的 RUN 都在之前 RUN 提交后的镜像为基础，镜像是分层的，可以通过一个镜像的任何一个历史提交点来创建，类似源码的版本控制。</p>
+<p>exec 方式会被解析为一个 JSON 数组，所以必须使用双引号而不是单引号。exec 方式不会调用一个命令 shell，所以也就不会继承相应的变量，如：<br><code>RUN [ &quot;echo&quot;, &quot;$HOME&quot; ]</code></p>
+<p>这种方式是不会达到输出 HOME 变量的，正确的方式应该是这样的<br><code>RUN [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo&quot;, &quot;$HOME&quot; ]</code></p>
+<blockquote>
+<p>RUN 产生的缓存在下一次构建的时候是不会失效的，会被重用，可以使用 –no-cache 选项，即 docker build –no-cache，如此便不会缓存。</p>
+</blockquote>
+<h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><p>CMD 有三种使用方式:</p>
+<ul>
+<li>CMD [“executable”,”param1”,”param2”] (exec form, this is the preferred form, 优先选择)</li>
+<li>CMD [“param1”,”param2”] (as default parameters to ENTRYPOINT)</li>
+<li>CMD command param1 param2 (shell form)</li>
+</ul>
+<p>CMD 指定在 Dockerfile 中只能使用一次，如果有多个，则只有最后一个会生效。</p>
+<p>CMD 的目的是为了在启动容器时提供一个默认的命令执行选项。如果用户启动容器时指定了运行的命令，则会覆盖掉 CMD 指定的命令。</p>
+<blockquote>
+<p>CMD 会在启动容器的时候执行，build 时不执行，而 RUN 只是在构建镜像的时候执行，后续镜像构建完成之后，启动容器就与 RUN 无关了。</p>
+</blockquote>
+<h2 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h2><p><code>EXPOSE &lt;port&gt; [&lt;port&gt;...]</code></p>
+<p>告诉 Docker 服务端容器对外映射的本地端口，需要在 docker run 的时候使用 -p 或者 -P 选项生效。</p>
+<h2 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h2><p><code>ENV &lt;key&gt; &lt;value&gt;       # 只能设置一个变量</code><br><code>ENV &lt;key&gt;=&lt;value&gt; ...   # 允许一次设置多个变量</code></p>
+<p>指定一个环节变量，会被后续 RUN 指令使用，并在容器运行时保留。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENV myName=<span class="string">"John Doe"</span> myDog=Rex\ The\ Dog \</span><br><span class="line">    myCat=fluffy</span><br></pre></td></tr></table></figure>
+<p>等同于</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ENV myName John Doe</span><br><span class="line">ENV myDog Rex The Dog</span><br><span class="line">ENV myCat fluffy</span><br></pre></td></tr></table></figure>
+<h2 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h2><p><code>ADD &lt;src&gt;... &lt;dest&gt;</code></p>
+<p>ADD 复制本地主机文件、目录或者远程文件 URLS 从 <src> 并且添加到容器指定路径中 <dest>。</dest></src></p>
+<p><src> 支持通过 GO 的正则模糊匹配，具体规则可参见 Go filepath.Match</src></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ADD hom* /mydir/        <span class="comment"># adds all files starting with "hom"</span></span><br><span class="line">ADD hom?.txt /mydir/    <span class="comment"># ? is replaced with any single character</span></span><br></pre></td></tr></table></figure>
+<p><dest> 路径必须是绝对路径，如果 <dest> 不存在，会自动创建对应目录</dest></dest></p>
+<p><src> 路径必须是 Dockerfile 所在路径的相对路径</src></p>
+<p><src> 如果是一个目录，只会复制目录下的内容，而目录本身则不会被复制</src></p>
+<h2 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h2><p><code>COPY &lt;src&gt;... &lt;dest&gt;</code></p>
+<p>COPY 复制新文件或者目录从 <src> 添加到容器指定路径中 <dest>。用法同 ADD，唯一的不同是不能指定远程文件 URLS。</dest></src></p>
+<h2 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ENTRYPOINT [“executable”, “param1”, “param2”] (the preferred <span class="built_in">exec</span> form，优先选择)</span><br><span class="line">ENTRYPOINT <span class="built_in">command</span> param1 param2 (shell form)</span><br></pre></td></tr></table></figure>
+<p>配置容器启动后执行的命令，并且不可被 docker run 提供的参数覆盖，而 CMD 是可以被覆盖的。如果需要覆盖，则可以使用 docker run –entrypoint 选项。</p>
+<p>每个 Dockerfile 中只能有一个 ENTRYPOINT，当指定多个时，只有最后一个生效。</p>
+<h3 id="Exec-form-ENTRYPOINT-例子"><a href="#Exec-form-ENTRYPOINT-例子" class="headerlink" title="Exec form ENTRYPOINT 例子"></a>Exec form ENTRYPOINT 例子</h3><ol>
+<li><p>通过 ENTRYPOINT 使用 exec form 方式设置稳定的默认命令和选项，而使用 CMD 添加默认之外经常被改动的选项。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"top"</span>, <span class="string">"-b"</span>]</span></span><br><span class="line"><span class="bash">CMD [<span class="string">"-c"</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过 Dockerfile 使用 ENTRYPOINT 展示前台运行 Apache 服务</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> debian:stable</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y --force-yes apache2</span></span><br><span class="line"><span class="bash">EXPOSE 80 443</span></span><br><span class="line"><span class="bash">VOLUME [<span class="string">"/var/www"</span>, <span class="string">"/var/log/apache2"</span>, <span class="string">"/etc/apache2"</span>]</span></span><br><span class="line"><span class="bash">ENTRYPOINT [<span class="string">"/usr/sbin/apache2ctl"</span>, <span class="string">"-D"</span>, <span class="string">"FOREGROUND"</span>]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="Shell-form-ENTRYPOINT-例子"><a href="#Shell-form-ENTRYPOINT-例子" class="headerlink" title="Shell form ENTRYPOINT 例子"></a>Shell form ENTRYPOINT 例子</h3><ol>
+<li><p>这种方式会在 /bin/sh -c 中执行，会忽略任何 CMD 或者 docker run 命令行选项，为了确保 docker stop 能够停止长时间运行 ENTRYPOINT 的容器，确保执行的时候使用 exec 选项。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> <span class="built_in">exec</span> top -b</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果在 ENTRYPOINT 忘记使用 exec 选项，则可以使用 CMD 补上:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> top -b</span></span><br><span class="line"><span class="bash">CMD --ignored-param1 <span class="comment"># --ignored-param2 ... --ignored-param3 ... 依此类推</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h2><p>VOLUME [“/data”]<br>创建一个可以从本地主机或其他容器挂载的挂载点</p>
+<h2 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h2><p>USER daemon<br>指定运行容器时的用户名或 UID，后续的 RUN、CMD、ENTRYPOINT 也会使用指定用户。</p>
+<h2 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h2><p>WORKDIR /path/to/workdir<br>为后续的 RUN、CMD、ENTRYPOINT 指令配置工作目录。可以使用多个 WORKDIR 指令，后续命令如果参数是相对路径，则会基于之前命令指定的路径。</p>
+<p>WORKDIR /a<br>WORKDIR b<br>WORKDIR c<br>RUN pwd<br>最终路径是 /a/b/c。</p>
+<p>WORKDIR 指令可以在 ENV 设置变量之后调用环境变量:</p>
+<p>ENV DIRPATH /path<br>WORKDIR $DIRPATH/$DIRNAME<br>最终路径则为 /path/$DIRNAME。</p>
+<h1 id="dockerfile-最佳实践"><a href="#dockerfile-最佳实践" class="headerlink" title="dockerfile 最佳实践"></a>dockerfile 最佳实践</h1><h2 id="使用-dockerignore-文件"><a href="#使用-dockerignore-文件" class="headerlink" title="使用 .dockerignore 文件"></a>使用 .dockerignore 文件</h2><p>为了在 docker build 过程中更快上传和更加高效，应该使用一个 .dockerignore 文件用来排除构建镜像时不需要的文件或目录。例如,除非 .git 在构建过程中需要用到，否则你应该将它添加到 .dockerignore 文件中，这样可以节省很多时间。</p>
+<h2 id="避免安装不必要的软件包"><a href="#避免安装不必要的软件包" class="headerlink" title="避免安装不必要的软件包"></a>避免安装不必要的软件包</h2><p>为了降低复杂性、依赖性、文件大小以及构建时间，应该避免安装额外的或不必要的包。例如，不需要在一个数据库镜像中安装一个文本编辑器。</p>
+<h2 id="每个容器都跑一个进程"><a href="#每个容器都跑一个进程" class="headerlink" title="每个容器都跑一个进程"></a>每个容器都跑一个进程</h2><p>在大多数情况下，一个容器应该只单独跑一个程序。解耦应用到多个容器使其更容易横向扩展和重用。如果一个服务依赖另外一个服务，可以参考 Linking Containers Together。</p>
+<h2 id="最小化层"><a href="#最小化层" class="headerlink" title="最小化层"></a>最小化层</h2><p>我们知道每执行一个指令，都会有一次镜像的提交，镜像是分层的结构，对于 Dockerfile，应该找到可读性和最小化层之间的平衡。</p>
+<h2 id="多行参数排序"><a href="#多行参数排序" class="headerlink" title="多行参数排序"></a>多行参数排序</h2><p>如果可能，通过字母顺序来排序，这样可以避免安装包的重复并且更容易更新列表，另外可读性也会更强，添加一个空行使用 \ 换行:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="bash">  bzr \</span></span><br><span class="line"><span class="bash">  cvs \</span></span><br><span class="line"><span class="bash">  git \</span></span><br><span class="line"><span class="bash">  mercurial \</span></span><br><span class="line"><span class="bash">  subversion</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建缓存"><a href="#创建缓存" class="headerlink" title="创建缓存"></a>创建缓存</h2><p>镜像构建过程中会按照 Dockerfile 的顺序依次执行，每执行一次指令 Docker 会寻找是否有存在的镜像缓存可复用，如果没有则创建新的镜像。如果不想使用缓存，则可以在 docker build 时添加 –no-cache=true 选项。</p>
+<p>从基础镜像开始就已经在缓存中了，下一个指令会对比所有的子镜像寻找是否执行相同的指令，如果没有则缓存失效。在大多数情况下只对比 Dockerfile 指令和子镜像就足够了。ADD 和 COPY 指令除外，执行 ADD 和 COPY 时存放到镜像的文件也是需要检查的，完成一个文件的校验之后再利用这个校验在缓存中查找，如果检测的文件改变则缓存失效。RUN apt-get -y update 命令只检查命令是否匹配，如果匹配就不会再执行更新了。</p>
+<p>为了有效地利用缓存，你需要保持你的 Dockerfile 一致，并且尽量在末尾修改。</p>
+<h2 id="Dockerfile-指令"><a href="#Dockerfile-指令" class="headerlink" title="Dockerfile 指令"></a>Dockerfile 指令</h2><p>FROM: 只要可能就使用官方镜像库作为基础镜像</p>
+<p>RUN: 为保持可读性、方便理解、可维护性，把长或者复杂的 RUN 语句使用 \ 分隔符分成多行</p>
+<p>不建议 RUN apt-get update 独立成行，否则如果后续包有更新，那么也不会再执行更新</p>
+<p>避免使用 RUN apt-get upgrade 或者 dist-upgrade，很多必要的包在一个非 privileged 权限的容器里是无法升级的。如果知道某个包更新，使用 apt-get install -y xxx</p>
+<p>标准写法<br>RUN apt-get update &amp;&amp; apt-get install -y package-bar package-foo</p>
+<p>例子:<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="bash">    aufs-tools \</span></span><br><span class="line"><span class="bash">    automake \</span></span><br><span class="line"><span class="bash">    btrfs-tools \</span></span><br><span class="line"><span class="bash">    build-essential \</span></span><br><span class="line"><span class="bash">    curl \</span></span><br><span class="line"><span class="bash">    dpkg-sig \</span></span><br><span class="line"><span class="bash">    git \</span></span><br><span class="line"><span class="bash">    iptables \</span></span><br><span class="line"><span class="bash">    libapparmor-dev \</span></span><br><span class="line"><span class="bash">    libcap-dev \</span></span><br><span class="line"><span class="bash">    libsqlite3-dev \</span></span><br><span class="line"><span class="bash">    lxc=1.0* \</span></span><br><span class="line"><span class="bash">    mercurial \</span></span><br><span class="line"><span class="bash">    parallel \</span></span><br><span class="line"><span class="bash">    reprepro \</span></span><br><span class="line"><span class="bash">    ruby1.9.1 \</span></span><br><span class="line"><span class="bash">    ruby1.9.1-dev \</span></span><br><span class="line"><span class="bash">    s3cmd=1.1.0*</span></span><br></pre></td></tr></table></figure></p>
+<p>CMD: 推荐使用 CMD [“executable”, “param1”, “param2”…] 这种格式，CMD [“param”, “param”] 则配合 ENTRYPOINT 使用</p>
+<p>EXPOSE: Dockerfile 指定要公开的端口，使用 docker run 时指定映射到宿主机的端口即可</p>
+<p>ENV: 为了使新的软件更容易运行，可以使用 ENV 更新 PATH 变量。如 ENV PATH /usr/local/nginx/bin:$PATH 确保 CMD [“nginx”] 即可运行</p>
+<p>ENV 也可以这样定义变量：<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> PG_MAJOR <span class="number">9.3</span></span><br><span class="line"><span class="keyword">ENV</span> PG_VERSION <span class="number">9.3</span>.<span class="number">4</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> curl -SL http://example.com/postgres-<span class="variable">$PG_VERSION</span>.tar.xz | tar -xJC /usr/src/postgress &amp;&amp; …</span></span><br><span class="line"><span class="bash">ENV PATH /usr/<span class="built_in">local</span>/postgres-<span class="variable">$PG_MAJOR</span>/bin:<span class="variable">$PATH</span></span></span><br></pre></td></tr></table></figure></p>
+<p>ADD or COPY: ADD 比 COPY 多一些特性「tar 文件自动解包和支持远程 URL」，不推荐添加远程 URL<br>如不推荐这种方式:<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span><span class="bash"> http://example.com/big.tar.xz /usr/src/things/</span></span><br><span class="line"><span class="bash">RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things</span></span><br><span class="line"><span class="bash">RUN make -C /usr/src/things all</span></span><br></pre></td></tr></table></figure></p>
+<p>推荐使用 curl 或者 wget 替换，使用如下方式:<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir -p /usr/src/things \</span></span><br><span class="line"><span class="bash">    &amp;&amp; curl -SL http://example.com/big.tar.gz \</span></span><br><span class="line"><span class="bash">    | tar -xJC /usr/src/things \</span></span><br><span class="line"><span class="bash">    &amp;&amp; make -C /usr/src/things all</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不需要添加 tar 文件，推荐使用 COPY。</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><ul>
+<li><a href="https://blog.opskumu.com/docker.html#%E4%B8%83dockerfile" target="_blank" rel="noopener">Dockerfile Notes</a></li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank" rel="noopener">Best practices for writing Dockerfiles</a></li>
+<li><a href="https://rock-it.pl/how-to-write-excellent-dockerfiles/" target="_blank" rel="noopener">How to write excellent Dockerfiles</a></li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-docker" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/08/18/docker/" class="article-date">
+  <time datetime="2018-08-18T13:30:30.000Z" itemprop="datePublished">2018-08-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/08/18/docker/">Docker</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h2 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h2><p><img src="docker-commands.webp" alt="Docker Commands"></p>
+<h3 id="Images"><a href="#Images" class="headerlink" title="Images"></a>Images</h3><ul>
+<li>一个只读模板，可以用来创建容器，一个镜像可以创建多个容器</li>
+<li>Docker 提供了一个很简单的机制来创建和更新现有的镜像，甚至可以直接从其他人那里获取做好的镜像直接使用</li>
+</ul>
+<p><img src="docker-file-system.png" alt="Docker File System"></p>
+<ul>
+<li>docker 镜像代表了容器的文件系统里的内容，是容器的基础，镜像一般是通过 Dockerfile 生成的</li>
+<li>docker 的镜像是分层的，所有的镜像（除了基础镜像）都是在之前镜像的基础上加上自己这层的内容生成的</li>
+<li>每一层镜像的元数据都是存在 json 文件中的，除了静态的文件系统之外，还会包含动态的数据</li>
+</ul>
+<h4 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h4><p>Search on Docker store<br><code>docker search mysql</code></p>
+<p>Pull an image from Docker store<br><code>docker pull mysql:latest</code></p>
+<p>Push an image to Docker store<br><code>docker push</code></p>
+<p>List all downloaded images<br><code>docker images</code></p>
+<p>Delete an image<br><code>docker rmi mysql</code><br><code>docker rmi mysql tomcat</code></p>
+<p>Delete all iamges<br><code>docker rmi $(docker images -q)</code></p>
+<p>Build an image from Dockerfile<br><code>docker build</code></p>
+<p>Tag an image<br><code>docker tag</code></p>
+<h3 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h3><ul>
+<li>容器是从镜像创建的运行实例，也就是镜像启动后的一个实例称为容器，是独立运行的一个或一组应用。</li>
+<li>docker 利用容器来运行应用，他可以被启动、开始、停止、删除，每个容器都是相互隔离的、保证安全的平台。</li>
+</ul>
+<h4 id="Commands-1"><a href="#Commands-1" class="headerlink" title="Commands"></a>Commands</h4><p>Create and Run a container from an image<br><code>docker run --name container-name -d image-name</code></p>
+<p>List all running containers<br><code>docker ps</code></p>
+<p>Stop a running container<br><code>docker stop container-name/container-id</code></p>
+<p>Force stop a running container<br><code>docker kill container-name/container-id</code></p>
+<blockquote>
+<p>docker stop: Stop a running container (send SIGTERM, and then SIGKILL after grace period) […] The main process inside the container will receive SIGTERM, and after a grace period, SIGKILL. [emphasis mine]<br>docker kill: Kill a running container (send SIGKILL, or specified signal) […] The main process inside the container will be sent SIGKILL, or any signal specified with option –signal. [emphasis mine]</p>
+</blockquote>
+<p>Create a container but do not run it<br><code>docker create -t -i fedora bash</code></p>
+<p>Start a container<br><code>docker start container-name/container-id</code></p>
+<p>Restart a container<br><code>docker restart container-name/container-id</code></p>
+<p>Delete a container<br><code>docker rm container-id</code></p>
+<p>Delete all containers<br><code>docker rm $(docker ps -a -q )</code></p>
+<p>Check logs<br><code>docker logs container-id/container-name</code></p>
+<p>Attach to a running container<br><code>docker attach container-id</code></p>
+<p>Run a command on a running container<br><code>docker exec -it container-id/container-name bash</code></p>
+<p>List running processes on a container<br><code>docker top container-id</code></p>
+<p>Inspect a container<br><code>docker insepct container-id</code></p>
+<p>Copy file from host to container<br><code>docker cp 文件 container-id:目标文件/文件夹</code><br><code>docker cp /tmp/suzhuji.txt 7f237caad43b:/tmp</code></p>
+<p>Copy file from container to host<br><code>docker cp container-id:目标文件/文件夹 宿主机目标文件/文件夹</code><br><code>docker cp 7f237caad43b:/tmp/yum.log /tmp</code></p>
+<h3 id="Resoisitory"><a href="#Resoisitory" class="headerlink" title="Resoisitory"></a>Resoisitory</h3><ul>
+<li>仓库是集中存放镜像文件的场所，类似 git 代码仓库等。</li>
+<li>仓库（Respository）和仓库注册服务器（Registry）是有区别的。仓库注册服务器一般存放多个仓库，每个仓库又有多个镜像，每个镜像又有不同的标签（tag）。</li>
+<li>仓库分为公开仓库（public）和私有仓库（private）两种形式。</li>
+<li>当创建好自己的镜像后，可以通过 push 命令把它上传到公开或私有仓库。</li>
+</ul>
+<h2 id="Port-mappping"><a href="#Port-mappping" class="headerlink" title="Port mappping"></a>Port mappping</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Find IP address of container with ID &lt;container_id&gt; 通过容器 id 获取 ip</span></span><br><span class="line">$ sudo docker inspect &lt;container_id&gt; | grep IPAddress | cut -d ’<span class="string">"’ -f 4</span></span><br></pre></td></tr></table></figure>
+<h3 id="自动映射端口"><a href="#自动映射端口" class="headerlink" title="自动映射端口"></a>自动映射端口</h3><p>-P 使用时需要指定 –expose 选项，指定需要对外提供服务的端口</p>
+<p><code>$ sudo docker run -t -P --expose 22 --name server  ubuntu:14.04</code><br>使用 docker run -P 自动绑定所有对外提供服务的容器端口，映射的端口将会从没有使用的端口池中 (49000..49900) 自动选择，你可以通过 docker ps 、docker inspect &lt;container_id&gt; 或者 docker port &lt;container_id&gt; <port> 确定具体的绑定信息。</port></p>
+<h3 id="绑定端口到指定接口"><a href="#绑定端口到指定接口" class="headerlink" title="绑定端口到指定接口"></a>绑定端口到指定接口</h3><p><code>$ sudo docker run -p [([&lt;host_interface&gt;:[host_port]])|(&lt;host_port&gt;):]&lt;container_port&gt;[/udp] &lt;image&gt; &lt;cmd&gt;</code><br>默认不指定绑定 ip 则监听所有网络接口。</p>
+<p>绑定 TCP 端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Bind TCP port 8080 of the container to TCP port 80 on 127.0.0.1 of the host machine.</span></span><br><span class="line">$ sudo docker run -p 127.0.0.1:80:8080 &lt;image&gt; &lt;cmd&gt;</span><br><span class="line"><span class="comment"># Bind TCP port 8080 of the container to a dynamically allocated TCP port on 127.0.0.1 of the host machine.</span></span><br><span class="line">$ sudo docker run -p 127.0.0.1::8080 &lt;image&gt; &lt;cmd&gt;</span><br><span class="line"><span class="comment"># Bind TCP port 8080 of the container to TCP port 80 on all available interfaces of the host machine.</span></span><br><span class="line">$ sudo docker run -p 80:8080 &lt;image&gt; &lt;cmd&gt;</span><br><span class="line"><span class="comment"># Bind TCP port 8080 of the container to a dynamically allocated TCP port on all available interfaces</span></span><br><span class="line">$ sudo docker run -p 8080 &lt;image&gt; &lt;cmd&gt;</span><br></pre></td></tr></table></figure></p>
+<p>绑定 UDP 端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Bind UDP port 5353 of the container to UDP port 53 on 127.0.0.1 of the host machine.</span></span><br><span class="line">$ sudo docker run -p 127.0.0.1:53:5353/udp &lt;image&gt; &lt;cmd&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Networking"><a href="#Networking" class="headerlink" title="Networking"></a>Networking</h2><p>Docker 四种网络模式</p>
+<h3 id="host-模式"><a href="#host-模式" class="headerlink" title="host 模式"></a>host 模式</h3><p>如果启动容器的时候使用 host 模式，那么这个容器将不会获得一个独立的 Network Namespace，而是和宿主机共用一个 Network Namespace。容器将不会虚拟出自己的网卡，配置自己的 IP 等，而是使用宿主机的 IP 和端口。</p>
+<p>例如，我们在 10.10.101.105/24 的机器上用 host 模式启动一个含有 web 应用的 Docker 容器，监听 tcp 80 端口。当我们在容器中执行任何类似 ifconfig 命令查看网络环境时，看到的都是宿主机上的信息。而外界访问容器中的应用，则直接使用 10.10.101.105:80 即可，不用任何 NAT 转换，就如直接跑在宿主机中一样。但是，容器的其他方面，如文件系统、进程列表等还是和宿主机隔离的。</p>
+<h3 id="container-模式"><a href="#container-模式" class="headerlink" title="container 模式"></a>container 模式</h3><p>这个模式指定新创建的容器和已经存在的一个容器共享一个 Network Namespace，而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的 IP，而是和一个指定的容器共享 IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过 lo 网卡设备通信。</p>
+<h3 id="none模式"><a href="#none模式" class="headerlink" title="none模式"></a>none模式</h3><p>这个模式和前两个不同。在这种模式下，Docker 容器拥有自己的 Network Namespace，但是，并不为 Docker容器进行任何网络配置。也就是说，这个 Docker 容器没有网卡、IP、路由等信息。需要我们自己为 Docker 容器添加网卡、配置 IP 等。</p>
+<h3 id="bridge模式"><a href="#bridge模式" class="headerlink" title="bridge模式"></a>bridge模式</h3><p>bridge 模式是 Docker 默认的网络设置，此模式会为每一个容器分配 Network Namespace、设置 IP 等，并将一个主机上的 Docker 容器连接到一个虚拟网桥上。当 Docker server 启动时，会在主机上创建一个名为 docker0 的虚拟网桥，此主机上启动的 Docker 容器会连接到这个虚拟网桥上。虚拟网桥的工作方式和物理交换机类似，这样主机上的所有容器就通过交换机连在了一个二层网络中。接下来就要为容器分配 IP 了，Docker 会从 RFC1918 所定义的私有 IP 网段中，选择一个和宿主机不同的IP地址和子网分配给 docker0，连接到 docker0 的容器就从这个子网中选择一个未占用的 IP 使用。如一般 Docker 会使用 172.17.0.0/16 这个网段，并将 172.17.42.1/16 分配给 docker0 网桥（在主机上使用 ifconfig 命令是可以看到 docker0 的，可以认为它是网桥的管理接口，在宿主机上作为一块虚拟网卡使用）</p>
+<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><h3 id="Data-Volume"><a href="#Data-Volume" class="headerlink" title="Data Volume"></a>Data Volume</h3><p>数据卷的使用其实和 Linux 挂载文件目录是很相似的。简单来说，数据卷就是一个可以供容器使用的特殊目录。</p>
+<p><code>sudo docker run -ti --name volume1 -v /myDir ubuntu:16.04 bash</code><br><code>sudo docker run -ti --name volume2 -v /home/zsc/Music/:/myShare ubuntu:16.04 bash</code><br><code>sudo docker run -ti --name volume2 -v /home/zsc/Music/:/myShare:ro ubuntu:16.04 bash</code></p>
+<p>数据卷是用来持久化数据的，所以数据卷的生命周期独立于容器。所以在容器结束后数据卷并不会被删除，如果你希望删除数据卷，可以在使用 <code>docker rm</code> 命令删除容器的时候加上 -v 参数。</p>
+<p>值得注意的是，如果你删除挂载某个数据卷的所有容器的同时没有使用 -v 参数清理这些容器挂载的数据卷，你之后再想清理这些数据卷会很麻烦，所以在你确定某个数据卷没有必要存在的时候，在删除最后一个挂载这个数据卷的容器的时候，使用 -v 参数删除这个数据卷。</p>
+<h3 id="Data-Volume-Container"><a href="#Data-Volume-Container" class="headerlink" title="Data Volume Container"></a>Data Volume Container</h3><p>所谓数据卷容器，其实就是一个普通的容器，只不过这个容器专门作为数据卷供其它容器挂载。</p>
+<p>首先，在运行 docker run 指令的时候使用 -v 参数创建一个数据卷容器（这和我们之前创建数据卷的指令是一样的）：<br><code>sudo docker run -ti  -d -v /dataVolume --name v0 ubuntu:16.04</code></p>
+<p>然后，创建一个新的容器挂载刚才创建的数据卷容器中的数据卷：使用 –volumes-from 参数<br><code>sudo docker run -ti --volumes-from v0 --name v1 ubuntu:16.04 bash</code></p>
+<h2 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h2><h3 id="Clean-disk-space-used-by-Docker"><a href="#Clean-disk-space-used-by-Docker" class="headerlink" title="Clean disk space used by Docker"></a>Clean disk space used by Docker</h3><ul>
+<li><code>docker system df</code></li>
+<li><code>docker system prune</code></li>
+<li><code>docker system prune -a</code></li>
+</ul>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://blog.opskumu.com/docker.html" target="_blank" rel="noopener">Docker 学习笔记</a></li>
+<li><a href="http://dockone.io/article/783" target="_blank" rel="noopener">10张图带你深入理解Docker容器和镜像</a></li>
+<li><a href="https://www.huweihuang.com/article/docker/docker-commands-principle/" target="_blank" rel="noopener">Docker常用命令原理图</a></li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-kubernetes-ingress" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/08/16/kubernetes-ingress/" class="article-date">
+  <time datetime="2018-08-16T11:53:15.000Z" itemprop="datePublished">2018-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/08/16/kubernetes-ingress/">Kubernetes Ingress and Traefik</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>Kubernetes 为每个 Pod 分配了唯一的 IP（即：Pod IP），Pod 里的多个容器共享这个 IP。Pod 内的容器除了 IP，还共享相同的网络命名空间、端口、存储卷等，也就是说这些容器之间能通过 Localhost 来通信。Pod 包含的容器都会运行在同一个节点上，也可以同时启动多个相同的 Pod 用于 Failover 或者 Load balance。</p>
+<p>Pod 的生命周期是短暂的，Kubernetes 会根据应用的配置对 Pod 进行创建、销毁并根据监控指标进行伸缩扩容。Kubernetes 在创建 Pod 时可以选择集群中的任何一台空闲的节点上进行，因此其网络地址是不固定的。由于 Pod 的这一特点，一般不建议直接通过 Pod 的地址去访问应用。</p>
+<p>为了解决访问 Pod 不方便直接访问的问题，Kubernetes 采用了 Service 对 Pod 进行封装。Service 是对后端提供服务的一组 Pod 的抽象，Service 会绑定到一个固定的虚拟 IP上。该虚拟 IP 只在 Kubernetes Cluster 中可见，但其实该虚拟 IP 并不对应一个虚拟或者物理设备，而只是 IPtables 中的规则，然后再通过 IPtables 将服务请求路由到后端的 Pod 中。通过这种方式，可以确保服务消费者可以稳定地访问 Pod 提供的服务，而不用关心 Pod 的创建、删除、迁移等变化以及如何用一组 Pod 来进行负载均衡。</p>
+<p>实现 Service 这一功能的关键是由 Kubernetes 中的 Kube-Proxy 来完成的。Kube-Proxy 运行在每个节点上，监听 API Server 中服务对象的变化，再通过管理 IPtables 来实现网络的转发。</p>
+			
+				<p class="article-more-link">
+					<a href="/2018/08/16/kubernetes-ingress/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kubernetes/">Kubernetes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Traefik/">Traefik</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
+    <article id="post-microservices-data-architecture" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2018/08/12/microservices-data-architecture/" class="article-date">
+  <time datetime="2018-08-12T12:38:23.000Z" itemprop="datePublished">2018-08-12</time>
+</a>
+		</span>
+		<span class="meta-elements author">Marvin Liu</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2018/08/12/microservices-data-architecture/">Microservices Data Architecture</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<h1 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a>Problems</h1><ul>
+<li>One database per service or One shared database?</li>
+<li>One type of database system or multiple types(SQL, NoSQL, etc.)<ul>
+<li>Polyglot Persistence or Multi-model Database</li>
+</ul>
+</li>
+<li>Scalability</li>
+</ul>
+<p><img src="polyglot-persistence-vs-multi-mode-database.webp" alt="Polyglot Persistence vs Multi-model Database"></p>
+<p><img src="scalability.webp" alt="Scale Cube"></p>
+<h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>MongoDB 是一个分布式文档型数据库，它有以下一些特性使它非常适合于微服务架构：</p>
+<ul>
+<li>多模数据库 (Multi-model)</li>
+<li>原生 JSON 数据结构 - API</li>
+<li>动态模式、无模式 (Dynamic schema / Schemaless)</li>
+<li>数据变化流 (Change Stream)</li>
+<li>横向扩展能力 (Sharding)</li>
+</ul>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Microservices/">Microservices</a>»<a class="article-category-link" href="/categories/Microservices/Architecture/">Architecture</a>
+  </div>
+
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Architecture/">Architecture</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Database/">Database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+
+  
     <article id="post-functional-programming-with-javascript" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -336,296 +839,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2018/07/18/microservices/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Microservices/">Microservices</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-aws-cloudfront" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/07/08/aws-cloudfront/" class="article-date">
-  <time datetime="2018-07-08T11:41:35.000Z" itemprop="datePublished">2018-07-08</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/07/08/aws-cloudfront/">aws-cloudfront</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="AMAZON-CLOUDFRONT"><a href="#AMAZON-CLOUDFRONT" class="headerlink" title="AMAZON CLOUDFRONT"></a>AMAZON CLOUDFRONT</h1><p>Amazon CloudFront is a global Content Delivery Network (CDN) service. It integrates with other AWS products to give developers and businesses an easy way to distribute content to end users with low latency, high data transfer speeds, and no minimum usage commitments.</p>
-			
-				<p class="article-more-link">
-					<a href="/2018/07/08/aws-cloudfront/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cloud/">Cloud</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-nodejs-error-handling" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/07/01/nodejs-error-handling/" class="article-date">
-  <time datetime="2018-07-01T01:09:47.000Z" itemprop="datePublished">2018-07-01</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/07/01/nodejs-error-handling/">Node.js Error Handling Best Practices</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="Error-hanlding"><a href="#Error-hanlding" class="headerlink" title="Error hanlding"></a>Error hanlding</h1><h2 id="Error-types"><a href="#Error-types" class="headerlink" title="Error types"></a>Error types</h2><p>In Node, errors occur any of the following ways:</p>
-			
-				<p class="article-more-link">
-					<a href="/2018/07/01/nodejs-error-handling/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practices/">Best Practices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Error-Handling/">Error Handling</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-nodejs-logging" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/07/01/nodejs-logging/" class="article-date">
-  <time datetime="2018-07-01T00:04:37.000Z" itemprop="datePublished">2018-07-01</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/07/01/nodejs-logging/">Node.js Logging Best Practices</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p> Logs can be a dumb warehouse of debug statements or the enabler of a beautiful dashboard that tells the story of your app. Plan your logging platform from day 1: how logs are collected, stored and analyzed to ensure that the desired information (e.g. error rate, following an entire transaction through services and servers, etc) can really be extracted.</p>
-			
-				<p class="article-more-link">
-					<a href="/2018/07/01/nodejs-logging/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practices/">Best Practices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Logging/">Logging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-metrics-and-prometheus" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/29/metrics-and-prometheus/" class="article-date">
-  <time datetime="2018-06-29T13:09:56.000Z" itemprop="datePublished">2018-06-29</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/29/metrics-and-prometheus/">Metrics, OpenTracing, Prometheus and Grafana</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="Calling-chain"><a href="#Calling-chain" class="headerlink" title="Calling chain"></a>Calling chain</h1><p>一个完整的微服务系统包含多个微服务单元，各个微服务子系统存在互相调用的情况，形成一个 调用链。一个客户端请求从发出到被响应 经历了哪些组件、哪些微服务、请求总时长、每个组件所花时长 等信息我们有必要了解和收集，以帮助我们定位性能瓶颈、进行性能调优，因此监控整个微服务架构的调用链十分有必要。</p>
-			
-				<p class="article-more-link">
-					<a href="/2018/06/29/metrics-and-prometheus/#more">Read More</a>
-				</p>
-      
-    
-	</div>
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Microservices/">Microservices</a>
-  </div>
-
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Grafana/">Grafana</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Metrics/">Metrics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Microservices/">Microservices</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenTracing/">OpenTracing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prometheus/">Prometheus</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-	
-</article>
-
-
-	<hr class="article-devider">
-
-
-
-  
-    <article id="post-microservices-with-nodejs" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2018/06/28/microservices-with-nodejs/" class="article-date">
-  <time datetime="2018-06-28T13:42:14.000Z" itemprop="datePublished">2018-06-28</time>
-</a>
-		</span>
-		<span class="meta-elements author">Marvin Liu</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2018/06/28/microservices-with-nodejs/">Microservices with Node.js</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<h1 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a>Microservices</h1><h2 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h2><ul>
-<li>Express</li>
-<li>Micro</li>
-<li>Seneca</li>
-<li>Hydra</li>
-</ul>
-			
-				<p class="article-more-link">
-					<a href="/2018/06/28/microservices-with-nodejs/#more">Read More</a>
 				</p>
       
     
