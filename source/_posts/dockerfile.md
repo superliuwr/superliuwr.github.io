@@ -152,7 +152,25 @@ ENV DIRPATH /path
 WORKDIR $DIRPATH/$DIRNAME
 最终路径则为 /path/$DIRNAME。
 
+# Docker RUN vs CMD vs ENTRYPOINT
+* RUN executes command(s) in a new layer and creates a new image. E.g., it is often used for installing software packages.
+* CMD sets default command and/or parameters, which can be overwritten from command line when docker container runs.
+* ENTRYPOINT configures a container that will run as an executable.
+
+## The bottom line
+* Use RUN instructions to build your image by adding layers on top of initial image.
+* Prefer ENTRYPOINT to CMD when building executable Docker image and you need a command always to be executed. Additionally use CMD if you need to provide extra default arguments that could be overwritten from command line when docker container runs.
+* Choose CMD if you need to provide a default command and/or arguments that can be overwritten from command line when docker container runs.
+
 # dockerfile 最佳实践
+## Do not use 'latest' base image tag
+
+## Remove unneeded files after each RUN step
+
+## Use proper base image
+
+## Use multi-stage builds
+
 ## 使用 .dockerignore 文件
 为了在 docker build 过程中更快上传和更加高效，应该使用一个 .dockerignore 文件用来排除构建镜像时不需要的文件或目录。例如,除非 .git 在构建过程中需要用到，否则你应该将它添加到 .dockerignore 文件中，这样可以节省很多时间。
 
@@ -163,6 +181,8 @@ WORKDIR $DIRPATH/$DIRNAME
 在大多数情况下，一个容器应该只单独跑一个程序。解耦应用到多个容器使其更容易横向扩展和重用。如果一个服务依赖另外一个服务，可以参考 Linking Containers Together。
 
 ## 最小化层
+Merge multiple RUN commands into one
+
 我们知道每执行一个指令，都会有一次镜像的提交，镜像是分层的结构，对于 Dockerfile，应该找到可读性和最小化层之间的平衡。
 
 ## 多行参数排序
@@ -183,6 +203,8 @@ RUN apt-get update && apt-get install -y \
 从基础镜像开始就已经在缓存中了，下一个指令会对比所有的子镜像寻找是否执行相同的指令，如果没有则缓存失效。在大多数情况下只对比 Dockerfile 指令和子镜像就足够了。ADD 和 COPY 指令除外，执行 ADD 和 COPY 时存放到镜像的文件也是需要检查的，完成一个文件的校验之后再利用这个校验在缓存中查找，如果检测的文件改变则缓存失效。RUN apt-get -y update 命令只检查命令是否匹配，如果匹配就不会再执行更新了。
 
 为了有效地利用缓存，你需要保持你的 Dockerfile 一致，并且尽量在末尾修改。
+
+## Use "exec" inside entrypoint script
 
 ## Dockerfile 指令
 FROM: 只要可能就使用官方镜像库作为基础镜像
@@ -234,6 +256,7 @@ ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
 ```
 
 ADD or COPY: ADD 比 COPY 多一些特性「tar 文件自动解包和支持远程 URL」，不推荐添加远程 URL
+Prefer COPY over ADD
 如不推荐这种方式:
 ```Dockerfile
 ADD http://example.com/big.tar.xz /usr/src/things/
@@ -255,3 +278,4 @@ RUN mkdir -p /usr/src/things \
 * [Dockerfile Notes](https://blog.opskumu.com/docker.html#%E4%B8%83dockerfile)
 * [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 * [How to write excellent Dockerfiles](https://rock-it.pl/how-to-write-excellent-dockerfiles/)
+* [Docker RUN vs CMD vs ENTRYPOINT](http://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/)
